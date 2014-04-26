@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	<meta charset="utf-8"/>
+    	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+        
+        <title>LineUP</title>
+        
+        <link rel="stylesheet" href="css/jquery.mobile-1.4.2.css" />
+        <link rel="stylesheet" href="css/reset.css" />
+    	<link rel="stylesheet" href="css/main.css" />
+        
+        <!-- include slider.css -->
+        <link href="css/owl.carousel.css" rel="stylesheet"/>
+        <link href="css/owl.theme.css" rel="stylesheet"/>
+    	
+        <script src="js/jquery-1.11.0.js"></script>
+        <script type="text/javascript">
+            $(document).bind("mobileinit", function () {
+                $.mobile.defaultPageTransition = 'none';
+            });
+        </script>
+		<script src="js/jquery.mobile-1.4.2.js"></script>
+        
+        <!-- include slider.js -->
+        <script src="js/owl.carousel.min.js"></script>
+		
+        <script src="cordova.js"></script>
+        <script src="PushNotification.js"></script>
+        
+		<!-- include googleapis-->
+        <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBvLnXtnEnR1tea2mEXAYGhOXUgFEfm_Ig&sensor=true"></script>
+        
+        <script src="js/functions.js"></script>
+        <script src="js/app.functions.js"></script>
+        <script src="js/config.js"></script>
+        <script src="js/main.js"></script>
+		
+        <!-- cargamos al ultimo el script que inicializa los valores una vez cargado el dispositivo -->
+        <script type="text/javascript" src="js/app.ready.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+        </script>
+    </head>
+    <body>
+    
+    <!-- VIEW -->
+    
+    <div data-role="page" id="view" data-theme="a">
+    
+    	<div data-role="header" data-tap-toggle="false">
+    		<h1 class="logo">
+                <img src="img/logo.png"/>
+            </h1>
+    	</div><!-- /header -->
+    
+    	<div data-role="content">
+            <div class="content_options">
+                <a class="custom castellano" href="javascript:void(0)" data-role="button" data-icon="home">castellano</a>
+                <a class="custom ingles" href="javascript:void(0)" data-role="button" data-icon="none">english</a>
+            </div>
+    	</div><!-- /content -->
+    
+    	<div data-role="footer" data-tap-toggle="false" data-position="fixed">
+    	</div><!-- /footer -->
+    
+    </div><!-- /page -->
+    
+    </body>
+</html>

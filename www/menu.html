@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	<meta charset="utf-8"/>
+    	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+        
+        <title>LineUP</title>
+        
+        <link rel="stylesheet" href="css/jquery.mobile-1.4.2.css" />
+        <link rel="stylesheet" href="css/reset.css" />
+    	<link rel="stylesheet" href="css/main.css" />
+        
+        <!-- include slider.css -->
+        <link href="css/owl.carousel.css" rel="stylesheet"/>
+        <link href="css/owl.theme.css" rel="stylesheet"/>
+    	
+        <script src="js/jquery-1.11.0.js"></script>
+        <script type="text/javascript">
+            $(document).bind("mobileinit", function () {
+                $.mobile.defaultPageTransition = 'none';
+            });
+        </script>
+		<script src="js/jquery.mobile-1.4.2.js"></script>
+        
+        <!-- include slider.js -->
+        <script src="js/owl.carousel.min.js"></script>
+		
+        <script src="cordova.js"></script>
+        <script src="PushNotification.js"></script>
+        
+		<!-- include googleapis-->
+        <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBvLnXtnEnR1tea2mEXAYGhOXUgFEfm_Ig&sensor=true"></script>
+        
+        <script src="js/functions.js"></script>
+        <script src="js/app.functions.js"></script>
+        <script src="js/config.js"></script>
+        <script src="js/main.js"></script>
+		
+        <!-- cargamos al ultimo el script que inicializa los valores una vez cargado el dispositivo -->
+        <script type="text/javascript" src="js/app.ready.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+        </script>
+    </head>
+    <body>
+    
+    <!-- MENU -->
+    
+    <div data-role="page" id="menu" data-theme="a">
+        
+    	<div data-role="header" data-tap-toggle="false">
+            <ul>
+                <li class="back">
+                    <a class="volver" href="#" data-role="button" data-rel="back">Volver</a>
+                    <a class="info" href="#" data-role="button">info</a>
+                </li>
+                <li class="page">
+                    <img src="img/logo.png"/>
+                </li>
+                <li class="setting">
+                    <a class="search" href="#" data-role="button">buscar</a>
+                    <a class="perfil" href="#" data-role="button">mi perfil</a>
+                </li>
+            </ul>
+    	</div><!-- /header -->
+        
+    	<div data-role="content">
+            <div data-role="controlgroup" data-type="horizontal" class="custom">
+                <a class="icon_clubs" href="#" data-role="button" data-icon="none" data-iconpos="top">Clubs</a>
+                <a class="icon_sesiones" href="#" data-role="button" data-icon="none" data-iconpos="top">Sesiones</a>
+                <a class="icon_pubs" href="#" data-role="button" data-icon="none" data-iconpos="top">Pubs</a>
+                
+                <a class="icon_beach" href="" data-role="button" data-icon="none" data-iconpos="top">BeachC.</a>
+                <a class="icon_festivales" href="#" data-role="button" data-icon="none" data-iconpos="top">Festivales</a>
+                <a class="icon_dj" href="#" data-role="button" data-icon="none" data-iconpos="top">Djs</a>
+                
+                <a class="icon_tickets" href="#" data-role="button" data-icon="none" data-iconpos="top">Tickets</a>
+                <a class="icon_calendario" href="#" data-role="button" data-icon="none" data-iconpos="top">Calendario</a>
+                <a class="icon_alertas" href="#" data-role="button" data-icon="none" data-iconpos="top">Alertas</a>
+                
+                <a class="icon_ciudades" href="#" data-role="button" data-icon="none" data-iconpos="top">Ciudades</a>
+                <a class="icon_idioma" href="#" data-role="button" data-icon="none" data-iconpos="top">Idioma</a>
+                <a class="icon_promos" href="#" data-role="button" data-icon="none" data-iconpos="top">Promos</a>
+            </div>
+    	</div><!-- /content -->
+        
+    	<div data-role="footer" data-tap-toggle="false" data-position="fixed">
+    	</div><!-- /footer -->
+    
+    </div><!-- /page -->
+    
+    </body>
+</html>
