@@ -684,6 +684,7 @@ $.ui.plugin = {
 				( typeof height === "number" ) ? height : $.mobile.getScreenHeight() );
 
 			page.css( "min-height", height - ( pageOuterHeight - pageHeight ) );
+            page.find(".container").css("min-height", height - ( pageOuterHeight - pageHeight ));
 		},
 
 		loading: function() {

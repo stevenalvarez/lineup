@@ -4,6 +4,8 @@ var LATITUDE = 0;
 var LONGITUDE = 0;
 var PUSH_NOTIFICATION_REGISTER = '';
 var PUSH_NOTIFICATION_TOKEN = 0;
+var IDIOMA = 'castellano';
+var CIUDAD_ID = 'ibiza';
 
 var app = {
     // Application Constructor

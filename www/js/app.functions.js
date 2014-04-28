@@ -97,16 +97,181 @@ function redirectToPage(seccion, id){
 function getCiudades(parent_id){
     var parent = $("#"+parent_id);
     var container = parent.find(".owl-carousel");
-    container.owlCarousel({
-        pagination : true,
-        items : 1,
-        itemsDesktop : false,
-        itemsDesktopSmall : false,
-        itemsTablet: false,
-        itemsMobile : false
-    });
+    parent.find(".ui-content").hide();
     
-    setTimeout(function(){
-        container.find(".ciudad").css("padding-top",(parent.height()-70)+'px');
-    },100);
+    showLoading();
+    
+	$.getJSON(BASE_URL_APP + 'ciudads/mobileGetCiudades', function(data) {
+        
+        if(data.items){
+            //mostramos loading
+            $.mobile.loading( 'show' );
+            
+    		var items = data.items;
+            var idioma = data.idioma;
+            idioma = IDIOMA == "castellano" ? idioma.Sistema.title_esp : idioma.Sistema.title_eng;
+            
+            if(items.length){
+        		$.each(items, function(index, item) {
+                    
+                    var id = item.Ciudad.id;
+                    var title = IDIOMA == "castellano" ? item.Ciudad.title_esp : item.Ciudad.title_eng;
+                    var imagen_fondo = item.Ciudad.imagen_fondo!=""?item.Ciudad.imagen_fondo:"default.png";
+                    
+                    var html='<div class="ciudad" style="background: url('+BASE_URL_APP+'img/ciudades/'+imagen_fondo+');background-size: 100%;">' +
+                        '<a href="menu.html?ciudad_id='+id+'">'+title+'</a>' +
+                        '</div>';
+        		    
+                    container.append(html);
+        		});
+                
+                container.promise().done(function() {
+                    $('<img>').attr('src',function(){
+                        var imgUrl = container.find(".ciudad:first").css('background-image');
+                        imgUrl = imgUrl.substring(4, imgUrl.length-1);
+                        return imgUrl;
+                    }).load(function(){
+                        
+                        /* carrousel */
+                        container.owlCarousel({
+                            pagination : true,
+                            items : 1,
+                            itemsDesktop : false,
+                            itemsDesktopSmall : false,
+                            itemsTablet: false,
+                            itemsMobile : false
+                        });
+                        
+                        setTimeout(function(){
+                            container.find(".ciudad").css("padding-top",(parent.height()-70)+'px');
+                        },100);
+                        
+                        //colocamos el texto segun el idioma
+                        parent.find(".ui-header").find(".text").html(idioma);
+                        
+                        //ocultamos loading
+                        $.mobile.loading( 'hide' );
+                        hideLoading();
+                        parent.find(".ui-content").fadeIn("slow");
+                        $('<img>').removeAttr("src");
+                    });
+                });
+            }else{
+                //ocultamos loading
+                $.mobile.loading( 'hide' );
+                hideLoading();
+                parent.find(".ui-content").fadeIn("slow");
+            }
+        }
+	});
+}
+
+function getClubs(parent_id){
+    var parent = $("#"+parent_id);
+    var container = parent.find(".ui-listview");
+    parent.find(".ui-content").hide();
+    
+    showLoading();
+    
+	$.getJSON(BASE_URL_APP + 'clubs/mobileGetClubs/'+CIUDAD_ID+"/"+LATITUDE+"/"+LONGITUDE, function(data) {
+        
+        if(data.items){
+            //mostramos loading
+            $.mobile.loading( 'show' );
+            
+    		var items = data.items;
+            if(items.length){
+        		$.each(items, function(index, item) {
+                    
+                    var id = item.Club.id;
+                    var title = IDIOMA == "castellano" ? item.Club.title_esp : item.Club.title_eng;
+                    var imagen = item.Club.imagen!=""?item.Club.imagen:"default.png";
+                    var imagen_fondo = item.Club.imagen_fondo!=""?item.Club.imagen_fondo:"default.png";
+                    var descripcion = IDIOMA == "castellano" ? item.Club.descripcion_esp : item.Club.descripcion_eng;
+                    
+                    var html='<li>' +
+                        '<a href="club_descripcion.html?id='+id+'"><img src="'+BASE_URL_APP+'img/clubs/' + imagen + '"/></a>' +
+                        '</li>';
+        		    
+                    container.append(html);
+        		});
+                
+                //refresh
+        		//container.listview('refresh');
+                
+                container.find("li:last img").load(function() {
+                    //ocultamos loading
+                    $.mobile.loading( 'hide' );
+                    hideLoading();
+                    parent.find(".ui-content").fadeIn("slow");
+                });
+            }else{
+                container.append("<p class='empty'>A&Uacute;N NO TENEMOS NING&Uacute;N ITEM.</p>");
+                //ocultamos loading
+                $.mobile.loading( 'hide' );
+                hideLoading();
+                parent.find(".ui-content").fadeIn("slow");
+            }
+        }
+	});
+}
+
+function getClubBy(parent_id, club_id){
+    var parent = $("#"+parent_id);
+    var container = parent.find(".owl-carousel");
+    parent.find(".ui-content").hide();
+    
+    showLoading();
+    
+	$.getJSON(BASE_URL_APP + 'clubs/mobileGetClubs/'+CIUDAD_ID+"/"+LATITUDE+"/"+LONGITUDE, function(data) {
+        
+        if(data.items){
+            //mostramos loading
+            $.mobile.loading( 'show' );
+            
+    		var items = data.items;
+            if(items.length){
+        		$.each(items, function(index, item) {
+                    
+                    var id = item.Club.id;
+                    var title = IDIOMA == "castellano" ? item.Club.title_esp : item.Club.title_eng;
+                    var imagen = item.Club.imagen!=""?item.Club.imagen:"default.png";
+                    var imagen_fondo = item.Club.imagen_fondo!=""?item.Club.imagen_fondo:"default.png";
+                    var descripcion = IDIOMA == "castellano" ? item.Club.descripcion_esp : item.Club.descripcion_eng;
+                    
+                    
+        		});
+                
+                container.promise().done(function() {
+                    $('<img>').attr('src',function(){
+                        var imgUrl = container.find(".container:first").css('background-image');
+                        imgUrl = imgUrl.substring(4, imgUrl.length-1);
+                        return imgUrl;
+                    }).load(function(){
+                        
+                        /* carrousel */
+                        container.owlCarousel({
+                            pagination : true,
+                            items : 1,
+                            itemsDesktop : false,
+                            itemsDesktopSmall : false,
+                            itemsTablet: false,
+                            itemsMobile : false
+                        });
+                        
+                        //ocultamos loading
+                        $.mobile.loading( 'hide' );
+                        hideLoading();
+                        parent.find(".ui-content").fadeIn("slow");
+                        $('<img>').removeAttr("src");
+                    });
+                });
+            }else{
+                //ocultamos loading
+                $.mobile.loading( 'hide' );
+                hideLoading();
+                parent.find(".ui-content").fadeIn("slow");
+            }
+        }
+	});
 }

@@ -271,3 +271,13 @@ function init() {
     // document.addEventListener("touchmove", preventBehavior, false);
     document.addEventListener("deviceready", deviceInfo, true);
 }
+
+function showLoading(){
+    $(".ui-loader").css("opacity","1");
+    $(".ui-loader").show();
+}
+
+function hideLoading(){
+    $(".ui-loader").hide();
+    $(".ui-loader").css("opacity","0");
+}
