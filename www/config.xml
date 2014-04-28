@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <widget xmlns		= "http://www.w3.org/ns/widgets"
 	xmlns:gap	= "http://phonegap.com/ns/1.0"
-	id		    = "lasterrazasdebecerril"
+	id		    = "es.lineup.app"
     versionCode = "1.0"
 	version 	= "1.0">
 
@@ -71,7 +71,7 @@
     <!-- debug -->
     <feature name="debug-server" required="true">
         <param name="domain" value="http://debug.build.phonegap.com"/>
-        <param name="key" value="lasterrazasdebecerril"/>
+        <param name="key" value="es.lineup.app"/>
     </feature>
     
     <feature name="http://api.phonegap.com/1.0/geolocation"/>
