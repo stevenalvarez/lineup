@@ -94,6 +94,30 @@ function redirectToPage(seccion, id){
     }
 }
 
+function animation(container,parent){
+    //ocultamos los elementos
+    container.find(".content_middle").hide();
+    container.find(".content_bottom").hide();
+    container.find(".content_top").css("padding-top",(parent.height()-90)+'px').attr("lang",parent.height()-90);
+    
+    container.find(".toogle").unbind("touchstart").bind("touchstart", function(){
+        var element = $(this);
+        if(element.hasClass("up")){
+            element.parent().parent().animate({"padding-top": "40px",}, 500, "linear", function() {
+                element.removeClass("up").addClass("down");
+                element.parent().parent().parent().find(".content_middle").fadeIn();
+                element.parent().parent().parent().find(".content_bottom").fadeIn();
+            });
+        }else if(element.hasClass("down")){
+            element.parent().parent().animate({"padding-top": element.parent().parent().attr("lang")+"px",}, 500, "linear", function() {
+                element.removeClass("down").addClass("up");
+                element.parent().parent().parent().find(".content_middle").fadeOut();
+                element.parent().parent().parent().find(".content_bottom").fadeOut();
+            });
+        }
+    });    
+}
+
 function getCiudades(parent_id){
     var parent = $("#"+parent_id);
     var container = parent.find(".owl-carousel");
@@ -235,11 +259,51 @@ function getClubBy(parent_id, club_id){
                     
                     var id = item.Club.id;
                     var title = IDIOMA == "castellano" ? item.Club.title_esp : item.Club.title_eng;
+                    var sub_title = item.Club.sub_title;
                     var imagen = item.Club.imagen!=""?item.Club.imagen:"default.png";
+                    var imagen_redonda = item.Club.imagen_redonda!=""?item.Club.imagen_redonda:"default.png";
                     var imagen_fondo = item.Club.imagen_fondo!=""?item.Club.imagen_fondo:"default.png";
                     var descripcion = IDIOMA == "castellano" ? item.Club.descripcion_esp : item.Club.descripcion_eng;
+                    var direccion = item.Club.direccion;
+                    var telefono = item.Club.telefono;
                     
-                    
+                    var html='<div class="container" style="background: url('+BASE_URL_APP+'img/clubs/'+imagen_fondo+');background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
+                        '<div class="content_top">' + 
+                            '<div class="imagen left">' +
+                                '<img src="'+BASE_URL_APP+'img/clubs/' + imagen_redonda + '" />' +
+                            '</div>' +
+                            '<div class="title left">'+
+                                '<a class="sub toogle up" href="javascript:void(0)">' +
+                                    '<h2>'+title+'</h2>' + sub_title +
+                                '</a>' +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="content_middle">' +
+                            '<p class="descripcion">' + descripcion +'</p>' +
+                            '<div class="mas_informacion">' +
+                                '<p class="direccion">' +
+                                    '<b>direcci&oacute;n:</b>' +
+                                    '<span>'+ direccion +'</span>' +
+                                '</p>' +
+                                '<p class="telefono">' +
+                                    '<b>tel&eacute;fono:</b>' +
+                                    '<span>'+ telefono +'</span>' +
+                                '</p>' + 
+                            '</div>' +
+                        '</div>' +
+                        '<div class="content_bottom">' +
+                            '<div data-role="navbar" data-corners="false">'+
+                                '<ul class="nav_options">' +
+                                    '<li class="mapa"><a class="icon_mapa" href="google_map.html?latitud=40.714594&longitud=-3.989803" data-icon="none" data-iconpos="top">4km</a></li>' +
+                                    '<li class="tickets"><a class="icon_tickets" href="#" data-icon="none" data-iconpos="top">Tickets</a></li>' +
+                                    '<li class="sesiones"><a class="icon_sesiones" href="#" data-icon="none" data-iconpos="top">Sesiones</a></li>' +
+                                    '<li class="alertas"><a class="icon_alertas" href="#" data-icon="none" data-iconpos="top">Alerta</a></li>' +
+                                '</ul>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>';
+        		    
+                    container.append(html);
         		});
                 
                 container.promise().done(function() {
@@ -248,6 +312,9 @@ function getClubBy(parent_id, club_id){
                         imgUrl = imgUrl.substring(4, imgUrl.length-1);
                         return imgUrl;
                     }).load(function(){
+                                        
+                        //refresh
+                		$('[data-role="navbar"]').navbar();
                         
                         /* carrousel */
                         container.owlCarousel({
@@ -258,6 +325,8 @@ function getClubBy(parent_id, club_id){
                             itemsTablet: false,
                             itemsMobile : false
                         });
+                        
+                        animation(container,parent);
                         
                         //ocultamos loading
                         $.mobile.loading( 'hide' );
