@@ -203,6 +203,7 @@ function getClubs(parent_id){
             //mostramos loading
             $.mobile.loading( 'show' );
             
+            var fondo = data.fondo.Fondo.imagen;
     		var items = data.items;
             if(items.length){
         		$.each(items, function(index, item) {
@@ -336,6 +337,224 @@ function getClubBy(parent_id, club_id){
                     });
                 });
             }else{
+                //ocultamos loading
+                $.mobile.loading( 'hide' );
+                hideLoading();
+                parent.find(".ui-content").fadeIn("slow");
+            }
+        }
+	});
+}
+
+function getSesiones(parent_id){
+    var parent = $("#"+parent_id);
+    var container = parent.find(".ui-listview");
+    parent.find(".ui-content").hide();
+    
+    showLoading();
+    
+	$.getJSON(BASE_URL_APP + 'sesions/mobileGetSesions/'+CIUDAD_ID, function(data) {
+        
+        if(data.items){
+            //mostramos loading
+            $.mobile.loading( 'show' );
+            
+            var fondo = data.fondo.Fondo.imagen;
+    		var items = data.items;
+            if(items.length){
+        		$.each(items, function(index, item) {
+                    
+                    var id = item.Sesion.id;
+                    var title = IDIOMA == "castellano" ? item.Sesion.title_esp : item.Sesion.title_eng;
+                    var imagen = item.Sesion.imagen!=""?item.Sesion.imagen:"default.png";
+                    var imagen_fondo = item.Sesion.imagen_fondo!=""?item.Sesion.imagen_fondo:"default.png";
+                    var descripcion = IDIOMA == "castellano" ? item.Sesion.descripcion_esp : item.Sesion.descripcion_eng;
+                    
+                    var html='<li>' +
+                        '<h2>lunes '+title+'</h2>' +
+                        '<a href="sesion_descripcion.html?id='+id+'"><img src="'+BASE_URL_APP+'img/sesions/' + imagen + '"/></a>' +
+                        '</li>';
+        		    
+                    container.append(html);
+        		});
+                
+                //refresh
+        		//container.listview('refresh');
+                
+                container.find("li:last img").load(function() {
+                    //ocultamos loading
+                    $.mobile.loading( 'hide' );
+                    hideLoading();
+                    parent.find(".ui-content").fadeIn("slow");
+                });
+            }else{
+                container.append("<p class='empty'>A&Uacute;N NO TENEMOS NING&Uacute;N ITEM.</p>");
+                //ocultamos loading
+                $.mobile.loading( 'hide' );
+                hideLoading();
+                parent.find(".ui-content").fadeIn("slow");
+            }
+        }
+	});
+}
+
+function getSesionBy(parent_id, sesion_id){
+    var parent = $("#"+parent_id);
+    var container = parent.find(".owl-carousel");
+    parent.find(".ui-content").hide();
+    
+    showLoading();
+    
+	$.getJSON(BASE_URL_APP + 'sesions/mobileGetSesions/'+CIUDAD_ID, function(data) {
+        
+        if(data.items){
+            //mostramos loading
+            $.mobile.loading( 'show' );
+            
+    		var items = data.items;
+            if(items.length){
+        		$.each(items, function(index, item) {
+                    
+                    var id = item.Sesion.id;
+                    var title = IDIOMA == "castellano" ? item.Sesion.title_esp : item.Sesion.title_eng;
+                    var sub_title = item.Sesion.sub_title;
+                    var imagen = item.Sesion.imagen!=""?item.Sesion.imagen:"default.png";
+                    var imagen_redonda = item.Sesion.imagen_redonda!=""?item.Sesion.imagen_redonda:"default.png";
+                    var imagen_fondo = item.Sesion.imagen_fondo!=""?item.Sesion.imagen_fondo:"default.png";
+                    var descripcion = IDIOMA == "castellano" ? item.Sesion.descripcion_esp : item.Sesion.descripcion_eng;
+                    var direccion = item.Sesion.direccion;
+                    var telefono = item.Sesion.telefono;
+                    
+                    var html='<div class="container custom" style="background: url('+BASE_URL_APP+'img/sesions/'+imagen_fondo+');background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
+                        '<div class="content_top">' + 
+                            '<div class="imagen left">' +
+                                '<img src="'+BASE_URL_APP+'img/sesions/' + imagen_redonda + '" />' +
+                            '</div>' +
+                            '<div class="title left">'+
+                                '<a class="sub toogle up" href="javascript:void(0)">' +
+                                    '<h2>'+title+'</h2>' + sub_title +
+                                '</a>' +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="content_middle">' +
+                            '<p class="descripcion">' + descripcion +'</p>' +
+                            '<div class="mas_informacion">' +
+                                '<p class="direccion">' +
+                                    '<b>direcci&oacute;n:</b>' +
+                                    '<span>'+ direccion +'</span>' +
+                                '</p>' +
+                                '<p class="telefono">' +
+                                    '<b>tel&eacute;fono:</b>' +
+                                    '<span>'+ telefono +'</span>' +
+                                '</p>' + 
+                            '</div>' +
+                        '</div>' +
+                        '<div class="content_bottom">' +
+                            '<div data-role="navbar" data-corners="false">'+
+                                '<ul class="nav_options">' +
+                                    '<li class="mapa"><a class="icon_mapa" href="google_map.html?latitud=40.714594&longitud=-3.989803" data-icon="none" data-iconpos="top">4km</a></li>' +
+                                    '<li class="tickets"><a class="icon_tickets" href="#" data-icon="none" data-iconpos="top">Tickets</a></li>' +
+                                    '<li class="alertas"><a class="icon_alertas" href="#" data-icon="none" data-iconpos="top">Alerta</a></li>' +
+                                '</ul>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>';
+        		    
+                    container.append(html);
+        		});
+                
+                container.promise().done(function() {
+                    $('<img>').attr('src',function(){
+                        var imgUrl = container.find(".container:first").css('background-image');
+                        imgUrl = imgUrl.substring(4, imgUrl.length-1);
+                        return imgUrl;
+                    }).load(function(){
+                                        
+                        //refresh
+                		$('[data-role="navbar"]').navbar();
+                        
+                        /* carrousel */
+                        container.owlCarousel({
+                            pagination : true,
+                            items : 1,
+                            itemsDesktop : false,
+                            itemsDesktopSmall : false,
+                            itemsTablet: false,
+                            itemsMobile : false
+                        });
+                        
+                        animation(container,parent);
+                        
+                        //ocultamos loading
+                        $.mobile.loading( 'hide' );
+                        hideLoading();
+                        parent.find(".ui-content").fadeIn("slow");
+                        $('<img>').removeAttr("src");
+                    });
+                });
+            }else{
+                //ocultamos loading
+                $.mobile.loading( 'hide' );
+                hideLoading();
+                parent.find(".ui-content").fadeIn("slow");
+            }
+        }
+	});
+}
+
+function getPubs(parent_id){
+    var parent = $("#"+parent_id);
+    var container = parent.find(".content_options");
+    parent.find(".ui-content").hide();
+    
+    showLoading();
+    
+	$.getJSON(BASE_URL_APP + 'pubs/mobileGetPubs/'+CIUDAD_ID+"/"+LATITUDE+"/"+LONGITUDE, function(data) {
+        
+        if(data.items){
+            //mostramos loading
+            $.mobile.loading( 'show' );
+            
+            var fondo = data.fondo.Fondo.imagen;
+    		var items = data.items;
+            if(items.length){
+        		$.each(items, function(index, item) {
+                    
+                    var id = item.Pub.id;
+                    var title = IDIOMA == "castellano" ? item.Pub.title_esp : item.Pub.title_eng;
+                    var sub_title = item.Pub.sub_title;
+                    var imagen = item.Pub.imagen!=""?item.Pub.imagen:"default.png";
+                    var imagen_fondo = item.Pub.imagen_fondo!=""?item.Pub.imagen_fondo:"default.png";
+                    var descripcion = IDIOMA == "castellano" ? item.Pub.descripcion_esp : item.Pub.descripcion_eng;
+                    
+                    var html='<a class="custom pub1" href="pub_descripcion.html?id='+id+'" data-role="button" data-icon="none">' +
+                        '<span class="bg">' +
+                            '<span class="title">'+title+'</span>' +
+                            '<span class="subtitle">'+sub_title+'</span>' +
+                            '<span class="km">300m</span>'
+                        '</span>' +
+                    '</a>';
+        		    
+                    container.append(html);
+        		});
+                
+                container.promise().done(function() {
+                    container.trigger("create");
+                    
+                    container.find("a").each(function( index ) {
+                        //$(this).filter(".pub1:after").css("border","1px solid red");
+                        //$(this).find(".ui-icon").css("background","url('"+BASE_URL_APP+"img/comofunciona/rosa/"+$(this).attr("lang")+"')  no-repeat scroll top center transparent");
+                        //$(this).find(".ui-icon").css("background-size","28px");
+                    });
+                        
+                    //ocultamos loading
+                    $.mobile.loading( 'hide' );
+                    hideLoading();
+                    parent.find(".ui-content").fadeIn("slow");
+                    $('<img>').removeAttr("src");
+                });
+            }else{
+                container.append("<p class='empty'>A&Uacute;N NO TENEMOS NING&Uacute;N ITEM.</p>");
                 //ocultamos loading
                 $.mobile.loading( 'hide' );
                 hideLoading();

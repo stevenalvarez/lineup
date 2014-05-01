@@ -48,8 +48,27 @@ $(document).on("pagebeforeshow","#club_descripcion",function(event){
     getClubBy(page_id, id);
 });
 
+//SESIONES
+$(document).on("pagebeforeshow","#sesiones",function(event){
+    var page_id = $(this).attr("id");
+    getSesiones(page_id);
+});
+
+//SESIONES DESCRIPCION
+$(document).on("pagebeforeshow","#sesion_descripcion",function(event){
+    var page_id = $(this).attr("id");
+    var id = getUrlVars()["id"];
+    getSesionBy(page_id, id);
+});
+
+//PUBS
+$(document).on("pagebeforeshow","#pubs",function(event){
+    var page_id = $(this).attr("id");
+    getPubs(page_id);
+});
+
 //GOOGLE MAP
-$('#google_map').on('pagebeforeshow', function(event, ui) {
+$(document).on('pagebeforeshow',"#google_map", function(event, ui) {
     var page_id = $(this).attr("id");
     showGoogleMap(getUrlVars()["latitud"],getUrlVars()["longitud"]);
 });
