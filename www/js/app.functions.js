@@ -563,3 +563,34 @@ function getPubs(parent_id){
         }
 	});
 }
+
+function getCalendario(parent_id){
+    var parent = $("#"+parent_id);
+    var container = parent.find(".contenedor_calendario");
+    parent.find(".ui-content").hide();
+    container.find(".calendar").parent().hide();
+    parent.find(".ui-content").fadeIn("slow");
+}
+
+function ajaxCalendario(value){
+    showLoading();
+    
+	$.getJSON(BASE_URL_APP + 'sesions/mobileGetSesionByDate/'+value, function(data) {
+        
+        if(data.items){
+            
+    		var items = data.items;
+            if(items.length){
+                hideLoading();
+        		$.each(items, function(index, item) {
+        		  alert(item);
+        		});
+                
+            }else{
+                //container.append("<p class='empty'>A&Uacute;N NO TENEMOS NING&Uacute;N ITEM.</p>");
+                //ocultamos loading
+                hideLoading();
+            }
+        }
+	});
+}

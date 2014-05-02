@@ -6,7 +6,7 @@ $(document).bind('pagebeforecreate', function(event){
 });
 
 $(document).bind('pagecreate', function(event){
-    var page_id = event.target.id;
+    var page_id = event.target.id;  
 });
 
 $(document).bind('pageinit', function(event){
@@ -65,6 +65,12 @@ $(document).on("pagebeforeshow","#sesion_descripcion",function(event){
 $(document).on("pagebeforeshow","#pubs",function(event){
     var page_id = $(this).attr("id");
     getPubs(page_id);
+});
+
+//CALENDARIO
+$(document).on("pagebeforeshow","#calendario",function(event){
+    var page_id = $(this).attr("id");
+    getCalendario(page_id);
 });
 
 //GOOGLE MAP

@@ -1,0 +1,9 @@
+.ui-datepicker .ui-datepicker-header{background: transparent;border: none;}
+.ui-datepicker .ui-datepicker-header a{background: transparent;border: none;}
+.ui-datepicker .ui-datepicker-header a.ui-datepicker-prev:after{background: url("../img/bg_calendario_prev.png") no-repeat scroll 0 0 transparent;background-size: 20px;background-position: center center;}
+.ui-datepicker .ui-datepicker-header a.ui-datepicker-next:after{background: url("../img/bg_calendario_next.png") no-repeat scroll 0 0 transparent;background-size: 20px;background-position: center center;}
+.ui-datepicker .ui-datepicker-header .ui-datepicker-title{color: #fc039b;text-shadow: 0 0 0;}
+.ui-datepicker .ui-datepicker-calendar thead th{border-top: 2px solid #f51fa2;border-bottom: 2px solid #f51fa2;background: url("../img/bg_fondo_calendario.png") repeat scroll 0 0 transparent;border-left: 0; border-right: 0; text-shadow: 0 0 0;color: #fff;}
+.ui-datepicker .ui-datepicker-calendar tbody td{background: transparent;border: none;}
+.ui-datepicker .ui-datepicker-calendar tbody td a{background: transparent;text-shadow: 0 0 0;color: #fff;}
+.ui-datepicker .ui-datepicker-calendar tbody td a.ui-btn-active{background-color: #fc039b;border-radius: 20px;}
