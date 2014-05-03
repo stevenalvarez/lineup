@@ -6,7 +6,7 @@ $(document).bind('pagebeforecreate', function(event){
 });
 
 $(document).bind('pagecreate', function(event){
-    var page_id = event.target.id;  
+    var page_id = event.target.id;
 });
 
 $(document).bind('pageinit', function(event){
@@ -31,8 +31,10 @@ $(document).on("pagebeforeshow","#ciudades",function(event){
 
 //MENU
 $(document).on("pagebeforeshow","#menu",function(event){
-    var pa_ge_id = $(this).attr("id");
-    CIUDAD_ID = getUrlVars()["ciudad_id"];
+    var page_id = $(this).attr("id");
+    var ciudad_id = getUrlVars()["ciudad_id"];
+    if(ciudad_id == undefined) ciudad_id = CIUDAD_ID;
+    CIUDAD_ID = ciudad_id;
 });
 
 //CLUBS

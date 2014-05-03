@@ -158,6 +158,11 @@
 #sesiones .ui-listview li a{display: block;text-align: center;}
 #sesiones .ui-listview li img{width: 172px;}
 
+/* CALENDARIO */
+.contenedor_calendario div.hasDatepicker{margin: 0 0 4px 0;}
+#tickets.content_options.lista{padding: 0 5px;}
+#tickets.content_options.lista a{margin: 5px 0;}
+
 /* GOOGLE MAP */
 #google_map { height: 100% }
 #google_map .ui-content { height: 80%; padding: 0; margin-top: 18px;margin-bottom: 15px;}

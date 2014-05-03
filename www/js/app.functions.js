@@ -568,26 +568,46 @@ function getCalendario(parent_id){
     var parent = $("#"+parent_id);
     var container = parent.find(".contenedor_calendario");
     parent.find(".ui-content").hide();
-    container.find(".calendar").parent().hide();
+    container.find(".datepicker").parent().hide();
     parent.find(".ui-content").fadeIn("slow");
 }
 
 function ajaxCalendario(value){
-    showLoading();
+    var container = $("#tickets.lista");
+    container.html("");
     
-	$.getJSON(BASE_URL_APP + 'sesions/mobileGetSesionByDate/'+value, function(data) {
+	$.getJSON(BASE_URL_APP + 'tickets/mobileGetTicketByDate/'+value, function(data) {
+        showLoading();
         
         if(data.items){
-            
     		var items = data.items;
             if(items.length){
-                hideLoading();
         		$.each(items, function(index, item) {
-        		  alert(item);
+        		  
+                    var id = item.Sesion.id;
+                    var title = IDIOMA == "castellano" ? item.Sesion.title_esp : item.Sesion.title_eng;
+                    var title_dj = IDIOMA == "castellano" ? item.Dj.title_esp : item.Dj.title_eng;
+                    var imagen_redonda = item.Sesion.imagen_redonda!=""?item.Sesion.imagen_redonda:"default.png";
+                    var precio = item.Ticket.precio;
+                  
+                    var html='<a class="custom pub1" href="sesion_descripcion.html?id='+id+'" data-role="button" data-icon="none">' +
+                            '<span class="bg">' +
+                                '<span class="title">'+title+'</span>' +
+                                '<span class="subtitle">'+title_dj+'</span>' +
+                                '<span class="km">300m</span>' +
+                                '<span class="precio">'+precio+' &euro;</span>' +
+                            '</span>' +
+                        '</a>';
+                    container.append(html);
         		});
                 
+                container.promise().done(function() {
+                    container.trigger("create");
+                    
+                    //ocultamos loading
+                    hideLoading();
+                });
             }else{
-                //container.append("<p class='empty'>A&Uacute;N NO TENEMOS NING&Uacute;N ITEM.</p>");
                 //ocultamos loading
                 hideLoading();
             }
