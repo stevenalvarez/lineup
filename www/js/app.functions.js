@@ -251,12 +251,19 @@ function getClubBy(parent_id, club_id){
 	$.getJSON(BASE_URL_APP + 'clubs/mobileGetClubs/'+CIUDAD_ID+"/"+LATITUDE+"/"+LONGITUDE, function(data) {
         
         if(data.items){
+            var goto_index = 0;
+            
             //mostramos loading
             $.mobile.loading( 'show' );
             
     		var items = data.items;
             if(items.length){
         		$.each(items, function(index, item) {
+        		    
+                    //vemos a que item deber ir
+                    if(item.Club.id == club_id){
+                        goto_index = index;
+                    }
                     
                     var id = item.Club.id;
                     var title = IDIOMA == "castellano" ? item.Club.title_esp : item.Club.title_eng;
@@ -324,7 +331,12 @@ function getClubBy(parent_id, club_id){
                             itemsDesktop : false,
                             itemsDesktopSmall : false,
                             itemsTablet: false,
-                            itemsMobile : false
+                            itemsMobile : false,
+                            afterInit : function(){
+                                setTimeout(function(){
+                                    container.trigger('owl.goTo', goto_index);
+                                },1000);
+                            }
                         });
                         
                         animation(container,parent);
@@ -408,12 +420,18 @@ function getSesionBy(parent_id, sesion_id){
 	$.getJSON(BASE_URL_APP + 'sesions/mobileGetSesions/'+CIUDAD_ID, function(data) {
         
         if(data.items){
+            var goto_index = 0;
             //mostramos loading
             $.mobile.loading( 'show' );
             
     		var items = data.items;
             if(items.length){
         		$.each(items, function(index, item) {
+        		  
+                    //vemos a que item deber ir
+                    if(item.Sesion.id == sesion_id){
+                        goto_index = index;
+                    }
                     
                     var id = item.Sesion.id;
                     var title = IDIOMA == "castellano" ? item.Sesion.title_esp : item.Sesion.title_eng;
@@ -480,7 +498,12 @@ function getSesionBy(parent_id, sesion_id){
                             itemsDesktop : false,
                             itemsDesktopSmall : false,
                             itemsTablet: false,
-                            itemsMobile : false
+                            itemsMobile : false,
+                            afterInit : function(){
+                                setTimeout(function(){
+                                    container.trigger('owl.goTo', goto_index);
+                                },1000);
+                            }
                         });
                         
                         animation(container,parent);
@@ -589,13 +612,16 @@ function ajaxCalendario(value){
                     var title_dj = IDIOMA == "castellano" ? item.Dj.title_esp : item.Dj.title_eng;
                     var imagen_redonda = item.Sesion.imagen_redonda!=""?item.Sesion.imagen_redonda:"default.png";
                     var precio = item.Ticket.precio;
-                  
-                    var html='<a class="custom pub1" href="sesion_descripcion.html?id='+id+'" data-role="button" data-icon="none">' +
+                    
+                    var href = "javascript:alert('Tickets no disponibles para esta sesi\u00F3n')";
+                    if(precio != "") href = "tickets.html?id="+id;
+                    
+                    var html='<a class="custom pub1" href="'+href+'" data-role="button" data-icon="none">' +
                             '<span class="bg">' +
                                 '<span class="title">'+title+'</span>' +
                                 '<span class="subtitle">'+title_dj+'</span>' +
-                                '<span class="km">300m</span>' +
-                                '<span class="precio">'+precio+' &euro;</span>' +
+                                '<span class="km inline">300m</span>' +
+                                '<span class="euro inline">'+precio+'&euro;</span>' +
                             '</span>' +
                         '</a>';
                     container.append(html);

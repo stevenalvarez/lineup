@@ -24,6 +24,7 @@
 /* GENERAL */
 .left{float: left;}
 .right{float: right;}
+.inline{display: inline !important;}
 .empty{font-family: HelveticaLTStdLight;text-align: center;color: #fc049b;text-shadow: 1px 1px 1px #000;font-size: 17px;font-weight: bold;padding: 10px 0;}
 .ui-page.custom{background: url("../img/bg_wrapper.jpg") repeat-y scroll 0 0 transparent;background-size: 100% 100%;}
 .ui-page.custom .ui-page{background: transparent;}
@@ -87,6 +88,7 @@
 .ui-header .setting .search{background: url("../img/bg_search.png") no-repeat scroll center top transparent; background-size:30px;}
 .ui-header .setting .perfil{background: url("../img/bg_perfil.png") no-repeat scroll center top transparent; background-size:30px;}
 .ui-header .setting .menu{background: url("../img/bg_menu.png") no-repeat scroll center top transparent; background-size:40px;}
+.ui-header .setting .como_funciona{background: url("../img/bg_como_funciona.png") no-repeat scroll center top transparent; background-size:40px;}
 .ui-header.ui-bar-inherit{background: transparent;border: none;overflow: hidden;}
 
 /* NAVIGATION FOOTER */
@@ -110,6 +112,7 @@
 .content_options.lista span{display: block;font-size: 22px;line-height: 18px;text-align: left;text-shadow: 0px 1px 1px #616161;}
 .content_options.lista span.subtitle{font-size: 18px;color: #fff;}
 .content_options.lista span.km{font-size: 18px;padding-left: 16px;background: url("../img/bg_mapa.png") no-repeat scroll left top transparent;background-size: 14px;}
+.content_options.lista span.euro{font-size: 18px;padding-left: 16px;background: url("../img/bg_euro.png") no-repeat scroll left top transparent;background-size: 14px;margin-left: 20px;}
 .content_options.lista .ui-btn-icon-left.pub1:after{background: url("../img/pubs/item.png") no-repeat scroll 0 0 transparent;background-size: 55px;background-position: 50%;}
 
 /* VIEW */
