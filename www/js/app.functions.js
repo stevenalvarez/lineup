@@ -33,7 +33,13 @@ function callbackOrientationChange(orientation, page_id){
 }
 
 //MOSTRAMOS EL GOOGLE MAP DEL LOCAL
-function showGoogleMap(latitud, longitud) {
+function showGoogleMap(parent_id, latitud, longitud) {
+    var parent = $("#"+parent_id);
+    //titulo para la pagina
+    var titulo = IDIOMA == "castellano" ? "Mapa" : "Map";
+    parent.find(".ui-header").find(".page h2").html(titulo);
+    
+    //Mapa
     var map;
     var marcador;
     if(latitud != "" && longitud != ""){
@@ -46,6 +52,11 @@ function showGoogleMap(latitud, longitud) {
         };
         map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
         marcador = new google.maps.Marker({position: latlng, map: map});
+        // Enable the visual refresh
+        google.maps.visualRefresh = true;
+        setTimeout(function(){
+            google.maps.event.trigger(map, 'resize');
+        },200);
     }
 }
 
@@ -94,6 +105,7 @@ function redirectToPage(seccion, id){
     }
 }
 
+/*animacion para el la descripcion de cualquier item*/
 function animation(container,parent){
     //ocultamos los elementos
     container.find(".content_middle").hide();
@@ -118,511 +130,59 @@ function animation(container,parent){
     });    
 }
 
-function getCiudades(parent_id){
-    var parent = $("#"+parent_id);
-    var container = parent.find(".owl-carousel");
-    parent.find(".ui-content").hide();
-    
-    showLoading();
-    
-	$.getJSON(BASE_URL_APP + 'ciudads/mobileGetCiudades', function(data) {
-        
-        if(data.items){
-            //mostramos loading
-            $.mobile.loading( 'show' );
-            
-    		var items = data.items;
-            var idioma = data.idioma;
-            idioma = IDIOMA == "castellano" ? idioma.Sistema.title_esp : idioma.Sistema.title_eng;
-            
-            if(items.length){
-        		$.each(items, function(index, item) {
-                    
-                    var id = item.Ciudad.id;
-                    var title = IDIOMA == "castellano" ? item.Ciudad.title_esp : item.Ciudad.title_eng;
-                    var imagen_fondo = item.Ciudad.imagen_fondo!=""?item.Ciudad.imagen_fondo:"default.png";
-                    
-                    var html='<div class="ciudad" style="background: url('+BASE_URL_APP+'img/ciudades/'+imagen_fondo+');background-size: 100%;">' +
-                        '<a href="menu.html?ciudad_id='+id+'">'+title+'</a>' +
-                        '</div>';
-        		    
-                    container.append(html);
-        		});
-                
-                container.promise().done(function() {
-                    $('<img>').attr('src',function(){
-                        var imgUrl = container.find(".ciudad:first").css('background-image');
-                        imgUrl = imgUrl.substring(4, imgUrl.length-1);
-                        return imgUrl;
-                    }).load(function(){
-                        
-                        /* carrousel */
-                        container.owlCarousel({
-                            pagination : true,
-                            items : 1,
-                            itemsDesktop : false,
-                            itemsDesktopSmall : false,
-                            itemsTablet: false,
-                            itemsMobile : false
-                        });
-                        
-                        setTimeout(function(){
-                            container.find(".ciudad").css("padding-top",(parent.height()-70)+'px');
-                        },100);
-                        
-                        //colocamos el texto segun el idioma
-                        parent.find(".ui-header").find(".text").html(idioma);
-                        
-                        //ocultamos loading
-                        $.mobile.loading( 'hide' );
-                        hideLoading();
-                        parent.find(".ui-content").fadeIn("slow");
-                        $('<img>').removeAttr("src");
-                    });
-                });
-            }else{
-                //ocultamos loading
-                $.mobile.loading( 'hide' );
-                hideLoading();
-                parent.find(".ui-content").fadeIn("slow");
-            }
-        }
-	});
-}
-
-function getClubs(parent_id){
-    var parent = $("#"+parent_id);
-    var container = parent.find(".ui-listview");
-    parent.find(".ui-content").hide();
-    
-    showLoading();
-    
-	$.getJSON(BASE_URL_APP + 'clubs/mobileGetClubs/'+CIUDAD_ID+"/"+LATITUDE+"/"+LONGITUDE, function(data) {
-        
-        if(data.items){
-            //mostramos loading
-            $.mobile.loading( 'show' );
-            
-            var fondo = data.fondo.Fondo.imagen;
-    		var items = data.items;
-            if(items.length){
-        		$.each(items, function(index, item) {
-                    
-                    var id = item.Club.id;
-                    var title = IDIOMA == "castellano" ? item.Club.title_esp : item.Club.title_eng;
-                    var imagen = item.Club.imagen!=""?item.Club.imagen:"default.png";
-                    var imagen_fondo = item.Club.imagen_fondo!=""?item.Club.imagen_fondo:"default.png";
-                    var descripcion = IDIOMA == "castellano" ? item.Club.descripcion_esp : item.Club.descripcion_eng;
-                    
-                    var html='<li>' +
-                        '<a href="club_descripcion.html?id='+id+'"><img src="'+BASE_URL_APP+'img/clubs/' + imagen + '"/></a>' +
-                        '</li>';
-        		    
-                    container.append(html);
-        		});
-                
-                //refresh
-        		//container.listview('refresh');
-                
-                container.find("li:last img").load(function() {
-                    //ocultamos loading
-                    $.mobile.loading( 'hide' );
-                    hideLoading();
-                    parent.find(".ui-content").fadeIn("slow");
-                });
-            }else{
-                container.append("<p class='empty'>A&Uacute;N NO TENEMOS NING&Uacute;N ITEM.</p>");
-                //ocultamos loading
-                $.mobile.loading( 'hide' );
-                hideLoading();
-                parent.find(".ui-content").fadeIn("slow");
-            }
-        }
-	});
-}
-
-function getClubBy(parent_id, club_id){
-    var parent = $("#"+parent_id);
-    var container = parent.find(".owl-carousel");
-    parent.find(".ui-content").hide();
-    
-    showLoading();
-    
-	$.getJSON(BASE_URL_APP + 'clubs/mobileGetClubs/'+CIUDAD_ID+"/"+LATITUDE+"/"+LONGITUDE, function(data) {
-        
-        if(data.items){
-            var goto_index = 0;
-            
-            //mostramos loading
-            $.mobile.loading( 'show' );
-            
-    		var items = data.items;
-            if(items.length){
-        		$.each(items, function(index, item) {
-        		    
-                    //vemos a que item deber ir
-                    if(item.Club.id == club_id){
-                        goto_index = index;
-                    }
-                    
-                    var id = item.Club.id;
-                    var title = IDIOMA == "castellano" ? item.Club.title_esp : item.Club.title_eng;
-                    var sub_title = item.Club.sub_title;
-                    var imagen = item.Club.imagen!=""?item.Club.imagen:"default.png";
-                    var imagen_redonda = item.Club.imagen_redonda!=""?item.Club.imagen_redonda:"default.png";
-                    var imagen_fondo = item.Club.imagen_fondo!=""?item.Club.imagen_fondo:"default.png";
-                    var descripcion = IDIOMA == "castellano" ? item.Club.descripcion_esp : item.Club.descripcion_eng;
-                    var direccion = item.Club.direccion;
-                    var telefono = item.Club.telefono;
-                    
-                    var html='<div class="container" style="background: url('+BASE_URL_APP+'img/clubs/'+imagen_fondo+');background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
-                        '<div class="content_top">' + 
-                            '<div class="imagen left">' +
-                                '<img src="'+BASE_URL_APP+'img/clubs/' + imagen_redonda + '" />' +
-                            '</div>' +
-                            '<div class="title left">'+
-                                '<a class="sub toogle up" href="javascript:void(0)">' +
-                                    '<h2>'+title+'</h2>' + sub_title +
-                                '</a>' +
-                            '</div>' +
-                        '</div>' +
-                        '<div class="content_middle">' +
-                            '<p class="descripcion">' + descripcion +'</p>' +
-                            '<div class="mas_informacion">' +
-                                '<p class="direccion">' +
-                                    '<b>direcci&oacute;n:</b>' +
-                                    '<span>'+ direccion +'</span>' +
-                                '</p>' +
-                                '<p class="telefono">' +
-                                    '<b>tel&eacute;fono:</b>' +
-                                    '<span>'+ telefono +'</span>' +
-                                '</p>' + 
-                            '</div>' +
-                        '</div>' +
-                        '<div class="content_bottom">' +
-                            '<div data-role="navbar" data-corners="false">'+
-                                '<ul class="nav_options">' +
-                                    '<li class="mapa"><a class="icon_mapa" href="google_map.html?latitud=40.714594&longitud=-3.989803" data-icon="none" data-iconpos="top">4km</a></li>' +
-                                    '<li class="tickets"><a class="icon_tickets" href="#" data-icon="none" data-iconpos="top">Tickets</a></li>' +
-                                    '<li class="sesiones"><a class="icon_sesiones" href="#" data-icon="none" data-iconpos="top">Sesiones</a></li>' +
-                                    '<li class="alertas"><a class="icon_alertas" href="#" data-icon="none" data-iconpos="top">Alerta</a></li>' +
-                                '</ul>' +
-                            '</div>' +
-                        '</div>' +
-                    '</div>';
-        		    
-                    container.append(html);
-        		});
-                
-                container.promise().done(function() {
-                    $('<img>').attr('src',function(){
-                        var imgUrl = container.find(".container:first").css('background-image');
-                        imgUrl = imgUrl.substring(4, imgUrl.length-1);
-                        return imgUrl;
-                    }).load(function(){
-                                        
-                        //refresh
-                		$('[data-role="navbar"]').navbar();
-                        
-                        /* carrousel */
-                        container.owlCarousel({
-                            pagination : true,
-                            items : 1,
-                            itemsDesktop : false,
-                            itemsDesktopSmall : false,
-                            itemsTablet: false,
-                            itemsMobile : false,
-                            afterInit : function(){
-                                setTimeout(function(){
-                                    container.trigger('owl.goTo', goto_index);
-                                },1000);
-                            }
-                        });
-                        
-                        animation(container,parent);
-                        
-                        //ocultamos loading
-                        $.mobile.loading( 'hide' );
-                        hideLoading();
-                        parent.find(".ui-content").fadeIn("slow");
-                        $('<img>').removeAttr("src");
-                    });
-                });
-            }else{
-                //ocultamos loading
-                $.mobile.loading( 'hide' );
-                hideLoading();
-                parent.find(".ui-content").fadeIn("slow");
-            }
-        }
-	});
-}
-
-function getSesiones(parent_id){
-    var parent = $("#"+parent_id);
-    var container = parent.find(".ui-listview");
-    parent.find(".ui-content").hide();
-    
-    showLoading();
-    
-	$.getJSON(BASE_URL_APP + 'sesions/mobileGetSesions/'+CIUDAD_ID, function(data) {
-        
-        if(data.items){
-            //mostramos loading
-            $.mobile.loading( 'show' );
-            
-            var fondo = data.fondo.Fondo.imagen;
-    		var items = data.items;
-            if(items.length){
-        		$.each(items, function(index, item) {
-                    
-                    var id = item.Sesion.id;
-                    var title = IDIOMA == "castellano" ? item.Sesion.title_esp : item.Sesion.title_eng;
-                    var imagen = item.Sesion.imagen!=""?item.Sesion.imagen:"default.png";
-                    var imagen_fondo = item.Sesion.imagen_fondo!=""?item.Sesion.imagen_fondo:"default.png";
-                    var descripcion = IDIOMA == "castellano" ? item.Sesion.descripcion_esp : item.Sesion.descripcion_eng;
-                    
-                    var html='<li>' +
-                        '<h2>lunes '+title+'</h2>' +
-                        '<a href="sesion_descripcion.html?id='+id+'"><img src="'+BASE_URL_APP+'img/sesions/' + imagen + '"/></a>' +
-                        '</li>';
-        		    
-                    container.append(html);
-        		});
-                
-                //refresh
-        		//container.listview('refresh');
-                
-                container.find("li:last img").load(function() {
-                    //ocultamos loading
-                    $.mobile.loading( 'hide' );
-                    hideLoading();
-                    parent.find(".ui-content").fadeIn("slow");
-                });
-            }else{
-                container.append("<p class='empty'>A&Uacute;N NO TENEMOS NING&Uacute;N ITEM.</p>");
-                //ocultamos loading
-                $.mobile.loading( 'hide' );
-                hideLoading();
-                parent.find(".ui-content").fadeIn("slow");
-            }
-        }
-	});
-}
-
-function getSesionBy(parent_id, sesion_id){
-    var parent = $("#"+parent_id);
-    var container = parent.find(".owl-carousel");
-    parent.find(".ui-content").hide();
-    
-    showLoading();
-    
-	$.getJSON(BASE_URL_APP + 'sesions/mobileGetSesions/'+CIUDAD_ID, function(data) {
-        
-        if(data.items){
-            var goto_index = 0;
-            //mostramos loading
-            $.mobile.loading( 'show' );
-            
-    		var items = data.items;
-            if(items.length){
-        		$.each(items, function(index, item) {
-        		  
-                    //vemos a que item deber ir
-                    if(item.Sesion.id == sesion_id){
-                        goto_index = index;
-                    }
-                    
-                    var id = item.Sesion.id;
-                    var title = IDIOMA == "castellano" ? item.Sesion.title_esp : item.Sesion.title_eng;
-                    var sub_title = item.Sesion.sub_title;
-                    var imagen = item.Sesion.imagen!=""?item.Sesion.imagen:"default.png";
-                    var imagen_redonda = item.Sesion.imagen_redonda!=""?item.Sesion.imagen_redonda:"default.png";
-                    var imagen_fondo = item.Sesion.imagen_fondo!=""?item.Sesion.imagen_fondo:"default.png";
-                    var descripcion = IDIOMA == "castellano" ? item.Sesion.descripcion_esp : item.Sesion.descripcion_eng;
-                    var direccion = item.Sesion.direccion;
-                    var telefono = item.Sesion.telefono;
-                    
-                    var html='<div class="container custom" style="background: url('+BASE_URL_APP+'img/sesions/'+imagen_fondo+');background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
-                        '<div class="content_top">' + 
-                            '<div class="imagen left">' +
-                                '<img src="'+BASE_URL_APP+'img/sesions/' + imagen_redonda + '" />' +
-                            '</div>' +
-                            '<div class="title left">'+
-                                '<a class="sub toogle up" href="javascript:void(0)">' +
-                                    '<h2>'+title+'</h2>' + sub_title +
-                                '</a>' +
-                            '</div>' +
-                        '</div>' +
-                        '<div class="content_middle">' +
-                            '<p class="descripcion">' + descripcion +'</p>' +
-                            '<div class="mas_informacion">' +
-                                '<p class="direccion">' +
-                                    '<b>direcci&oacute;n:</b>' +
-                                    '<span>'+ direccion +'</span>' +
-                                '</p>' +
-                                '<p class="telefono">' +
-                                    '<b>tel&eacute;fono:</b>' +
-                                    '<span>'+ telefono +'</span>' +
-                                '</p>' + 
-                            '</div>' +
-                        '</div>' +
-                        '<div class="content_bottom">' +
-                            '<div data-role="navbar" data-corners="false">'+
-                                '<ul class="nav_options">' +
-                                    '<li class="mapa"><a class="icon_mapa" href="google_map.html?latitud=40.714594&longitud=-3.989803" data-icon="none" data-iconpos="top">4km</a></li>' +
-                                    '<li class="tickets"><a class="icon_tickets" href="#" data-icon="none" data-iconpos="top">Tickets</a></li>' +
-                                    '<li class="alertas"><a class="icon_alertas" href="#" data-icon="none" data-iconpos="top">Alerta</a></li>' +
-                                '</ul>' +
-                            '</div>' +
-                        '</div>' +
-                    '</div>';
-        		    
-                    container.append(html);
-        		});
-                
-                container.promise().done(function() {
-                    $('<img>').attr('src',function(){
-                        var imgUrl = container.find(".container:first").css('background-image');
-                        imgUrl = imgUrl.substring(4, imgUrl.length-1);
-                        return imgUrl;
-                    }).load(function(){
-                                        
-                        //refresh
-                		$('[data-role="navbar"]').navbar();
-                        
-                        /* carrousel */
-                        container.owlCarousel({
-                            pagination : true,
-                            items : 1,
-                            itemsDesktop : false,
-                            itemsDesktopSmall : false,
-                            itemsTablet: false,
-                            itemsMobile : false,
-                            afterInit : function(){
-                                setTimeout(function(){
-                                    container.trigger('owl.goTo', goto_index);
-                                },1000);
-                            }
-                        });
-                        
-                        animation(container,parent);
-                        
-                        //ocultamos loading
-                        $.mobile.loading( 'hide' );
-                        hideLoading();
-                        parent.find(".ui-content").fadeIn("slow");
-                        $('<img>').removeAttr("src");
-                    });
-                });
-            }else{
-                //ocultamos loading
-                $.mobile.loading( 'hide' );
-                hideLoading();
-                parent.find(".ui-content").fadeIn("slow");
-            }
-        }
-	});
-}
-
-function getPubs(parent_id){
-    var parent = $("#"+parent_id);
-    var container = parent.find(".content_options");
-    parent.find(".ui-content").hide();
-    
-    showLoading();
-    
-	$.getJSON(BASE_URL_APP + 'pubs/mobileGetPubs/'+CIUDAD_ID+"/"+LATITUDE+"/"+LONGITUDE, function(data) {
-        
-        if(data.items){
-            //mostramos loading
-            $.mobile.loading( 'show' );
-            
-            var fondo = data.fondo.Fondo.imagen;
-    		var items = data.items;
-            if(items.length){
-        		$.each(items, function(index, item) {
-                    
-                    var id = item.Pub.id;
-                    var title = IDIOMA == "castellano" ? item.Pub.title_esp : item.Pub.title_eng;
-                    var sub_title = item.Pub.sub_title;
-                    var imagen = item.Pub.imagen!=""?item.Pub.imagen:"default.png";
-                    var imagen_fondo = item.Pub.imagen_fondo!=""?item.Pub.imagen_fondo:"default.png";
-                    var descripcion = IDIOMA == "castellano" ? item.Pub.descripcion_esp : item.Pub.descripcion_eng;
-                    
-                    var html='<a class="custom pub1" href="pub_descripcion.html?id='+id+'" data-role="button" data-icon="none">' +
-                        '<span class="bg">' +
-                            '<span class="title">'+title+'</span>' +
-                            '<span class="subtitle">'+sub_title+'</span>' +
-                            '<span class="km">300m</span>'
-                        '</span>' +
-                    '</a>';
-        		    
-                    container.append(html);
-        		});
-                
-                container.promise().done(function() {
-                    container.trigger("create");
-                    
-                    container.find("a").each(function( index ) {
-                        //$(this).filter(".pub1:after").css("border","1px solid red");
-                        //$(this).find(".ui-icon").css("background","url('"+BASE_URL_APP+"img/comofunciona/rosa/"+$(this).attr("lang")+"')  no-repeat scroll top center transparent");
-                        //$(this).find(".ui-icon").css("background-size","28px");
-                    });
-                        
-                    //ocultamos loading
-                    $.mobile.loading( 'hide' );
-                    hideLoading();
-                    parent.find(".ui-content").fadeIn("slow");
-                    $('<img>').removeAttr("src");
-                });
-            }else{
-                container.append("<p class='empty'>A&Uacute;N NO TENEMOS NING&Uacute;N ITEM.</p>");
-                //ocultamos loading
-                $.mobile.loading( 'hide' );
-                hideLoading();
-                parent.find(".ui-content").fadeIn("slow");
-            }
-        }
-	});
-}
-
-function getCalendario(parent_id){
-    var parent = $("#"+parent_id);
-    var container = parent.find(".contenedor_calendario");
-    parent.find(".ui-content").hide();
-    container.find(".datepicker").parent().hide();
-    parent.find(".ui-content").fadeIn("slow");
-}
-
+/*ajax para sacar las sesiones y mostralos*/
 function ajaxCalendario(value){
     var container = $("#tickets.lista");
     container.html("");
     
-	$.getJSON(BASE_URL_APP + 'tickets/mobileGetTicketByDate/'+value, function(data) {
-        showLoading();
+    //mostramos loading
+    showLoading();
+    
+	$.getJSON(BASE_URL_APP + 'tickets/mobileGetTicketByDate/'+value+"/"+LATITUDE+"/"+LONGITUDE, function(data) {
         
         if(data.items){
+            //fondo para la pagina
+            if(data.fondo != undefined && data.fondo != ""  && data.fondo.Fondo.imagen != undefined){
+                var fondo = data.fondo.Fondo.imagen;
+                $("#calendario").css("background","url('"+BASE_URL_APP+"img/fondos/"+fondo+"')");
+                $("#calendario").css("background-size","100% 100%");
+            }
+            
+            //titulo para la pagina
+            if(data.pagina != undefined && data.pagina != ""){
+                var titulo = IDIOMA == "castellano" ? data.pagina.Sistema.title_esp : data.pagina.Sistema.title_eng;
+                $("#calendario").find(".ui-header").find(".page h2").html(titulo);
+            }
+                        
     		var items = data.items;
             if(items.length){
         		$.each(items, function(index, item) {
         		  
-                    var id = item.Sesion.id;
+                    var ticket_id = item.Ticket.id;
                     var title = IDIOMA == "castellano" ? item.Sesion.title_esp : item.Sesion.title_eng;
                     var title_dj = IDIOMA == "castellano" ? item.Dj.title_esp : item.Dj.title_eng;
                     var imagen_redonda = item.Sesion.imagen_redonda!=""?item.Sesion.imagen_redonda:"default.png";
-                    var precio = item.Ticket.precio;
+                    var precio = item.Ticket.precio != "" ? item.Ticket.precio : 0;
+                    var kilomentros = item.Club.kilomentros;
+                    var metros = item.Club.metros;
                     
-                    var href = "javascript:alert('Tickets no disponibles para esta sesi\u00F3n')";
-                    if(precio != "") href = "tickets.html?id="+id;
-                    
-                    var html='<a class="custom pub1" href="'+href+'" data-role="button" data-icon="none">' +
+                    var html='<a  lang="'+imagen_redonda+'" class="custom item" href="javascript:void(0)" onclick="gotoTicket(this,'+ticket_id+','+precio+')" data-role="button" data-icon="none">' +
                             '<span class="bg">' +
                                 '<span class="title">'+title+'</span>' +
                                 '<span class="subtitle">'+title_dj+'</span>' +
-                                '<span class="km inline">300m</span>' +
-                                '<span class="euro inline">'+precio+'&euro;</span>' +
-                            '</span>' +
+                                '<span class="km inline">';
+                                //si esta menos de 1km le mostramos la distancia en metros en la cual se encuentra
+                                if(parseInt(kilomentros) < 1){
+                                    html+=parseFloat(metros).toFixed(2)+'M';
+                                }else{
+                                    html+=parseFloat(kilomentros).toFixed(2)+'KM';
+                                }                                
+                                html+='</span>';
+                                
+                                if(parseInt(precio) > 1){
+                                    html+='<span class="euro inline">'+precio+'&euro;</span>';
+                                }
+                            html+='</span>' +
                         '</a>';
                     container.append(html);
         		});
@@ -630,6 +190,12 @@ function ajaxCalendario(value){
                 container.promise().done(function() {
                     container.trigger("create");
                     
+                    container.find("a").each(function( index ) {
+                        var cls = "itemticket"+index;
+                        $(this).addClass(cls);
+                        $('head').append("<style>.ui-btn-icon-left."+cls+":after{ background: url("+BASE_URL_APP+'/img/sesions/'+$(this).attr("lang")+") no-repeat scroll 0 0 transparent; }</style>");
+                    });
+                    
                     //ocultamos loading
                     hideLoading();
                 });
@@ -639,4 +205,12 @@ function ajaxCalendario(value){
             }
         }
 	});
+}
+
+function gotoTicket(thiss, ticket_id, precio){
+    if(parseInt(precio) > 0){
+        $.mobile.changePage("ticket_descripcion.html?ticket_id="+ticket_id);
+    }else{
+        showAlert("Tickets no disponibles para esta sesi\u00F3n", "Aviso", "Aceptar");
+    }
 }

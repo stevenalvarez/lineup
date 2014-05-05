@@ -25,6 +25,7 @@
 .left{float: left;}
 .right{float: right;}
 .inline{display: inline !important;}
+.clear{clear: both;}
 .empty{font-family: HelveticaLTStdLight;text-align: center;color: #fc049b;text-shadow: 1px 1px 1px #000;font-size: 17px;font-weight: bold;padding: 10px 0;}
 .ui-page.custom{background: url("../img/bg_wrapper.jpg") repeat-y scroll 0 0 transparent;background-size: 100% 100%;}
 .ui-page.custom .ui-page{background: transparent;}
@@ -108,12 +109,13 @@
 .content_options{padding: 0 15px;}
 .content_options.lista a{padding-top: 4px;padding-bottom: 4px;padding-right: 10px;}
 .content_options.lista a span.bg{background: url("../img/bg_arrow_prev.png") no-repeat scroll right center transparent;background-size: 45px;}
-.content_options.lista a span.bg.title{white-space: normal;padding-right: 45px;height: 34px;padding-top: 8px;padding-bottom: 8px;min-height: 34px;overflow: hidden;}
+.content_options.lista a span.bg.title{white-space: normal;padding-right: 45px;height: 34px;padding-top: 8px;padding-bottom: 8px;min-height: 34px;overflow: hidden;line-height: 40px;}
 .content_options.lista span{display: block;font-size: 22px;line-height: 18px;text-align: left;text-shadow: 0px 1px 1px #616161;}
 .content_options.lista span.subtitle{font-size: 18px;color: #fff;}
 .content_options.lista span.km{font-size: 18px;padding-left: 16px;background: url("../img/bg_mapa.png") no-repeat scroll left top transparent;background-size: 14px;}
 .content_options.lista span.euro{font-size: 18px;padding-left: 16px;background: url("../img/bg_euro.png") no-repeat scroll left top transparent;background-size: 14px;margin-left: 20px;}
 .content_options.lista .ui-btn-icon-left.pub1:after{background: url("../img/pubs/item.png") no-repeat scroll 0 0 transparent;background-size: 55px;background-position: 50%;}
+.ui-btn-icon-left.item:after{background-size: 55px !important;background-position: 50% !important;}
 
 /* VIEW */
 #view .texto {color: #000;text-shadow: 0 0 0;text-align: center;border-bottom: 1px solid #e3e3e3;font-size: 18px;padding: 15px 20px;letter-spacing: -1px;font-family:'century_gothicregular';line-height: 23px;}
@@ -132,7 +134,7 @@
 /* CLUBS */
 #clubs .ui-listview li{border-bottom: 10px solid #fc049b;background: #fff;min-height: 85px;}
 #clubs .ui-listview li a{display: block;text-align: center;padding-top: 5px;}
-#clubs .ui-listview li img{width: 172px;}
+#clubs .ui-listview li img{width: 220px;}
 
 /* CONTENT DESCRIPCION */
 .ui-content .content_top{padding: 40px 0 0;overflow: hidden;margin: 0 auto;width: 240px;}
@@ -156,19 +158,34 @@
 .ui-content.slider .owl-theme .owl-controls{position: absolute;top: 0;width: 100%;}
 
 /* SESIONES */
-#sesiones .ui-listview li{background: #000;min-height: 130px;max-height: 130px;}
 #sesiones .ui-listview li h2{margin: 0;text-align: center;background: #fc049b;text-shadow: 0 0 0;font-size: 20px;line-height: 20px;padding: 4px 0;color: #fff;font-weight: normal;}
 #sesiones .ui-listview li a{display: block;text-align: center;}
-#sesiones .ui-listview li img{width: 172px;}
+#sesiones .ui-listview li img{width: 100%;min-width: 320px;max-height: 320px;display: block;}
 
 /* CALENDARIO */
 .contenedor_calendario div.hasDatepicker{margin: 0 0 4px 0;}
 #tickets.content_options.lista{padding: 0 5px;}
 #tickets.content_options.lista a{margin: 5px 0;}
 
+/* TICKET DETALLE */
+.ticket_detalle{margin-top: 60px !important;overflow: hidden;}
+.ticket_detalle .imagen{width: 80px;}
+.ticket_detalle .imagen img{width: 100%;display: block;}
+.ticket_detalle .descripcion{width: 65%;}
+.ticket_detalle .descripcion h2{font-size: 34px;text-shadow: 1px 1px 0px #000;line-height: 30px;}
+.ticket_detalle .descripcion h3{color: #fc049b;font-size: 22px;text-shadow: 1px 1px 0 #000;}
+.ticket_detalle .descripcion .sesion span{display: block;}
+.ticket_detalle .resultado .operaciones span{display: block;font-size: 13px;text-align: center;}
+.ticket_detalle .resultado .operaciones span.numero, .ticket_detalle .resultado .operaciones span.total{font-size: 24px;}
+.ticket_detalle .resultado .divisores{width: 15px;padding: 7px 5px;text-align: center;padding: 4px 5px;}
+.ticket_detalle .resultado .divisores a{display: block;color: #fff;font-size: 26px;text-shadow: 0 0 0;font-family: arial;}
+.ticket_detalle .descripcion .bg_redondo{background: url("../img/bg_ticket_datos.png") no-repeat scroll left top transparent;height: 55px;background-size: 70px;width: 50px;padding: 10px;}
+.ticket_detalle .descripcion .sesion span.precio{padding-left: 24px;background: url("../img/bg_euro.png") no-repeat scroll left top transparent;background-size: 20px;color: #fc049b;text-shadow: 0 0 0;font-size: 20px;}
+.ticket_detalle .descripcion .comprar a{color: #fff;font-size: 22px;text-shadow: 0 1px 0 #000;background: #fc049b;display: block;text-align: center;padding: 5px;}
+
 /* GOOGLE MAP */
 #google_map { height: 100% }
-#google_map .ui-content { height: 80%; padding: 0; margin-top: 18px;margin-bottom: 15px;}
+#google_map .ui-content { height: 100%; padding: 0; margin-top: 0px;margin-bottom: 0px;}
 #google_map #map_canvas { height: 100% }
 
 /* PORTRAIT IPHONE 5 */
