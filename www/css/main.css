@@ -93,7 +93,13 @@
 .ui-header.ui-bar-inherit{background: transparent;border: none;overflow: hidden;}
 
 /* NAVIGATION FOOTER */
-.ui-footer{border: none;}
+.ui-footer{border: none;background: url("../img/bg_footer.jpg") repeat-x scroll center top transparent;}
+.ui-footer ul{border-top: 2px solid #f51fa2;}
+.ui-footer ul a{background-color: transparent !important;color: #fff !important;text-shadow: 0 0 0 !important;font-size: 13px !important;padding-top: 38px;border-left:0}
+.ui-footer ul a.f1:after{background: url("../img/navegacion/1.jpg") no-repeat scroll 0 0 transparent;background-size: 31px;background-position: 50% 50%;width: 32px;height: 32px;margin-left: -15px;}
+.ui-footer ul a.f2:after{background: url("../img/navegacion/2.jpg") no-repeat scroll 0 0 transparent;background-size: 31px;background-position: 50% 50%;width: 32px;height: 32px;margin-left: -15px;}
+.ui-footer ul a.f3:after{background: url("../img/navegacion/3.jpg") no-repeat scroll 0 0 transparent;background-size: 31px;background-position: 50% 50%;width: 32px;height: 32px;margin-left: -15px;}
+.ui-footer ul a.f4:after{background: url("../img/navegacion/4.jpg") no-repeat scroll 0 0 transparent;background-size: 31px;background-position: 50% 50%;width: 32px;height: 32px;margin-left: -15px;}
 
 /* NAVIGATION OPTIONS */
 .ui-navbar .nav_options a.ui-btn{font-family: windows_objectregular;color: #fb059b;font-size: 17px;font-weight: normal;text-shadow: 0 0 2px #fc039b;margin-top: -2px;}
