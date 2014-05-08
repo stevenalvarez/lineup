@@ -131,7 +131,7 @@
 #ciudades .owl-carousel{height: 100%;position: absolute;top: 0;}
 #ciudades .owl-wrapper-outer{height: 100%;}
 #ciudades .owl-carousel .ciudad{padding-top: 408px;padding-bottom: 20px;}
-#ciudades .owl-carousel .ciudad a{text-align: center;text-shadow: 0 0 0;color: #fc039b;font-size: 40px;letter-spacing: 1px;display: block;font-weight: normal;}
+#ciudades .owl-carousel .ciudad span{text-align: center;text-shadow: 0 0 0;color: #fc039b;font-size: 40px;letter-spacing: 1px;display: block;font-weight: normal;}
 #ciudades .owl-theme .owl-controls{position: relative;margin-top: -30px;}
 
 /* MENU */

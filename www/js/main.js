@@ -175,9 +175,9 @@ function getCiudades(parent_id){
                     var title = IDIOMA == "castellano" ? item.Ciudad.title_esp : item.Ciudad.title_eng;
                     var imagen_fondo = item.Ciudad.imagen_fondo!=""?item.Ciudad.imagen_fondo:"default.png";
                     
-                    var html='<div class="ciudad" style="background: url('+BASE_URL_APP+'img/ciudades/'+imagen_fondo+');background-size: 100%;">' +
-                        '<a href="menu.html?ciudad_id='+id+'">'+title+'</a>' +
-                        '</div>';
+                    var html='<a href="menu.html?ciudad_id='+id+'"><div class="ciudad" style="background: url('+BASE_URL_APP+'img/ciudades/'+imagen_fondo+');background-size: 100%;">' +
+                        '<span>'+title+'</span>' +
+                        '</div></a>';
         		    
                     container.append(html);
         		});
