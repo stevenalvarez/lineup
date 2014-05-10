@@ -147,9 +147,9 @@
 .content_options.lista a span.bg.title{white-space: normal;padding-right: 45px;height: 34px;padding-top: 8px;padding-bottom: 8px;min-height: 34px;overflow: hidden;line-height: 40px;}
 .content_options.lista span{display: block;font-size: 17px;line-height: 18px;text-align: left;text-shadow: 0px 0px 0px;font-family: NeuropoliticalRg-Regular;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
 .content_options.lista span.title{width: 85%;}
-.content_options.lista span.subtitle{font-size: 14px;color: #fff;width: 85%;font-family: NeogreyRegular;}
+.content_options.lista span.subtitle{font-size: 14px;color: #fff;width: 80%;font-family: NeogreyRegular;}
 .content_options.lista span.km{font-size: 17px;padding-left: 16px;background: url("../img/bg_mapa.png") no-repeat scroll left top transparent;background-size: 14px;font-family: HelveticaLTStdLight;color: #fc039b;}
-.content_options.lista span.euro{font-size: 17px;padding-left: 16px;background: url("../img/bg_euro.png") no-repeat scroll left top transparent;background-size: 14px;margin-left: 20px;}
+.content_options.lista span.euro{font-size: 17px;padding-left: 16px;background: url("../img/bg_euro.png") no-repeat scroll left center transparent;background-size: 16px;margin-left: 15px;font-family: HelveticaLTStdLight;color: #fc039b;}
 .content_options.lista .ui-btn-icon-left.pub1:after{background: url("../img/pubs/item.png") no-repeat scroll 0 0 transparent;background-size: 55px;background-position: 50%;}
 .ui-btn-icon-left.item:after{background-size: 55px !important;background-position: 50% !important;}
 
@@ -210,14 +210,16 @@
 .ticket_detalle .descripcion{width: 65%;}
 .ticket_detalle .descripcion h2{font-size: 34px;text-shadow: 1px 1px 0px #000;line-height: 30px;}
 .ticket_detalle .descripcion h3{color: #fc049b;font-size: 22px;text-shadow: 1px 1px 0 #000;}
-.ticket_detalle .descripcion .sesion span{display: block;}
-.ticket_detalle .resultado .operaciones span{display: block;font-size: 13px;text-align: center;}
+.ticket_detalle .descripcion .sesion span{display: block;font-family: NeogreyRegular;font-size: 15px;text-shadow: 0 1px 1px #000;}
+.ticket_detalle .descripcion .sesion span.djs{padding: 5px 0;}
+.ticket_detalle .resultado {margin: 8px 0; font-family: windows_objectregular;}
+.ticket_detalle .resultado .operaciones span{display: block;font-size: 12px;text-align: center;}
 .ticket_detalle .resultado .operaciones span.numero, .ticket_detalle .resultado .operaciones span.total{font-size: 24px;}
 .ticket_detalle .resultado .divisores{width: 15px;padding: 7px 5px;text-align: center;padding: 4px 5px;}
 .ticket_detalle .resultado .divisores a{display: block;color: #fff;font-size: 26px;text-shadow: 0 0 0;font-family: arial;}
 .ticket_detalle .descripcion .bg_redondo{background: url("../img/bg_ticket_datos.png") no-repeat scroll left top transparent;height: 55px;background-size: 70px;width: 50px;padding: 10px;}
-.ticket_detalle .descripcion .sesion span.precio{padding-left: 24px;background: url("../img/bg_euro.png") no-repeat scroll left top transparent;background-size: 20px;color: #fc049b;text-shadow: 0 0 0;font-size: 20px;}
-.ticket_detalle .descripcion .comprar a{color: #fff;font-size: 22px;text-shadow: 0 1px 0 #000;background: #fc049b;display: block;text-align: center;padding: 5px;}
+.ticket_detalle .descripcion .sesion span.precio{padding-left: 24px;background: url("../img/bg_euro.png") no-repeat scroll left top transparent;background-size: 18px;color: #fc049b;text-shadow: 0 0 0;font-size: 15px;}
+.ticket_detalle .descripcion .comprar a{color: #fff;font-size: 20px;text-shadow: 0 1px 0 #000;background: #fc049b;display: block;text-align: center;padding: 5px;font-family: NeogreyRegular;}
 
 /* GOOGLE MAP */
 #google_map { height: 100% }

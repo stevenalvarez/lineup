@@ -1599,7 +1599,12 @@ function getTicketSesionBy(parent_id, ticket_id){
                     
                     var ticket_id = item.Ticket.id;
                     var title = IDIOMA == "castellano" ? item.Sesion.title_esp : item.Sesion.title_eng;
-                    var title_dj = IDIOMA == "castellano" ? item.Dj.title_esp : item.Dj.title_eng;
+                    var djs = item.Dj;
+                    var djs_titles = "";
+                    $(djs).each(function(i,dj) {
+                        djs_titles+= IDIOMA == "castellano" ? dj.title_esp : dj.title_eng;
+                        if($(djs).length != (i+1)) djs_titles+= ", ";
+                    });
                     var imagen_redonda = item.Sesion.imagen_redonda!=""?item.Sesion.imagen_redonda:"default.png";
                     var precio = item.Ticket.precio != "" ? item.Ticket.precio : 0;
                     var fecha_ini = item.Ticket.fecha_ini;
@@ -1607,7 +1612,7 @@ function getTicketSesionBy(parent_id, ticket_id){
                     container.find("h3").html(title);
                     container.find("img").attr("src",BASE_URL_APP+'img/sesions/'+imagen_redonda);
                     container.find(".fecha").html(fecha_ini);
-                    container.find(".djs").html(title_dj);
+                    container.find(".djs").html(djs_titles);
                     container.find(".precio").html(precio+"&euro;");
                     
                     //valor

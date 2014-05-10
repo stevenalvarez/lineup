@@ -160,7 +160,12 @@ function ajaxCalendario(value){
         		  
                     var ticket_id = item.Ticket.id;
                     var title = IDIOMA == "castellano" ? item.Sesion.title_esp : item.Sesion.title_eng;
-                    var title_dj = IDIOMA == "castellano" ? item.Dj.title_esp : item.Dj.title_eng;
+                    var djs_titles = "";
+                    var djs = item.Dj;
+                    $(djs).each(function(i,dj) {
+                        djs_titles+= IDIOMA == "castellano" ? dj.title_esp : dj.title_eng;
+                        if($(djs).length != (i+1)) djs_titles+= ", ";
+                    });
                     var imagen_redonda = item.Sesion.imagen_redonda!=""?item.Sesion.imagen_redonda:"default.png";
                     var precio = item.Ticket.precio != "" ? item.Ticket.precio : 0;
                     var kilomentros = item.Club.kilomentros;
@@ -169,7 +174,7 @@ function ajaxCalendario(value){
                     var html='<a  lang="'+imagen_redonda+'" class="custom item" href="javascript:void(0)" onclick="gotoTicket(this,'+ticket_id+','+precio+')" data-role="button" data-icon="none">' +
                             '<span class="bg">' +
                                 '<span class="title">'+title+'</span>' +
-                                '<span class="subtitle">'+title_dj+'</span>' +
+                                '<span class="subtitle">'+djs_titles+'</span>' +
                                 '<span class="km inline">';
                                 //si esta menos de 1km le mostramos la distancia en metros en la cual se encuentra
                                 if(parseInt(kilomentros) < 1){
