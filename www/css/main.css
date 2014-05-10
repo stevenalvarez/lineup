@@ -1,4 +1,33 @@
 /*FONTS*/
+@font-face {font-family:"NeogreyRegular";
+    src:url("fonts/NeogreyRegular.eot?") format("eot"),
+    url("fonts/NeogreyRegular.woff") format("woff"),
+    url("fonts/NeogreyRegular.ttf") format("truetype"),
+    url("fonts/NeogreyRegular.svg#NeogreyRegular") format("svg");
+    font-weight:normal;
+    font-style:normal;
+}
+
+@font-face {
+    font-family:"NeogreyMedium";
+    src:url("fonts/NeogreyMedium.eot?") format("eot"),
+        url("fonts/NeogreyMedium.woff") format("woff"),
+        url("fonts/NeogreyMedium.ttf") format("truetype"),
+        url("fonts/NeogreyMedium.svg#Neogrey-Medium") format("svg");
+    font-weight:normal;
+    font-style:normal;
+}
+
+@font-face {
+    font-family:"NeuropoliticalRg-Regular";
+    src:url("fonts/neuropolitical_rg.eot?") format("eot"),
+    url("fonts/neuropolitical_rg.woff") format("woff"),
+    url("fonts/neuropolitical_rg.ttf") format("truetype"),
+    url("fonts/neuropolitical_rg.svg#NeuropoliticalRg-Regular") format("svg");
+    font-weight:normal;
+    font-style:normal;
+}
+
 @font-face {
     font-family: 'windows_objectregular';
     src: url('fonts/windows_object-webfont.eot');
@@ -31,7 +60,7 @@
 .ui-page.custom .ui-page{background: transparent;}
 
 /* PAGE */
-.ui-page{font-family: windows_objectregular;}
+.ui-page{font-family: NeogreyMedium;}
 .ui-page p.text{text-align: center;text-shadow: 0 0 0;color: #fff;font-weight: normal;font-size: 21px;letter-spacing: 1px;}
 .ui-page .ui-header{z-index: 10;}
 
@@ -40,21 +69,21 @@
 .ui-content .ui-listview{overflow: hidden;margin: 0 auto;}
 
 /* BUTTOM */
-.ui-btn.custom{background: url("../img/bg_button.png") repeat scroll 0 0 transparent;color: #f723a5;border-radius: 30px;line-height: 25px;text-shadow: -1px 2px 0px #616161;font-family: windows_objectregular;font-size: 26px;border: 1px solid #4f4f4f}
+.ui-btn.custom{background: url("../img/bg_button.png") repeat scroll 0 0 transparent;color: #fc027e;border-radius: 30px;line-height: 25px;text-shadow: 0px 1px 0px #616161 !important;font-family: NeogreyMedium;font-size: 25px;border: 1px solid #4f4f4f}
 .ui-btn.custom:hover{color: #f723a5;text-shadow: -1px 2px 0px #616161;}
 .ui-btn-icon-left.castellano:after{background: url("../img/bg_castellano.png") no-repeat scroll 0 0 transparent;background-size: 55px;background-position: 50%;}
 .ui-btn-icon-left.ingles:after{background: url("../img/bg_ingles.png") no-repeat scroll 0 0 transparent;background-size: 55px;background-position: 50%;}
 .ui-btn-icon-left.custom:after{margin-top: -27px;margin-left: -12px;width: 55px;height: 55px;}
 
 /* LOGO */
-.logo.ui-title{margin: .4em 38% .0em;white-space: normal;}
+.logo.ui-title{margin: .4em 38% .0em;white-space: normal;padding-top: 0;margin-top: 0;}
 .logo.ui-title img{width: 100%;height: auto;}
 
 /* MENU OPTION */
 .ui-controlgroup.custom{margin: 0;}
 .ui-controlgroup.custom .ui-controlgroup-controls{overflow: hidden;}
-.ui-controlgroup.custom .ui-controlgroup-controls a{font-family: windows_objectregular;color: #fb059b;font-size: 23px;font-weight: normal;text-shadow: 0 0 2px #fc039b;}
-.ui-controlgroup.custom .ui-controlgroup-controls .ui-btn-icon-top{padding-top: 3.5em;padding-left: 0;padding-right: 0;padding-bottom:0;width: 93px;background: transparent;border: none;margin-top: -11px;}
+.ui-controlgroup.custom .ui-controlgroup-controls a{font-family: NeogreyMedium;color: #ffffff;font-size: 16px;font-weight: normal;text-shadow: 0 0 0;}
+.ui-controlgroup.custom .ui-controlgroup-controls .ui-btn-icon-top{padding-top: 5.0em;padding-left: 0;padding-right: 0;padding-bottom:0;width: 93px;border: none;margin-top: -5px;background: url("../img/bg_item_menu.png") no-repeat scroll left bottom transparent;background-size: 110px;}
 .ui-controlgroup.custom .ui-controlgroup-controls .ui-btn-icon-top:after{left: 45%;margin-left: -30px;width: 70px;height: 70px;}
 .ui-controlgroup.custom .ui-controlgroup-controls .ui-btn-icon-top.icon_clubs:after{background: url("../img/bg_clubs.png") no-repeat scroll 0 0 transparent;background-size: 70px;background-position: 0;}
 .ui-controlgroup.custom .ui-controlgroup-controls .ui-btn-icon-top.icon_sesiones:after{background: url("../img/bg_sesiones.png") no-repeat scroll 0 0 transparent;background-size: 70px;background-position: 0;}
@@ -82,8 +111,8 @@
 .ui-header .back .volver{background: url("../img/bg_volver.png") no-repeat scroll center top transparent; background-size:40px;}
 .ui-header .back .info{background: url("../img/bg_info.png") no-repeat scroll center top transparent; background-size:40px;}
 .ui-header .page{text-align: center;width: 72%;margin-top: 0.5em;color: #fff;font-size: 20px;text-shadow: 0 0 0;}
-.ui-header .menu .page{margin-top: 3px;width: 40%;}
-.ui-header .page img{width: 68px;}
+.ui-header .menu .page{margin-top: 0;width: 40%;font-size: 0px;}
+.ui-header .page img{width: 74px;}
 .ui-header .setting{float:right}
 .ui-header .menu .setting a{margin-top: 25px;}
 .ui-header .setting .search{background: url("../img/bg_search.png") no-repeat scroll center top transparent; background-size:30px;}
@@ -102,7 +131,7 @@
 .ui-footer ul a.f4:after{background: url("../img/navegacion/4.jpg") no-repeat scroll 0 0 transparent;background-size: 31px;background-position: 50% 50%;width: 32px;height: 32px;margin-left: -15px;}
 
 /* NAVIGATION OPTIONS */
-.ui-navbar .nav_options a.ui-btn{font-family: windows_objectregular;color: #fb059b;font-size: 17px;font-weight: normal;text-shadow: 0 0 2px #fc039b;margin-top: -2px;}
+.ui-navbar .nav_options a.ui-btn{font-family: windows_objectregular;color: #fc027e;font-size: 16px;font-weight: normal;text-shadow: 0 0 1px #000;margin-top: -2px;}
 .ui-navbar .nav_options .ui-btn-icon-top{padding-top: 3em;padding-left: 0;padding-right: 0;padding-bottom:0;background: transparent;border: none;}
 .ui-navbar .nav_options .ui-btn-icon-top:after{left: 44%;margin-left: -15px;width: 41px;height: 41px;}
 .ui-navbar .nav_options .ui-btn-icon-top.icon_mapa:after{background: url("../img/bg_ciudades.png") no-repeat scroll 0 0 transparent;background-size: 40px;background-position: 0;}
@@ -116,22 +145,23 @@
 .content_options.lista a{padding-top: 4px;padding-bottom: 4px;padding-right: 10px;}
 .content_options.lista a span.bg{background: url("../img/bg_arrow_prev.png") no-repeat scroll right center transparent;background-size: 45px;}
 .content_options.lista a span.bg.title{white-space: normal;padding-right: 45px;height: 34px;padding-top: 8px;padding-bottom: 8px;min-height: 34px;overflow: hidden;line-height: 40px;}
-.content_options.lista span{display: block;font-size: 22px;line-height: 18px;text-align: left;text-shadow: 0px 1px 1px #616161;}
-.content_options.lista span.subtitle{font-size: 18px;color: #fff;}
-.content_options.lista span.km{font-size: 18px;padding-left: 16px;background: url("../img/bg_mapa.png") no-repeat scroll left top transparent;background-size: 14px;}
-.content_options.lista span.euro{font-size: 18px;padding-left: 16px;background: url("../img/bg_euro.png") no-repeat scroll left top transparent;background-size: 14px;margin-left: 20px;}
+.content_options.lista span{display: block;font-size: 17px;line-height: 18px;text-align: left;text-shadow: 0px 0px 0px;font-family: NeuropoliticalRg-Regular;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+.content_options.lista span.title{width: 85%;}
+.content_options.lista span.subtitle{font-size: 14px;color: #fff;width: 85%;font-family: NeogreyRegular;}
+.content_options.lista span.km{font-size: 17px;padding-left: 16px;background: url("../img/bg_mapa.png") no-repeat scroll left top transparent;background-size: 14px;font-family: HelveticaLTStdLight;color: #fc039b;}
+.content_options.lista span.euro{font-size: 17px;padding-left: 16px;background: url("../img/bg_euro.png") no-repeat scroll left top transparent;background-size: 14px;margin-left: 20px;}
 .content_options.lista .ui-btn-icon-left.pub1:after{background: url("../img/pubs/item.png") no-repeat scroll 0 0 transparent;background-size: 55px;background-position: 50%;}
 .ui-btn-icon-left.item:after{background-size: 55px !important;background-position: 50% !important;}
 
 /* VIEW */
 #view .texto {color: #000;text-shadow: 0 0 0;text-align: center;border-bottom: 1px solid #e3e3e3;font-size: 18px;padding: 15px 20px;letter-spacing: -1px;font-family:'century_gothicregular';line-height: 23px;}
-#view .content_options{padding: 50px 15px;}
+#view .content_options{padding: 70px 15px;}
 
 /* CIUDADES */
 #ciudades .owl-carousel{height: 100%;position: absolute;top: 0;}
 #ciudades .owl-wrapper-outer{height: 100%;}
 #ciudades .owl-carousel .ciudad{padding-top: 408px;padding-bottom: 20px;}
-#ciudades .owl-carousel .ciudad span{text-align: center;text-shadow: 0 0 0;color: #fc039b;font-size: 40px;letter-spacing: 1px;display: block;font-weight: normal;}
+#ciudades .owl-carousel .ciudad span{text-align: center;text-shadow: 0 0 0;color: #fc039b;font-size: 35px;letter-spacing: 1px;display: block;font-weight: normal;}
 #ciudades .owl-theme .owl-controls{position: relative;margin-top: -30px;}
 
 /* MENU */
@@ -146,14 +176,14 @@
 .ui-content .content_top{padding: 40px 0 0;overflow: hidden;margin: 0 auto;width: 240px;}
 .ui-content .content_top .imagen{width: 70px;}
 .ui-content .content_top .imagen img{width: 100%;display: block;}
-.ui-content .content_top .title{margin: 13px 4px;text-shadow: 0 2px 2px #000;width: 160px;}
-.ui-content .content_top .title h2{font-size: 35px;line-height: 22px;color: #fc039b;padding-top: 8px;width: 100%;overflow: hidden;white-space: nowrap;}
-.ui-content .content_top .title a{color: #fff;font-size: 18px;padding-right: 35px;display: block;line-height: 18px;}
+.ui-content .content_top .title{margin: 13px 4px;text-shadow: 0 0 0;width: 160px;}
+.ui-content .content_top .title h2{font-size: 26px;line-height: 28px;color: #fc039b;padding-top: 0;width: 100%;overflow: hidden;white-space: nowrap;font-family: NeuropoliticalRg-Regular;letter-spacing: -1px;text-overflow: ellipsis;}
+.ui-content .content_top .title a{color: #fff;font-size: 16px;padding-right: 35px;display: block;line-height: 18px;font-family: NeogreyRegular;}
 .ui-content .content_top .title a.up{background: url("../img/arrow_top.png") no-repeat scroll right bottom transparent;background-size: 30px;}
 .ui-content .content_top .title a.down{background: url("../img/arrow_bottom.png") no-repeat scroll right bottom transparent;background-size: 30px;}
 .ui-content .content_top .title a.sub{padding-right: 0;}
 .ui-content .content_middle{margin: 0 10px;background: url("../img/bg_button.png") repeat scroll 0 0 transparent;border-radius: 40px;border: 1px solid #4f4f4f;padding: 18px 20px 10px;color: #fff;margin-top: -16px;}
-.ui-content .content_middle p{line-height: 14px;text-shadow: 0 0 0;letter-spacing: 1px;text-align: justify;font-size: 14px;}
+.ui-content .content_middle p{line-height: 18px;text-shadow: 0 0 0;font-size: 13px;font-family: NeogreyRegular;}
 .ui-content .content_middle b{color: #fc039b;text-shadow: 0 0 0;}
 .ui-content .content_middle .mas_informacion{padding-top: 10px;}
 .ui-content .content_middle .mas_informacion p{text-align: left;font-size: 13px;font-family: HelveticaLTStdLight;letter-spacing: 0;text-shadow: 0 0 0;}

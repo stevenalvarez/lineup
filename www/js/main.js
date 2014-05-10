@@ -200,7 +200,7 @@ function getCiudades(parent_id){
                         });
                         
                         setTimeout(function(){
-                            container.find(".ciudad").css("padding-top",(parent.height()-70)+'px');
+                            container.find(".ciudad").css("padding-top",(parent.height()-65)+'px');
                         },100);
                         
                         //colocamos el texto segun el idioma
