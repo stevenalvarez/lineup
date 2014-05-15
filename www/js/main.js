@@ -1315,7 +1315,7 @@ function getDjBy(parent_id, dj_id){
                             '</div>' +
                             '<div class="title left">'+
                                 '<a class="sub toogle up" href="javascript:void(0)">' +
-                                    '<h2>'+title+'</h2>' +
+                                    '<h2>'+title+'</h2> &nbsp;' +
                                 '</a>' +
                             '</div>' +
                         '</div>' +
