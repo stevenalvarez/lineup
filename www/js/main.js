@@ -36,7 +36,7 @@ $(document).on("pagebeforeshow","#menu",function(event){
     var ciudad_id = getUrlVars()["ciudad_id"];
     if(ciudad_id == undefined) ciudad_id = CIUDAD_ID;
     CIUDAD_ID = ciudad_id;
-    getMenu(page_id);
+    getMenu(page_id, CIUDAD_ID);
 });
 
 //CLUBS
@@ -220,7 +220,7 @@ function getCiudades(parent_id){
 }
 
 //MENU
-function getMenu(parent_id){
+function getMenu(parent_id, ciudad_id){
     var parent = $("#"+parent_id);
     var container = parent.find(".ui-content");
     container.hide();
@@ -234,7 +234,7 @@ function getMenu(parent_id){
             if(data.fondo != undefined && data.fondo != ""  && data.fondo.Fondo.imagen != undefined){
                 var fondo = data.fondo.Fondo.imagen;
                 parent.css("background","url('"+BASE_URL_APP+"img/fondos/"+fondo+"')");
-                parent.css("background-size","100% 100%");
+                parent.css("background-size","100% auto");
             }
     		
             var items = data.items;
@@ -243,6 +243,9 @@ function getMenu(parent_id){
                     var id = item.Sistema.id;
                     var title = IDIOMA == "castellano" ? item.Sistema.title_esp : item.Sistema.title_eng;
                     container.find(".icon"+id).text(title);
+                    
+                    //Para madrid (id=3)no se muestra beach
+                    if(ciudad_id == 3 && id == 7) container.find(".icon"+id).hide();
         		});
                                 
                 container.promise().done(function() {
@@ -273,7 +276,7 @@ function getClubs(parent_id){
             if(data.fondo != undefined && data.fondo != ""  && data.fondo.Fondo.imagen != undefined){
                 var fondo = data.fondo.Fondo.imagen;
                 parent.css("background","url('"+BASE_URL_APP+"img/fondos/"+fondo+"')");
-                parent.css("background-size","100% 100%");
+                parent.css("background-size","100% auto");
             }
             
             //titulo para la pagina
@@ -455,7 +458,7 @@ function getSesiones(parent_id){
             if(data.fondo != undefined && data.fondo != ""  && data.fondo.Fondo.imagen != undefined){
                 var fondo = data.fondo.Fondo.imagen;
                 parent.css("background","url('"+BASE_URL_APP+"img/fondos/"+fondo+"')");
-                parent.css("background-size","100% 100%");
+                parent.css("background-size","100% auto");
             }
             
             //titulo para la pagina
@@ -637,7 +640,7 @@ function getPubs(parent_id){
             if(data.fondo != undefined && data.fondo != ""  && data.fondo.Fondo.imagen != undefined){
                 var fondo = data.fondo.Fondo.imagen;
                 parent.css("background","url('"+BASE_URL_APP+"img/fondos/"+fondo+"')");
-                parent.css("background-size","100% 100%");
+                parent.css("background-size","100% auto");
             }
             
             //titulo para la pagina
@@ -838,7 +841,7 @@ function getBeachclubs(parent_id){
             if(data.fondo != undefined && data.fondo != ""  && data.fondo.Fondo.imagen != undefined){
                 var fondo = data.fondo.Fondo.imagen;
                 parent.css("background","url('"+BASE_URL_APP+"img/fondos/"+fondo+"')");
-                parent.css("background-size","100% 100%");
+                parent.css("background-size","100% auto");
             }
             
             //titulo para la pagina
@@ -1039,7 +1042,7 @@ function getFestivales(parent_id){
             if(data.fondo != undefined && data.fondo != ""  && data.fondo.Fondo.imagen != undefined){
                 var fondo = data.fondo.Fondo.imagen;
                 parent.css("background","url('"+BASE_URL_APP+"img/fondos/"+fondo+"')");
-                parent.css("background-size","100% 100%");
+                parent.css("background-size","100% auto");
             }
             
             //titulo para la pagina
@@ -1227,7 +1230,7 @@ function getDjs(parent_id){
             if(data.fondo != undefined && data.fondo != ""  && data.fondo.Fondo.imagen != undefined){
                 var fondo = data.fondo.Fondo.imagen;
                 parent.css("background","url('"+BASE_URL_APP+"img/fondos/"+fondo+"')");
-                parent.css("background-size","100% 100%");
+                parent.css("background-size","100% auto");
             }
             
             //titulo para la pagina
@@ -1387,7 +1390,7 @@ function getPromociones(parent_id){
             if(data.fondo != undefined && data.fondo != ""  && data.fondo.Fondo.imagen != undefined){
                 var fondo = data.fondo.Fondo.imagen;
                 parent.css("background","url('"+BASE_URL_APP+"img/fondos/"+fondo+"')");
-                parent.css("background-size","100% 100%");
+                parent.css("background-size","100% auto");
             }
             
             //titulo para la pagina
@@ -1586,7 +1589,7 @@ function getTicketSesionBy(parent_id, ticket_id){
             if(data.fondo != undefined && data.fondo != "" && data.fondo.Fondo.imagen != undefined){
                 var fondo = data.fondo.Fondo.imagen;
                 parent.css("background","url('"+BASE_URL_APP+"img/fondos/"+fondo+"')");
-                parent.css("background-size","100% 100%");
+                parent.css("background-size","100% auto");
             }
             
             //titulo para la pagina

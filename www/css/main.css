@@ -73,7 +73,7 @@
 .ui-btn.custom:hover{color: #f723a5;text-shadow: -1px 2px 0px #616161;}
 .ui-btn-icon-left.castellano:after{background: url("../img/bg_castellano.png") no-repeat scroll 0 0 transparent;background-size: 55px;background-position: 50%;}
 .ui-btn-icon-left.ingles:after{background: url("../img/bg_ingles.png") no-repeat scroll 0 0 transparent;background-size: 55px;background-position: 50%;}
-.ui-btn-icon-left.custom:after{margin-top: -27px;margin-left: -12px;width: 55px;height: 55px;}
+.ui-btn-icon-left.custom:after{margin-top: -27px;margin-left: -10px;width: 50px;height: 50px;-webkit-border-radius: 2em;border-radius: 2em;border: 2px solid #fff;box-shadow: 2px 1px 3px #000;}
 
 /* LOGO */
 .logo.ui-title{margin: .4em 38% .0em;white-space: normal;padding-top: 0;margin-top: 0;}
@@ -144,7 +144,7 @@
 .content_options{padding: 0 15px;}
 .content_options.lista a{padding-top: 4px;padding-bottom: 4px;padding-right: 10px;}
 .content_options.lista a span.bg{background: url("../img/bg_arrow_prev.png") no-repeat scroll right center transparent;background-size: 45px;}
-.content_options.lista a span.bg.title{white-space: normal;padding-right: 45px;height: 34px;padding-top: 8px;padding-bottom: 8px;min-height: 34px;overflow: hidden;line-height: 40px;}
+.content_options.lista a span.bg.title{white-space: normal;padding-right: 35px;height: 34px;padding-top: 8px;padding-bottom: 8px;min-height: 34px;overflow: hidden;line-height: 40px;}
 .content_options.lista span{display: block;font-size: 17px;line-height: 18px;text-align: left;text-shadow: 0px 0px 0px;font-family: NeuropoliticalRg-Regular;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
 .content_options.lista span.title{width: 85%;}
 .content_options.lista span.subtitle{font-size: 14px;color: #fff;width: 80%;font-family: NeogreyRegular;}
@@ -172,6 +172,10 @@
 #clubs .ui-listview li a{display: block;text-align: center;padding-top: 5px;}
 #clubs .ui-listview li img{width: 220px;}
 
+/* DJS */
+
+#djs .content_options.lista a{margin: 4px 0;}
+
 /* CONTENT DESCRIPCION */
 .ui-content .content_top{padding: 40px 0 0;overflow: hidden;margin: 0 auto;width: 240px;}
 .ui-content .content_top .imagen{width: 70px;}
@@ -192,6 +196,8 @@
 .ui-content .custom .content_bottom{padding: 0 65px;}
 .ui-content .custom2 .content_bottom{padding: 0 100px;}
 .ui-content.slider .owl-theme .owl-controls{position: absolute;top: 0;width: 100%;}
+.ui-content.slider .owl-theme .owl-pagination {overflow: hidden;height: 20px;}
+.ui-content.slider .owl-theme .owl-controls .owl-page span{width: 8px;height: 10px;margin: 0px 2px;}
 
 /* SESIONES */
 #sesiones .ui-listview li h2{margin: 0;text-align: center;background: #fc049b;text-shadow: 0 0 0;font-size: 20px;line-height: 20px;padding: 4px 0;color: #fff;font-weight: normal;}
