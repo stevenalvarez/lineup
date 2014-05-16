@@ -237,6 +237,9 @@
 #google_map .ui-content { height: 100%; padding: 0; margin-top: 0px;margin-bottom: 0px;}
 #google_map #map_canvas { height: 100% }
 
+/* POPUP */
+.container_popup{margin: 20px;min-width: 410px;}
+
 /* PORTRAIT IPHONE 5 */
 
 @media only screen 
