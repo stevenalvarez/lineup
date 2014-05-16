@@ -55,6 +55,7 @@ $(document).on("pagebeforeshow","#club_descripcion",function(event){
 //SESIONES
 $(document).on("pagebeforeshow","#sesiones",function(event){
     var page_id = $(this).attr("id");
+    getClubsAll(page_id);
     getSesiones(page_id);
 });
 
@@ -484,7 +485,9 @@ function getSesiones(parent_id){
                     var imagen_fondo = item.Sesion.imagen_fondo!=""?item.Sesion.imagen_fondo:"default.png";
                     var descripcion = IDIOMA == "castellano" ? item.Sesion.descripcion_esp : item.Sesion.descripcion_eng;
                     
-                    var html='<li>' +
+                    var class_club = 'club_'+item.Sesion.club_id;
+                    
+                    var html='<li class="'+class_club+'">' +
                         '<h2>'+title+'</h2>' +
                         '<a href="sesion_descripcion.html?id='+id+'"><img src="'+BASE_URL_APP+'img/sesions/'+imagen+'"/></a>' +
                         '</li>';
