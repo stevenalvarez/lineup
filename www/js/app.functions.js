@@ -219,3 +219,75 @@ function gotoTicket(thiss, ticket_id, precio){
         showAlert("Tickets no disponibles para esta sesi\u00F3n", "Aviso", "Aceptar");
     }
 }
+
+function getClubsAll(parent_id){
+    var parent = $("#"+parent_id);
+    var container = parent.find(".ui-footer");
+    container.find('li').remove();
+    
+    container.hide();
+    
+	$.getJSON(BASE_URL_APP + 'clubs/mobileGetClubsAll/'+CIUDAD_ID, function(data) {
+        
+        if(data.items){
+            showLoading();
+            
+    		items = data.items;
+            if(items.length){
+                var html = '<div data-role="navbar" data-corners="false"><ul class="nav-custom clubs">';
+        		$.each(items, function(index, item) {
+        		    var title = IDIOMA == "castellano" ? item.Club.title_esp : item.Club.title_eng;
+                    var imagen_redonda = item.Club.imagen_redonda!=""?item.Club.imagen_redonda:"default.png";
+        		    html+= '<li><a id="club_'+item.Club.id+'" lang="'+imagen_redonda+'" href="#'+item.Club.id+'" data-icon="none" data-iconpos="top">'+title+'</a></li>';
+        		});
+                html+='</ul></div>';
+                container.find(".ui-navbar").remove();
+                container.append(html);
+                //refresh
+        		container.trigger("create");
+                
+                //colocamos su background
+                container.find("a").each(function( index ) {
+                    var cls = "itemclubsall"+index;
+                    $(this).addClass(cls);
+                    $('head').append("<style>.ui-btn-icon-top."+cls+":after{ background: url("+BASE_URL_APP+'/img/clubs/'+$(this).attr("lang")+") no-repeat scroll 0 0 transparent; }</style>");
+                });                
+                
+                var page = $("#" + $.mobile.activePage.attr('id'));
+                page.find(".clubs").find("a").unbind("touchstart").bind("touchstart", function(){
+                    page.find(".clubs").find("a").removeClass("ui-btn-active-a");
+                    $(this).addClass("ui-btn-active-a");
+                    var club_id = $(this).attr("href");
+                    club_id = club_id.substring(1,club_id.length);
+                    
+                    //mostramos u ocultamos los items segun su zona
+                    var container_ul = page.find(".ui-listview");
+                    container_ul.css("opacity","0.5");
+                    container_ul.find("li").hide();
+                    container_ul.find("li.club_"+club_id).show();
+                    container_ul.animate({opacity: 1}, 500 );
+                });
+                
+                hideLoading();
+                
+                //numero de clubs
+                var numero_clubs = 4; //container.find(".nav-custom.clubs").find("li").length;
+                
+                //aplicamos el slider carrousel
+                container.promise().done(function() {
+                    //iniciamos el carrousel
+                    container.find(".nav-custom.clubs").owlCarousel({
+                        pagination : false,
+                        items : numero_clubs,
+                        itemsMobile : [479,numero_clubs],
+                        responsive: false,
+                    });
+                    container.find(".nav-custom.clubs").find("li").css("width","100%");
+                    container.find(".nav-custom.clubs").find(".owl-wrapper-outer").css("overflow","inherit");
+                });
+                
+                container.fadeIn("slow");
+            }
+        }
+	});
+}

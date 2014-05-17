@@ -12,7 +12,7 @@
             <ul class="menu">
                 <li class="back">
                     <a class="volver" href="#" data-role="button" data-rel="back">Volver</a>
-                    <a class="info" href="#" data-role="button">info</a>
+                    <a class="info" href="#info" data-role="button" data-rel="popup" data-position-to="window" data-transition="pop">info</a>
                 </li>
                 <li class="page">
                     <img src="img/logo.png"/>
@@ -25,23 +25,37 @@
         
     	<div data-role="content">
             <div data-role="controlgroup" data-type="horizontal" class="custom">
-                <a class="icon4 icon_clubs" href="clubs.html" data-role="button" data-icon="none" data-iconpos="top">Clubs</a>
-                <a class="icon5 icon_sesiones" href="sesiones.html" data-role="button" data-icon="none" data-iconpos="top">Sesiones</a>
-                <a class="icon6 icon_pubs" href="pubs.html" data-role="button" data-icon="none" data-iconpos="top">Life</a>
+                <a class="icon5 icon_clubs" href="clubs.html" data-role="button" data-icon="none" data-iconpos="top">Clubs</a>
+                <a class="icon6 icon_sesiones" href="sesiones.html" data-role="button" data-icon="none" data-iconpos="top">Sesiones</a>
+                <a class="icon7 icon_pubs" href="pubs.html" data-role="button" data-icon="none" data-iconpos="top">Life</a>
                 
-                <a class="icon7 icon_beach" href="beachclubs.html" data-role="button" data-icon="none" data-iconpos="top">BeachC.</a>
-                <a class="icon8 icon_festivales" href="festivales.html" data-role="button" data-icon="none" data-iconpos="top">Festivales</a>
-                <a class="icon9 icon_dj" href="djs.html" data-role="button" data-icon="none" data-iconpos="top">Djs</a>
+                <a class="icon8 icon_beach" href="beachclubs.html" data-role="button" data-icon="none" data-iconpos="top">BeachC.</a>
+                <a class="icon9 icon_festivales" href="festivales.html" data-role="button" data-icon="none" data-iconpos="top">Festivales</a>
+                <a class="icon10 icon_dj" href="djs.html" data-role="button" data-icon="none" data-iconpos="top">Djs</a>
                 
-                <a class="icon10 icon_tickets" href="#" data-role="button" data-icon="none" data-iconpos="top">Tickets</a>
-                <a class="icon11 icon_calendario" href="calendario.html" data-role="button" data-icon="none" data-iconpos="top">Calendario</a>
-                <a class="icon12 icon_alertas" href="#" data-role="button" data-icon="none" data-iconpos="top">Alertas</a>
+                <a class="icon11 icon_tickets" href="#" data-role="button" data-icon="none" data-iconpos="top">Tickets</a>
+                <a class="icon12 icon_calendario" href="calendario.html" data-role="button" data-icon="none" data-iconpos="top">Calendario</a>
+                <a class="icon13 icon_alertas" href="#" data-role="button" data-icon="none" data-iconpos="top">Alertas</a>
                 
-                <a class="icon13 icon_ciudades" href="ciudades.html" data-role="button" data-icon="none" data-iconpos="top">Ciudades</a>
-                <a class="icon14 icon_idioma" href="index.html" data-role="button" data-icon="none" data-iconpos="top">Idioma</a>
-                <a class="icon15 icon_promos" href="promociones.html" data-role="button" data-icon="none" data-iconpos="top">Promos</a>
+                <a class="icon14 icon_ciudades" href="ciudades.html" data-role="button" data-icon="none" data-iconpos="top">Ciudades</a>
+                <a class="icon15 icon_idioma" href="index.html" data-role="button" data-icon="none" data-iconpos="top">Idioma</a>
+                <a class="icon16 icon_promos" href="promociones.html" data-role="button" data-icon="none" data-iconpos="top">Promos</a>
             </div>
     	</div><!-- /content -->
+        
+        <!-- popup - info -->
+        <!-- comienza -->
+        <div data-role="popup" data-theme="c" data-overlay-theme="a">
+            <div data-role="popup" id="info" data-theme="a" class="ui-corner-all" data-overlay-theme="b">
+                <a href="#" data-rel="back" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right close">Close</a>
+                <div class="container_popup">
+                    <div class="castellano" style="display: none;">&nbsp;</div>
+                    <div class="english" style="display: none;">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+        <!-- termina -->
+        
     </div><!-- /page -->
     
     </body>
