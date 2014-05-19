@@ -131,14 +131,14 @@ function animation(container,parent){
 }
 
 /*ajax para sacar las sesiones y mostralos*/
-function ajaxCalendario(value){
+function ajaxCalendario(value, club_id, sesion_id){
     var container = $("#tickets.lista");
     container.html("");
     
     //mostramos loading
     showLoading();
     
-	$.getJSON(BASE_URL_APP + 'tickets/mobileGetTicketByDate/'+value+"/"+LATITUDE+"/"+LONGITUDE, function(data) {
+	$.getJSON(BASE_URL_APP + 'tickets/mobileGetTicketByDate/'+value+"/"+club_id+"/"+sesion_id+"/"+LATITUDE+"/"+LONGITUDE, function(data) {
         
         if(data.items){
             //fondo para la pagina
@@ -205,6 +205,7 @@ function ajaxCalendario(value){
                     hideLoading();
                 });
             }else{
+                container.append("<p class='empty'>A&Uacute;N NO TENEMOS TICKETS EN ESTA FECHA</p>");
                 //ocultamos loading
                 hideLoading();
             }
@@ -220,7 +221,7 @@ function gotoTicket(thiss, ticket_id, precio){
     }
 }
 
-function getClubsAll(parent_id){
+function getClubsAll(parent_id,filtro_id){
     var parent = $("#"+parent_id);
     var container = parent.find(".ui-footer");
     container.find('li').remove();
@@ -251,7 +252,7 @@ function getClubsAll(parent_id){
                     var cls = "itemclubsall"+index;
                     $(this).addClass(cls);
                     $('head').append("<style>.ui-btn-icon-top."+cls+":after{ background: url("+BASE_URL_APP+'/img/clubs/'+$(this).attr("lang")+") no-repeat scroll 0 0 transparent; }</style>");
-                });                
+                });
                 
                 var page = $("#" + $.mobile.activePage.attr('id'));
                 page.find(".clubs").find("a").unbind("touchstart").bind("touchstart", function(){
@@ -286,6 +287,7 @@ function getClubsAll(parent_id){
                     container.find(".nav-custom.clubs").find(".owl-wrapper-outer").css("overflow","inherit");
                 });
                 
+                container.find(".nav-custom.clubs").find("li a#club_"+filtro_id).addClass("ui-btn-active-a");     
                 container.fadeIn("slow");
             }
         }

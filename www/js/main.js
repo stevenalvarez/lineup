@@ -14,6 +14,12 @@ $(document).bind('pageinit', function(event){
 
 $(document).bind('pageshow', function(event, ui) {
     var page_id = event.target.id;
+    /*
+    setTimeout(function(){
+        $("#"+page_id).height($("#"+page_id).attr("lang")+"px");
+        $("#"+page_id).niceScroll({touchbehavior:true});
+    },500);
+    */
     
     //inicializamos la ubicacion 
     getLocationGPS();
@@ -55,8 +61,10 @@ $(document).on("pagebeforeshow","#club_descripcion",function(event){
 //SESIONES
 $(document).on("pagebeforeshow","#sesiones",function(event){
     var page_id = $(this).attr("id");
-    getClubsAll(page_id);
-    getSesiones(page_id);
+    var club_id = getUrlVars()["id"];
+    if(club_id == undefined) club_id = 0;    
+    getClubsAll(page_id,club_id);
+    getSesiones(page_id,club_id);
 });
 
 //SESIONES DESCRIPCION
@@ -134,8 +142,20 @@ $(document).on("pagebeforeshow","#promocion_descripcion",function(event){
 //CALENDARIO
 $(document).on("pagebeforeshow","#calendario",function(event){
     var page_id = $(this).attr("id");
+    var sesion_id = getUrlVars()["sesion_id"];
+    if(sesion_id == undefined) sesion_id = 0;
+    var club_id = getUrlVars()["club_id"];
+    if(club_id == undefined) club_id = 0;
     var parent = $("#"+page_id);
-    parent.find(".datepicker").parent().hide();
+    parent.find(".hasDatepicker").prev().hide();
+    var value = parent.find(".hasDatepicker").prev().find("input").val();
+    ajaxCalendario(value,club_id,sesion_id);
+    
+    $( ".hasDatepicker" ).datepicker( "option", "monthNames", $.datepicker.regional[ IDIOMA ].monthNames );
+    $( ".hasDatepicker" ).datepicker( "option", "dayNamesMin", $.datepicker.regional[ IDIOMA ].dayNamesMin );
+    $( ".hasDatepicker" ).datepicker( "option", "onSelect", function(value, date){
+        ajaxCalendario(value,0,0);
+    });
 });
 
 //TICKET DESCRIPCION
@@ -400,8 +420,8 @@ function getClubBy(parent_id, club_id){
                                     }
                                     html+='</a>' +
                                     '</li>' +
-                                    '<li class="tickets"><a class="icon_tickets" href="#" data-icon="none" data-iconpos="top">Tickets</a></li>' +
-                                    '<li class="sesiones"><a class="icon_sesiones" href="#" data-icon="none" data-iconpos="top">Sesiones</a></li>' +
+                                    '<li class="tickets"><a class="icon_tickets" href="calendario.html?club_id='+id+'" data-icon="none" data-iconpos="top">Tickets</a></li>' +
+                                    '<li class="sesiones"><a class="icon_sesiones" href="sesiones.html?id='+id+'" data-icon="none" data-iconpos="top">Sesiones</a></li>' +
                                     '<li class="alertas"><a class="icon_alertas" href="#" data-icon="none" data-iconpos="top">Alerta</a></li>' +
                                 '</ul>' +
                             '</div>' +
@@ -452,7 +472,7 @@ function getClubBy(parent_id, club_id){
 }
 
 //SESIONES
-function getSesiones(parent_id){
+function getSesiones(parent_id,filtro_id){
     var parent = $("#"+parent_id);
     var container = parent.find(".ui-listview");
     parent.find(".ui-content").hide();
@@ -496,6 +516,11 @@ function getSesiones(parent_id){
         		});
                 
                 container.find("li:last img").load(function() {
+                    //fitro de sesion
+                    if(filtro_id != 0){
+                        container.find("li").hide();
+                        container.find("li.club_"+filtro_id).show();
+                    }
                     hideLoading();
                     parent.find(".ui-content").fadeIn("slow");
                 });
@@ -585,7 +610,7 @@ function getSesionBy(parent_id, sesion_id){
                                     }
                                     html+='</a>' +
                                     '</li>' +
-                                    '<li class="tickets"><a class="icon_tickets" href="#" data-icon="none" data-iconpos="top">Tickets</a></li>' +
+                                    '<li class="tickets"><a class="icon_tickets" href="calendario.html?sesion_id='+id+'" data-icon="none" data-iconpos="top">Tickets</a></li>' +
                                     '<li class="alertas"><a class="icon_alertas" href="#" data-icon="none" data-iconpos="top">Alerta</a></li>' +
                                 '</ul>' +
                             '</div>' +
@@ -748,7 +773,21 @@ function getPubBy(parent_id, pub_id){
                     var kilomentros = item.Pub.kilomentros;
                     var metros = item.Pub.metros;
                     var latitud = item.Pub.latitud;
-                    var longitud = item.Pub.longitud;                    
+                    var longitud = item.Pub.longitud;
+                    
+                    //promos
+                    var promos = item.Promo;
+                    var href = '#';
+                    var numero_promos = 0;
+                    if(promos.length > 0){
+                        $(promos).each(function(i,promo) {
+                            if(promo.estado == "activo"){
+                                //sacamos la ultima promocion
+                                href = "promocion_descripcion.html?id="+promo.id;
+                                numero_promos++;
+                            }
+                        });
+                    }
                     
                     var html='<div class="container custom" style="background: url('+BASE_URL_APP+'img/pubs/'+imagen_fondo+');background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
                         '<div class="content_top">' + 
@@ -786,7 +825,7 @@ function getPubBy(parent_id, pub_id){
                                     }
                                     html+='</a>' +
                                     '</li>' +
-                                    '<li class="promos"><a class="icon_promos" href="#" data-icon="none" data-iconpos="top">Promos</a></li>' +
+                                    '<li class="promos"><a class="icon_promos" href="'+href+'" data-icon="none" data-iconpos="top">Promos</a><span class="numero">'+numero_promos+'</span></li>' +
                                     '<li class="alertas"><a class="icon_alertas" href="#" data-icon="none" data-iconpos="top">Alerta</a></li>' +
                                 '</ul>' +
                             '</div>' +
@@ -951,6 +990,20 @@ function getBeachclubBy(parent_id, beachclub_id){
                     var latitud = item.Beachclub.latitud;
                     var longitud = item.Beachclub.longitud;
                     
+                    //promos
+                    var promos = item.Promo;
+                    var href = '#';
+                    var numero_promos = 0;
+                    if(promos.length > 0){
+                        $(promos).each(function(i,promo) {
+                            if(promo.estado == "activo"){
+                                //sacamos la ultima promocion
+                                href = "promocion_descripcion.html?id="+promo.id;
+                                numero_promos++;
+                            }
+                        });
+                    }
+                    
                     var html='<div class="container custom" style="background: url('+BASE_URL_APP+'img/beachclubs/'+imagen_fondo+');background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
                         '<div class="content_top">' + 
                             '<div class="imagen left">' +
@@ -987,7 +1040,7 @@ function getBeachclubBy(parent_id, beachclub_id){
                                     }
                                     html+='</a>' +
                                     '</li>' +
-                                    '<li class="promos"><a class="icon_promos" href="#" data-icon="none" data-iconpos="top">Promos</a></li>' +
+                                    '<li class="promos"><a class="icon_promos" href="'+href+'" data-icon="none" data-iconpos="top">Promos</a><span class="numero">'+numero_promos+'</span></li>' +
                                     '<li class="alertas"><a class="icon_alertas" href="#" data-icon="none" data-iconpos="top">Alerta</a></li>' +
                                 '</ul>' +
                             '</div>' +

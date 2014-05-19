@@ -5,5 +5,5 @@
 .ui-datepicker .ui-datepicker-header .ui-datepicker-title{color: #fc039b;text-shadow: 0 0 0;}
 .ui-datepicker .ui-datepicker-calendar thead th{border-top: 2px solid #f51fa2;border-bottom: 2px solid #f51fa2;background: url("../img/bg_fondo_calendario.png") repeat scroll 0 0 transparent;border-left: 0; border-right: 0; text-shadow: 0 0 0;color: #fff;}
 .ui-datepicker .ui-datepicker-calendar tbody td{background: transparent;border: none;}
-.ui-datepicker .ui-datepicker-calendar tbody td a{background: transparent;text-shadow: 0 0 0;color: #fff;}
-.ui-datepicker .ui-datepicker-calendar tbody td a.ui-btn-active{background-color: #fc039b;border-radius: 20px;}
+.ui-datepicker .ui-datepicker-calendar tbody td a{background: transparent;text-shadow: 0 0 0;color: #fff;font-family: sans-serif;}
+.ui-datepicker .ui-datepicker-calendar tbody td a.ui-state-active{background-color: #fc039b;border-radius: 20px;padding: 8px 6px;width: 1.4em;margin: 0 auto;text-align: center;}

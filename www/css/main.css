@@ -60,7 +60,7 @@
 .right{float: right;}
 .inline{display: inline !important;}
 .clear{clear: both;}
-.empty{font-family: HelveticaLTStdLight;text-align: center;color: #fc049b;text-shadow: 1px 1px 1px #000;font-size: 17px;font-weight: bold;padding: 10px 0;}
+.empty{font-family: NeogreyMedium;text-align: center;color: #fc049b;text-shadow: 1px 1px 1px #000;font-size: 15px;font-weight: bold;padding: 10px 0;}
 .ui-page.custom{background: url("../img/bg_wrapper.jpg") repeat-y scroll 0 0 transparent;background-size: 100% 100%;}
 .ui-page.custom .ui-page{background: transparent;}
 
@@ -87,8 +87,8 @@
 /* MENU OPTION */
 .ui-controlgroup.custom{margin: 0;}
 .ui-controlgroup.custom .ui-controlgroup-controls{overflow: hidden;}
-.ui-controlgroup.custom .ui-controlgroup-controls a{font-family: NeogreyMedium;color: #ffffff;font-size: 16px;font-weight: normal;text-shadow: 0 0 0;}
-.ui-controlgroup.custom .ui-controlgroup-controls .ui-btn-icon-top{padding-top: 5.0em;padding-left: 0;padding-right: 0;padding-bottom:0;width: 93px;border: none;margin-top: -5px;background: url("../img/bg_item_menu.png") no-repeat scroll left bottom transparent;background-size: 110px;}
+.ui-controlgroup.custom .ui-controlgroup-controls a{font-family: NeogreyMedium;color: #ffffff;font-size: 15px;font-weight: normal;text-shadow: 0 0 0;}
+.ui-controlgroup.custom .ui-controlgroup-controls .ui-btn-icon-top{padding-top: 5.5em;padding-left: 0;padding-right: 0;padding-bottom:0;width: 93px;border: none;margin-top: -5px;background: url("../img/bg_item_menu.png") no-repeat scroll left bottom transparent;background-size: 110px;}
 .ui-controlgroup.custom .ui-controlgroup-controls .ui-btn-icon-top:after{left: 45%;margin-left: -30px;width: 70px;height: 70px;}
 .ui-controlgroup.custom .ui-controlgroup-controls .ui-btn-icon-top.icon_clubs:after{background: url("../img/bg_clubs.png") no-repeat scroll 0 0 transparent;background-size: 70px;background-position: 0;}
 .ui-controlgroup.custom .ui-controlgroup-controls .ui-btn-icon-top.icon_sesiones:after{background: url("../img/bg_sesiones.png") no-repeat scroll 0 0 transparent;background-size: 70px;background-position: 0;}
@@ -146,11 +146,13 @@
 .ui-navbar .nav_options .ui-btn-icon-top.icon_sesiones:after{background: url("../img/bg_sesiones.png") no-repeat scroll 0 0 transparent;background-size: 40px;background-position: 0;}
 .ui-navbar .nav_options .ui-btn-icon-top.icon_alertas:after{background: url("../img/bg_alertas.png") no-repeat scroll 0 0 transparent;background-size: 40px;background-position: 0;}
 .ui-navbar .nav_options .ui-btn-icon-top.icon_promos:after{background: url("../img/bg_promos.png") no-repeat scroll 0 0 transparent;background-size: 40px;background-position: 0;}
+.ui-navbar .nav_options li{position: relative;}
+.ui-navbar .nav_options li span.numero{position: absolute;top: 0;right: 10px;color: #fc027e;text-shadow: 1px 1px 1px#000;}
 
 /* CONTENT OPTIONS */
 .content_options{padding: 0 15px;}
 .content_options.lista a{padding-top: 4px;padding-bottom: 4px;padding-right: 10px;}
-.content_options.lista a span.bg{background: url("../img/bg_arrow_prev.png") no-repeat scroll right center transparent;background-size: 45px;}
+.content_options.lista a span.bg{background: url("../img/bg_arrow_prev.png") no-repeat scroll right center transparent;background-size: 45px;min-height: 50px;}
 .content_options.lista a span.bg.title{white-space: normal;padding-right: 35px;height: 34px;padding-top: 8px;padding-bottom: 8px;min-height: 34px;overflow: hidden;line-height: 40px;}
 .content_options.lista span{display: block;font-size: 17px;line-height: 18px;text-align: left;text-shadow: 0px 0px 0px;font-family: NeuropoliticalRg-Regular;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
 .content_options.lista span.title{width: 85%;}
@@ -214,7 +216,7 @@
 /* CALENDARIO */
 .contenedor_calendario div.hasDatepicker{margin: 0 0 4px 0;}
 #tickets.content_options.lista{padding: 0 5px;}
-#tickets.content_options.lista a{margin: 5px 0;}
+#tickets.content_options.lista a{margin: 5px 0;min-height: 50px;}
 
 /* TICKET DETALLE */
 .ticket_detalle{margin-top: 60px !important;overflow: hidden;}
