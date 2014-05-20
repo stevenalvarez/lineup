@@ -313,3 +313,76 @@ function getClubsAll(parent_id,filtro_id){
         }
 	});
 }
+
+function GetMenuFooter(parent_id,filtro_id){
+    var parent = $("#"+parent_id);
+    var container = parent.find(".ui-footer");
+    container.find('li').remove();
+    
+    container.hide();
+    
+	$.getJSON(BASE_URL_APP + 'sistemas/mobileGetMenuFooter', function(data) {
+        
+        if(data.items){
+            showLoading();
+            
+    		items = data.items;
+            if(items.length){
+                var html = '<div data-role="navbar" data-corners="false"><ul class="nav-custom alertas">';
+        		$.each(items, function(index, item) {
+        		    var title = IDIOMA == "castellano" ? item.Sistema.title_esp : item.Sistema.title_eng;
+                    var imagen = item.Sistema.slug+".png";
+        		    html+= '<li><a id="alerta_'+item.Sistema.id+'" lang="'+imagen+'" href="#'+item.Sistema.id+'" data-icon="none" data-iconpos="top">'+title+'</a></li>';
+        		});
+                html+='</ul></div>';
+                container.find(".ui-navbar").remove();
+                container.append(html);
+                //refresh
+        		container.trigger("create");
+                
+                //colocamos su background
+                container.find("a").each(function( index ) {
+                    var cls = "itemalertasall"+index;
+                    $(this).addClass(cls);
+                    $('head').append("<style>.ui-btn-icon-top."+cls+":after{ background: url(img/bg_"+$(this).attr("lang")+") no-repeat scroll 0 0 transparent; }</style>");
+                });
+                
+                var page = $("#" + $.mobile.activePage.attr('id'));
+                page.find(".alertas").find("a").unbind("touchstart").bind("touchstart", function(){
+                    page.find(".alertas").find("a").removeClass("ui-btn-active-a");
+                    $(this).addClass("ui-btn-active-a");
+                    var alerta_id = $(this).attr("href");
+                    alerta_id = alerta_id.substring(1,alerta_id.length);
+                    
+                    //mostramos u ocultamos los items segun su zona
+                    var container_ul = page.find(".ui-listview");
+                    container_ul.css("opacity","0.5");
+                    container_ul.find("li").hide();
+                    container_ul.find("li.alerta_"+alerta_id).show();
+                    container_ul.animate({opacity: 1}, 500 );
+                });
+                
+                hideLoading();
+                
+                //numero de alertas
+                var numero_alertas = 4; //container.find(".nav-custom.alertas").find("li").length;
+                
+                //aplicamos el slider carrousel
+                container.promise().done(function() {
+                    //iniciamos el carrousel
+                    container.find(".nav-custom.alertas").owlCarousel({
+                        pagination : false,
+                        items : numero_alertas,
+                        itemsMobile : [479,numero_alertas],
+                        responsive: false,
+                    });
+                    container.find(".nav-custom.alertas").find("li").css("width","100%");
+                    container.find(".nav-custom.alertas").find(".owl-wrapper-outer").css("overflow","inherit");
+                });
+                
+                container.find(".nav-custom.alertas").find("li a#alerta_"+filtro_id).addClass("ui-btn-active-a");
+                container.fadeIn("slow");
+            }
+        }
+	});
+}

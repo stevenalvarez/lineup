@@ -165,6 +165,15 @@ $(document).on("pagebeforeshow","#ticket_descripcion",function(event){
     getTicketSesionBy(page_id, ticket_id);
 });
 
+//ALERTAS
+$(document).on("pagebeforeshow","#alertas",function(event){
+    var page_id = $(this).attr("id");
+    var alerta_id = getUrlVars()["id"];
+    if(alerta_id == undefined) alerta_id = 0;    
+    GetMenuFooter(page_id,alerta_id);
+    getAlertas(page_id,alerta_id);
+});
+
 //GOOGLE MAP
 $(document).on('pagebeforeshow',"#google_map", function(event, ui) {
     var page_id = $(this).attr("id");
@@ -1208,7 +1217,7 @@ function getFestivalBy(parent_id, festival_id){
                     var latitud = item.Festival.latitud;
                     var longitud = item.Festival.longitud;
                     
-                    var html='<div class="container custom" style="background: url('+BASE_URL_APP+'img/festivals/'+imagen_fondo+');background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
+                    var html='<div class="container custom2" style="background: url('+BASE_URL_APP+'img/festivals/'+imagen_fondo+');background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
                         '<div class="content_top">' + 
                             '<div class="imagen left">' +
                                 '<img src="'+BASE_URL_APP+'img/festivals/' + imagen_redonda + '" />' +
@@ -1234,7 +1243,6 @@ function getFestivalBy(parent_id, festival_id){
                                     }
                                     html+='</a>' +
                                     '</li>' +
-                                    '<li class="tickets"><a class="icon_tickets" href="#" data-icon="none" data-iconpos="top">Tickets</a></li>' +
                                     '<li class="alertas"><a class="icon_alertas" href="#" data-icon="none" data-iconpos="top">Alerta</a></li>' +
                                 '</ul>' +
                             '</div>' +
@@ -1379,7 +1387,7 @@ function getDjBy(parent_id, dj_id){
                     var imagen_fondo = item.Dj.imagen_fondo!=""?item.Dj.imagen_fondo:"default.png";
                     var descripcion = IDIOMA == "castellano" ? item.Dj.descripcion_esp : item.Dj.descripcion_eng;
                     
-                    var html='<div class="container custom2" style="background: url('+BASE_URL_APP+'img/djs/'+imagen_fondo+');background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
+                    var html='<div class="container custom3" style="background: url('+BASE_URL_APP+'img/djs/'+imagen_fondo+');background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
                         '<div class="content_top">' + 
                             '<div class="imagen left">' +
                                 '<img src="'+BASE_URL_APP+'img/djs/' + imagen_redonda + '" />' +
@@ -1396,7 +1404,6 @@ function getDjBy(parent_id, dj_id){
                         '<div class="content_bottom">' +
                             '<div data-role="navbar" data-corners="false">'+
                                 '<ul class="nav_options">' +
-                                    '<li class="tickets"><a class="icon_tickets" href="#" data-icon="none" data-iconpos="top">Tickets</a></li>' +
                                     '<li class="alertas"><a class="icon_alertas" href="#" data-icon="none" data-iconpos="top">Alerta</a></li>' +
                                 '</ul>' +
                             '</div>' +
