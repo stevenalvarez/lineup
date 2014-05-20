@@ -153,6 +153,9 @@ $(document).on("pagebeforeshow","#calendario",function(event){
     $( ".hasDatepicker" ).datepicker( "option", "onSelect", function(value, date){
         ajaxCalendario(value,0,0);
     });
+    
+    //scroll
+    scrollToList(parent,parent);
 });
 
 //TICKET DESCRIPCION
@@ -1681,7 +1684,7 @@ function getTicketSesionBy(parent_id, ticket_id){
                     });
                     var imagen_redonda = item.Sesion.imagen_redonda!=""?item.Sesion.imagen_redonda:"default.png";
                     var precio = item.Ticket.precio != "" ? item.Ticket.precio : 0;
-                    var fecha_ini = item.Ticket.fecha_ini;
+                    var fecha_ini = item.Ticket.fecha_ini_virtual;
                     
                     container.find("h3").html(title);
                     container.find("img").attr("src",BASE_URL_APP+'img/sesions/'+imagen_redonda);

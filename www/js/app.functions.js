@@ -139,10 +139,13 @@ function animation(container,parent){
 }
 
 function scrollToList(container,parent){
-    setTimeout(function(){
-        parent.find(".ui-content").height(parent.attr("lang")+"px");
-        parent.find(".ui-content").niceScroll({touchbehavior:true});
-    },200);
+    INTERVAL = setInterval(function(){
+        if(parent.attr("lang") != undefined){
+            parent.find(".ui-content").height(parent.attr("lang")+"px");
+            parent.find(".ui-content").niceScroll({touchbehavior:true});            
+            clearInterval(INTERVAL);
+        }
+    },100);
 }
 
 /*ajax para sacar las sesiones y mostralos*/
