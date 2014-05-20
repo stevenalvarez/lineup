@@ -685,7 +685,7 @@ $.ui.plugin = {
 
 			page.css( "min-height", height - ( pageOuterHeight - pageHeight ) );
             page.attr( "lang", height - ( pageOuterHeight - pageHeight ) );
-            page.find(".container").css("min-height", height - ( pageOuterHeight - pageHeight )+2);
+            page.find(".container").css("min-height", height - ( pageOuterHeight - pageHeight ));
 		},
 
 		loading: function() {

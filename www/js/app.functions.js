@@ -137,7 +137,7 @@ function animation(container,parent){
             $(this).find(".container").css("overflow","visible");
             $(this).find(".container").css("overflow-x","hidden");
         });
-    },200);
+    },300);
 }
 
 function scrollToList(container,parent){
