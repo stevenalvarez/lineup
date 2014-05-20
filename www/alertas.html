@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+    
+    <!-- Alertas -->
+    
+    <div data-role="page" id="alertas" data-theme="a">
+    
+    	<div data-role="header" data-tap-toggle="false" data-position="fixed" class="navegacion">
+            <ul>
+                <li class="back">
+                    <a class="volver" href="#" data-role="button" data-rel="back">Volver</a>
+                </li>
+                <li class="page">
+                    <h2>&nbsp;</h2>
+                </li>
+                <li class="setting">
+                    <a class="como_funciona" href="#info_como_funciona"  data-role="button" data-rel="popup" data-position-to="window" data-transition="pop">como funciona</a>
+                </li>
+            </ul>
+    	</div><!-- /header -->
+    
+    	<div data-role="content">
+            <ul class="ui-listview">
+            </ul>
+    	</div><!-- /content -->
+    
+    	<div data-role="footer" data-tap-toggle="false" data-position="fixed">
+           <div data-role="navbar" data-corners="false">
+                <ul class="nav-custom clubs">
+                    <li><a href="#3" class="f1" data-icon="none" data-iconpos="top">Clubs</a></li>
+                    <li><a href="#1" class="f2" data-icon="none" data-iconpos="top">Sesiones</a></li>
+                    <li><a href="#3" class="f3" data-icon="none" data-iconpos="top">Life</a></li>
+                    <li><a href="#1" class="f4" data-icon="none" data-iconpos="top">BeachC.</a></li>
+                    <li><a href="#1" class="f4" data-icon="none" data-iconpos="top">Festivales</a></li>
+                    <li><a href="#1" class="f4" data-icon="none" data-iconpos="top">Djs</a></li>
+                    <li><a href="#1" class="f4" data-icon="none" data-iconpos="top">Promos</a></li>
+                </ul>
+            </div>
+    	</div><!-- /footer -->
+        
+        <!-- popup - info -->
+        <!-- comienza -->
+        <div data-role="popup" data-theme="c" data-overlay-theme="a">
+            <div data-role="popup" id="info_como_funciona" data-theme="a" class="ui-corner-all" data-overlay-theme="b">
+                <a href="#" data-rel="back" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right close">Close</a>
+                <div class="container_popup">
+                    <div class="castellano" style="display: none;">&nbsp;</div>
+                    <div class="english" style="display: none;">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+        <!-- termina -->        
+    
+    </div><!-- /page -->
+    
+    </body>
+</html>

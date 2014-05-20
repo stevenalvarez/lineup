@@ -133,7 +133,7 @@ function animation(container,parent){
     setTimeout(function(){
         container.find(".owl-item").each(function(i,item){
             $(this).find(".container").height($(this).height());
-            $(this).find(".container").niceScroll({touchbehavior:true});
+            //$(this).find(".container").niceScroll({touchbehavior:true});
         });
     },200);
 }
@@ -142,7 +142,7 @@ function scrollToList(container,parent){
     INTERVAL = setInterval(function(){
         if(parent.attr("lang") != undefined){
             parent.find(".ui-content").height(parent.attr("lang")+"px");
-            parent.find(".ui-content").niceScroll({touchbehavior:true});            
+            //parent.find(".ui-content").niceScroll({touchbehavior:true});            
             clearInterval(INTERVAL);
         }
     },100);
