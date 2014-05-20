@@ -65,6 +65,7 @@
 .ui-page.custom .ui-page{background: transparent;}
 
 /* PAGE */
+/*.ui-page-theme-a .ui-btn.ui-btn-active, */.ui-page-theme-a .ui-btn:hover{background: url("../img/bg_button.png") repeat scroll 0 0 transparent;color: #fc027e;border: 1px solid #4f4f4f;}
 .ui-page{font-family: NeogreyMedium;}
 .ui-page p.text{text-align: center;text-shadow: 0 0 0;color: #fff;font-weight: normal;font-size: 21px;letter-spacing: 1px;}
 .ui-page .ui-header{z-index: 10;}
