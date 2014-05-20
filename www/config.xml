@@ -56,7 +56,7 @@
     <icon src="res/icon/ios/icon-76@2x.png" gap:platform="ios" width="152" height="152" />
     
     <gap:splash src="res/screen/ios/screen-iphone-portrait.png" />
-    <gap:splash src="res/screen/ios/screen-iphone-portrait.png" gap:platform="ios" width="320" height="480" />
+    <gap:splash src="res/screen/ios/screen-iphone-portrait.png" gap:platform="ios" width="320" height="500" />
     <gap:splash src="res/screen/ios/Default-568h@2x.png" gap:platform="ios" width="640" height="1136" />
         
     <!-- inappbrowser -->
