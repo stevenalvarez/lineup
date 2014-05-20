@@ -127,7 +127,22 @@ function animation(container,parent){
                 element.parent().parent().parent().find(".content_bottom").fadeOut();
             });
         }
-    });    
+    });
+    
+    //scroll
+    setTimeout(function(){
+        container.find(".owl-item").each(function(i,item){
+            $(this).find(".container").height($(this).height());
+            $(this).find(".container").niceScroll({touchbehavior:true});
+        });
+    },200);
+}
+
+function scrollToList(container,parent){
+    setTimeout(function(){
+        parent.find(".ui-content").height(parent.attr("lang")+"px");
+        parent.find(".ui-content").niceScroll({touchbehavior:true});
+    },200);
 }
 
 /*ajax para sacar las sesiones y mostralos*/

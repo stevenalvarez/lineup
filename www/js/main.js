@@ -18,13 +18,6 @@ $(document).bind('pageinit', function(event){
 
 $(document).bind('pageshow', function(event, ui) {
     var page_id = event.target.id;
-    /*
-    setTimeout(function(){
-        $("#"+page_id).height($("#"+page_id).attr("lang")+"px");
-        $("#"+page_id).niceScroll({touchbehavior:true});
-    },500);
-    */
-    
     //inicializamos la ubicacion 
     getLocationGPS();
 });
@@ -727,6 +720,8 @@ function getPubs(parent_id){
                         $('head').append("<style>.ui-btn-icon-left."+cls+":after{ background: url("+BASE_URL_APP+'/img/pubs/'+$(this).attr("lang")+") no-repeat scroll 0 0 transparent; }</style>");
                     });
                     
+                    scrollToList(container,parent);
+                    
                     hideLoading();
                     parent.find(".ui-content").fadeIn("slow");
                 });
@@ -942,6 +937,8 @@ function getBeachclubs(parent_id){
                         $('head').append("<style>.ui-btn-icon-left."+cls+":after{ background: url("+BASE_URL_APP+'/img/beachclubs/'+$(this).attr("lang")+") no-repeat scroll 0 0 transparent; }</style>");
                     });
                     
+                    scrollToList(container,parent);
+                    
                     hideLoading();
                     parent.find(".ui-content").fadeIn("slow");
                 });
@@ -1156,6 +1153,8 @@ function getFestivales(parent_id){
                         $('head').append("<style>.ui-btn-icon-left."+cls+":after{ background: url("+BASE_URL_APP+'/img/festivals/'+$(this).attr("lang")+") no-repeat scroll 0 0 transparent; }</style>");
                     });
                     
+                    scrollToList(container,parent);
+                    
                     hideLoading();
                     parent.find(".ui-content").fadeIn("slow");
                 });
@@ -1330,6 +1329,8 @@ function getDjs(parent_id){
                         $('head').append("<style>.ui-btn-icon-left."+cls+":after{ background: url("+BASE_URL_APP+'/img/djs/'+$(this).attr("lang")+") no-repeat scroll 0 0 transparent; }</style>");
                     });
                     
+                    scrollToList(container,parent);
+                    
                     hideLoading();
                     parent.find(".ui-content").fadeIn("slow");
                 });
@@ -1503,6 +1504,8 @@ function getPromociones(parent_id){
                         $(this).addClass(cls);
                         $('head').append("<style>.ui-btn-icon-left."+cls+":after{ background: url("+BASE_URL_APP+'/img/promos/'+$(this).attr("lang")+") no-repeat scroll 0 0 transparent; }</style>");
                     });
+                    
+                    scrollToList(container,parent);
                     
                     hideLoading();
                     parent.find(".ui-content").fadeIn("slow");
