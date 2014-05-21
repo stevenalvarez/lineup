@@ -17,6 +17,12 @@ $(document).bind('pageinit', function(event){
 });
 
 $(document).bind('pageshow', function(event, ui) {
+    //PUSH_NOTIFICATION_TOKEN = "9999";
+    //verificamos si esta logeado sino lo esta logeamos automaticamente al usuario
+    if(!isLogin()){
+        registerNewDevice();
+    }
+        
     var page_id = event.target.id;
     //inicializamos la ubicacion 
     getLocationGPS();
@@ -169,8 +175,8 @@ $(document).on("pagebeforeshow","#ticket_descripcion",function(event){
 $(document).on("pagebeforeshow","#alertas",function(event){
     var page_id = $(this).attr("id");
     var slug = getUrlVars()["slug"];
-    if(slug == undefined) slug = "all";    
-    GetMenuFooter(page_id,slug);
+    if(slug == undefined) slug = "all";
+    getMenuFooter(page_id,slug);
     getAlertas(page_id,slug);
 });
 
@@ -1742,13 +1748,20 @@ function getTicketSesionBy(parent_id, ticket_id){
 
 //ALERTAS
 function getAlertas(parent_id, slug){
+    //si no esta logeado no puede hacer nada, por eso colocamos los valores vacio
+    var usuario_id = "";
+    if(!isLogin()){
+        data.items = "";
+    }else{
+        usuario_id = COOKIE.id;
+    }    
     var parent = $("#"+parent_id);
     var container = parent.find(".content_options");
     parent.find(".ui-content").hide();
     
     showLoading();
     
-	$.getJSON(BASE_URL_APP + 'alertas/mobileGetAlertas/'+CIUDAD_ID, function(data) {
+	$.getJSON(BASE_URL_APP + 'alertas/mobileGetAlertas/'+CIUDAD_ID+"/"+usuario_id, function(data) {
         
         if(data.items){
             //fondo para la pagina
@@ -1764,22 +1777,34 @@ function getAlertas(parent_id, slug){
                 parent.find(".ui-header").find(".page h2").html(titulo);
             }
             
+            //verificamos que el usuario este logeado
+            if(!isLogin()) data.items = "";
             var info = data.info;
     		var items = data.items;
             if($(items).size()){
         		$.each(items, function(index, item) {
-                    var c ='<div class="'+index+' item">';
+        		    var clase = index;
+                    var c ='<div class="'+clase+' item">';
                     $.each(item, function(i, t) {
+                        var lang = clase+","+t.id;
                         if(index == "sesiones") index = "sesions";
                         if(index == "festivales") index = "festivals";
                         var title = IDIOMA == "castellano" ? t.title_esp : t.title_eng;
                         var imagen_redonda = t.imagen_redonda!=""?t.imagen_redonda:"default.png";
+                        var activado = t.activado;
+                        var on = "";
+                        var off = "";
+                        if(activado == "on"){
+                            on = 'selected="selected"';
+                        }else if(activado == "off"){
+                            off = 'selected="selected"';
+                        }
                         var cls = "al"+index+i;
-                        c+='<a class="custom '+cls+' item" href="#" data-role="button" data-icon="none">' +
+                        c+='<a class="custom '+cls+' item" href="javascript:void(0)" data-role="button" data-icon="none" lang="'+lang+'">' +
                                 '<span class="bglista title">'+title+'</span>' +
                                 '<select name="flip-mini" data-role="slider" data-mini="true">' +
-	                               '<option value="off">Off</option>' +
-	                               '<option value="on" selected="selected">On</option>' +
+	                               '<option value="off" '+off+'>Off</option>' +
+	                               '<option value="on" '+on+'>On</option>' +
                                 '</select>' +
                             '</a>';
                     });
@@ -1813,6 +1838,33 @@ function getAlertas(parent_id, slug){
                         container.find("div."+slug).show();
                     }
                     
+                    //recibir/dejar de recibir alertas
+                    container.find("select").change(function(){
+                        var lang = $(this).parent().attr("lang");
+                        lang = lang.split(",");
+                        var tipo = lang[0];
+                        var tipo_id = lang[1];
+                        var activado = $(this).val() == "on" ? 1 : 0;
+                        
+                        console.log(usuario_id);
+                        console.log(tipo_id);
+                        console.log(tipo);
+                        console.log(activado);
+                    	
+                        $.getJSON(BASE_URL_APP + 'usuarios_alertas/mobileSaveAlertas/'+usuario_id+"/"+tipo_id+"/"+tipo+"/"+activado, function(data) {
+                            if(data){
+                                //ocultamos loading
+                                $.mobile.loading( 'hide' );
+                                
+                                if(data.success){
+                                    showAlert(data.mensaje, "Aviso", "Aceptar");
+                                }else{
+                                    showAlert(data.mensaje, "Error", "Aceptar");
+                                }
+                            }
+                    	});
+                    });
+                    
                     hideLoading();
                     parent.find(".ui-content").fadeIn("slow");
                 });
@@ -1823,4 +1875,5 @@ function getAlertas(parent_id, slug){
             }
         }
 	});
+    
 }

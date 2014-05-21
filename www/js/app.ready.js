@@ -2,10 +2,17 @@
 var APP_INITIALIZED = false;
 var LATITUDE = 0;
 var LONGITUDE = 0;
+var REGISTER_PUSH_NOTIFICATION_TOKEN = false;
 var PUSH_NOTIFICATION_REGISTER = '';
-var PUSH_NOTIFICATION_TOKEN = 0;
+var PUSH_NOTIFICATION_TOKEN = -1;
 var IDIOMA = 'castellano';
 var CIUDAD_ID = 1; //ibiza;
+var USUARIO = "";
+
+/* notificacion */
+var HAVE_NOTIFICATION = false;
+var TYPE_NOTIFICATION = '';
+var EVENT = '';
 
 var app = {
     // Application Constructor
@@ -27,7 +34,8 @@ var app = {
         app.receivedEvent('deviceready');
     },
     // Update DOM on a Received Event
-    receivedEvent: function(id) {        
+    receivedEvent: function(id) {
+        
         //Inicializamos el pushNotification
         var pushNotification = window.plugins.pushNotification;
         if (device.platform == 'android' || device.platform == 'Android') {
@@ -37,7 +45,7 @@ var app = {
         else {
             //alert("Register called ios");
             pushNotification.register(this.tokenHandler,this.errorHandler,{"badge":"true","sound":"true","alert":"true","ecb":"app.onNotificationAPN"});
-        }
+        }        
     },
     // result contains any message sent from the plugin call
     successHandler: function(result) {
@@ -51,8 +59,12 @@ var app = {
         PUSH_NOTIFICATION_REGISTER = 'ios';
         
         //solo si no se lleno antes con el token llenamos, porque viene otro tipo de mensajes igual
-        if(PUSH_NOTIFICATION_TOKEN == 0){
+        if(PUSH_NOTIFICATION_TOKEN == -1){
             PUSH_NOTIFICATION_TOKEN = result;
+            //mandamos a guardar el token para las notificaciones solo si no se guardo antes
+            if(!REGISTER_PUSH_NOTIFICATION_TOKEN){
+                registerNewDevice();
+            }
         }
         //console.log("Regid " + result);
         //alert('Callback Success! Result = '+result);
@@ -67,13 +79,18 @@ var app = {
                     PUSH_NOTIFICATION_TOKEN = e.regid;
                     //console.log("Regid " + e.regid);
                     //alert('registration id = '+e.regid);
+                    
+                    //mandamos a guardar el token para las notificaciones solo si no se guardo antes
+                    if(!REGISTER_PUSH_NOTIFICATION_TOKEN){
+                        registerNewDevice();
+                    }
                 }
             break;
  
             case 'message':
               // this is the actual push notification. its format depends on the data model from the push server
               //alert('message = '+e.message+' msgcnt = '+e.msgcnt);
-                if(APP_INITIALIZED){
+                if(REGISTER_PUSH_NOTIFICATION_TOKEN){
                     showNotification(e,'android');
                 }else{
                     HAVE_NOTIFICATION = true;
@@ -95,7 +112,7 @@ var app = {
         var pushNotification = window.plugins.pushNotification;
         
         if (event.alert) {
-            if(APP_INITIALIZED){
+            if(REGISTER_PUSH_NOTIFICATION_TOKEN){
                 showNotification(event,'ios');
             }else{
                 HAVE_NOTIFICATION = true;

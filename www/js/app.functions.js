@@ -32,6 +32,29 @@ function callbackOrientationChange(orientation, page_id){
     
 }
 
+//registramos el dispositivo solo si no fue registrado
+function registerNewDevice(){
+    
+    $.ajax({
+        data: {device_plataforma:device.platform, device_version:device.version, device_uuid:device.uuid, token_notificacion:PUSH_NOTIFICATION_TOKEN},
+        type: "POST",
+        url: BASE_URL_APP + 'usuarios/mobileNewRegistro',
+        dataType: "html",
+        success: function(data){
+            data = $.parseJSON(data);
+            var success = data.success;
+            if(success){
+                //una vez creado guardamos en cookies su datos importantes
+                createCookie("user", JSON.stringify(data.usuario.Usuario), 365);
+                REGISTER_PUSH_NOTIFICATION_TOKEN = true;
+            }else if(data.usuario != ""){
+                //si ya se registro con anterioridad guardamos los datos en la cookie
+                createCookie("user", JSON.stringify(data.usuario.Usuario), 365);
+            }
+        }
+    });
+}
+
 //MOSTRAMOS EL GOOGLE MAP DEL LOCAL
 function showGoogleMap(parent_id, latitud, longitud) {
     var parent = $("#"+parent_id);
@@ -314,7 +337,7 @@ function getClubsAll(parent_id,filtro_id){
 	});
 }
 
-function GetMenuFooter(parent_id,filtro_id){
+function getMenuFooter(parent_id,filtro_id){
     var parent = $("#"+parent_id);
     var container = parent.find(".ui-footer");
     container.find('li').remove();
@@ -325,6 +348,12 @@ function GetMenuFooter(parent_id,filtro_id){
         
         if(data.items){
             showLoading();
+            
+            //si no esta logeado no puede hacer nada, por eso colocamos los valores vacio
+            var usuario_id = "";
+            if(!isLogin()){
+                data.items = "";
+            }
             
     		items = data.items;
             if(items.length){
