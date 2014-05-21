@@ -26,6 +26,14 @@ $(document).bind('pageshow', function(event, ui) {
     var page_id = event.target.id;
     //inicializamos la ubicacion 
     getLocationGPS();
+    
+    //si tiene una notificacion pendiente la mostramos
+    if(HAVE_NOTIFICATION){
+        setTimeout(function(){
+            showNotification(EVENT, TYPE_NOTIFICATION);
+        },800);
+        HAVE_NOTIFICATION = false;
+    }
 });
 
 /************************************ EVENTOS *******************************************************/
@@ -1750,11 +1758,7 @@ function getTicketSesionBy(parent_id, ticket_id){
 function getAlertas(parent_id, slug){
     //si no esta logeado no puede hacer nada, por eso colocamos los valores vacio
     var usuario_id = "";
-    if(!isLogin()){
-        data.items = "";
-    }else{
-        usuario_id = COOKIE.id;
-    }    
+    if(isLogin()) usuario_id = COOKIE.id;
     var parent = $("#"+parent_id);
     var container = parent.find(".content_options");
     parent.find(".ui-content").hide();

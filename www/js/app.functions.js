@@ -50,6 +50,7 @@ function registerNewDevice(){
             }else if(data.usuario != ""){
                 //si ya se registro con anterioridad guardamos los datos en la cookie
                 createCookie("user", JSON.stringify(data.usuario.Usuario), 365);
+                REGISTER_PUSH_NOTIFICATION_TOKEN = true;
             }
         }
     });
@@ -102,24 +103,49 @@ function showNotification(event, type){
 //redirectToPage
 function redirectToPage(seccion, id){
     var page = "";
-    if(seccion == "local"){
-        page = "#guia"
+    if(seccion == "clubs"){
+        page = "clubs.html"
         if(id != ""){
-            page = "local_descripcion.html?id="+id;
+            page = "club_descripcion.html?id="+id;
         }        
-    }else if(seccion == "plan"){
-        page = "planes.html";
+    }else if(seccion == "sesiones"){
+        page = "sesiones.html";
         if(id != ""){
-            page = "plan_descripcion.html?id="+id;
+            page = "sesion_descripcion.html?id="+id;
         }
-    }else if(seccion == "recompensa"){
-        page = "#recompesas";
+    }else if(seccion == "pubs"){
+        page = "pubs.html";
         if(id != ""){
-            page = "recompensa_descripcion.html?id="+id;
+            page = "pub_descripcion.html?id="+id;
+        }
+    }else if(seccion == "beachclubs"){
+        page = "beachclubs.html";
+        if(id != ""){
+            page = "beachclubs_descripcion.html?id="+id;
+        }
+    }else if(seccion == "festivales"){
+        page = "festivales.html";
+        if(id != ""){
+            page = "festivales_descripcion.html?id="+id;
+        }
+    }else if(seccion == "djs"){
+        page = "djs.html";
+        if(id != ""){
+            page = "dj_descripcion.html?id="+id;
+        }
+    }else if(seccion == "tickets"){
+        page = "calendario.html";
+        if(id != ""){
+            page = "ticket_descripcion.html?ticket_id="+id;
+        }
+    }else if(seccion == "promos"){
+        page = "promociones.html";
+        if(id != ""){
+            page = "promocion_descripcion.html?id="+id;
         }
     }
     
-    if(seccion != ""){
+    if(seccion != "" && page != ""){
         setTimeout(function(){
             $.mobile.changePage(page);
         },400);
