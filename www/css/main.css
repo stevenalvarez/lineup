@@ -154,7 +154,7 @@
 .content_options{padding: 0 15px;}
 .content_options.lista a{padding-top: 4px;padding-bottom: 4px;padding-right: 10px;}
 .content_options.lista a span.bg{background: url("../img/bg_arrow_prev.png") no-repeat scroll right center transparent;background-size: 45px;min-height: 50px;}
-.content_options.lista a span.bg.title{white-space: normal;padding-right: 35px;height: 34px;padding-top: 8px;padding-bottom: 8px;min-height: 34px;overflow: hidden;line-height: 40px;}
+.content_options.lista a span.bg.title, .content_options.lista a span.bglista.title{white-space: normal;padding-right: 35px;height: 34px;padding-top: 8px;padding-bottom: 8px;min-height: 34px;overflow: hidden;line-height: 40px;}
 .content_options.lista span{display: block;font-size: 17px;line-height: 18px;text-align: left;text-shadow: 0px 0px 0px;font-family: NeuropoliticalRg-Regular;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
 .content_options.lista span.title{width: 85%;}
 .content_options.lista span.subtitle{font-size: 14px;color: #fff;width: 80%;font-family: NeogreyRegular;}
@@ -162,6 +162,8 @@
 .content_options.lista span.euro{font-size: 17px;padding-left: 16px;background: url("../img/bg_euro.png") no-repeat scroll left center transparent;background-size: 16px;margin-left: 15px;font-family: HelveticaLTStdLight;color: #fc039b;}
 .content_options.lista .ui-btn-icon-left.pub1:after{background: url("../img/pubs/item.png") no-repeat scroll 0 0 transparent;background-size: 55px;background-position: 50%;}
 .ui-btn-icon-left.item:after{background-size: 55px !important;background-position: 50% !important;}
+
+.content_options.lista a span.bglista{float: left;width: 60%;padding-right: 0px !important;}
 
 /* VIEW */
 #view .texto {color: #000;text-shadow: 0 0 0;text-align: center;border-bottom: 1px solid #e3e3e3;font-size: 18px;padding: 15px 20px;letter-spacing: -1px;font-family:'century_gothicregular';line-height: 23px;}
@@ -183,8 +185,10 @@
 #clubs .ui-listview li img{width: 220px;}
 
 /* DJS */
-
-#djs .content_options.lista a{margin: 4px 0;}
+#djs .content_options.lista a.item, #alertas .content_options.lista a.item{margin: 4px 0;}
+#alertas .content_options.lista .ui-slider{top: 2px !important;height: 34px !important;border-radius: 20px;border: 1px solid #aaa;}
+#alertas .ui-slider-switch.ui-mini .ui-slider-label{line-height: 35px;text-align: inherit;font-family: inherit;}
+#alertas .ui-slider-switch.ui-mini .ui-slider-handle{margin-top: 3px;border-radius: 20px;}
 
 /* CONTENT DESCRIPCION */
 .ui-content .content_top{padding: 40px 0 0;overflow: hidden;margin: 0 auto;width: 240px;}

@@ -168,10 +168,10 @@ $(document).on("pagebeforeshow","#ticket_descripcion",function(event){
 //ALERTAS
 $(document).on("pagebeforeshow","#alertas",function(event){
     var page_id = $(this).attr("id");
-    var alerta_id = getUrlVars()["id"];
-    if(alerta_id == undefined) alerta_id = 0;    
-    GetMenuFooter(page_id,alerta_id);
-    getAlertas(page_id,alerta_id);
+    var slug = getUrlVars()["slug"];
+    if(slug == undefined) slug = "all";    
+    GetMenuFooter(page_id,slug);
+    getAlertas(page_id,slug);
 });
 
 //GOOGLE MAP
@@ -276,7 +276,7 @@ function getMenu(parent_id, ciudad_id){
                     container.find(".icon"+id).text(title);
                     
                     //Para madrid (id=3)no se muestra beach
-                    if(ciudad_id == 3 && id == 7) container.find(".icon"+id).hide();
+                    if(ciudad_id == 3 && id == 8) container.find(".icon"+id).hide();
         		});
                                 
                 container.promise().done(function() {
@@ -431,7 +431,7 @@ function getClubBy(parent_id, club_id){
                                     '</li>' +
                                     '<li class="tickets"><a class="icon_tickets" href="calendario.html?club_id='+id+'" data-icon="none" data-iconpos="top">Tickets</a></li>' +
                                     '<li class="sesiones"><a class="icon_sesiones" href="sesiones.html?id='+id+'" data-icon="none" data-iconpos="top">Sesiones</a></li>' +
-                                    '<li class="alertas"><a class="icon_alertas" href="#" data-icon="none" data-iconpos="top">Alerta</a></li>' +
+                                    '<li class="alertas"><a class="icon_alertas" href="alertas.html?slug=clubs" data-icon="none" data-iconpos="top">Alerta</a></li>' +
                                 '</ul>' +
                             '</div>' +
                         '</div>' +
@@ -620,7 +620,7 @@ function getSesionBy(parent_id, sesion_id){
                                     html+='</a>' +
                                     '</li>' +
                                     '<li class="tickets"><a class="icon_tickets" href="calendario.html?sesion_id='+id+'" data-icon="none" data-iconpos="top">Tickets</a></li>' +
-                                    '<li class="alertas"><a class="icon_alertas" href="#" data-icon="none" data-iconpos="top">Alerta</a></li>' +
+                                    '<li class="alertas"><a class="icon_alertas" href="alertas.html?slug=sesiones" data-icon="none" data-iconpos="top">Alerta</a></li>' +
                                 '</ul>' +
                             '</div>' +
                         '</div>' +
@@ -837,7 +837,7 @@ function getPubBy(parent_id, pub_id){
                                     html+='</a>' +
                                     '</li>' +
                                     '<li class="promos"><a class="icon_promos" href="'+href+'" data-icon="none" data-iconpos="top">Promos</a><span class="numero">'+numero_promos+'</span></li>' +
-                                    '<li class="alertas"><a class="icon_alertas" href="#" data-icon="none" data-iconpos="top">Alerta</a></li>' +
+                                    '<li class="alertas"><a class="icon_alertas" href="alertas.html?slug=pubs" data-icon="none" data-iconpos="top">Alerta</a></li>' +
                                 '</ul>' +
                             '</div>' +
                         '</div>' +
@@ -1054,7 +1054,7 @@ function getBeachclubBy(parent_id, beachclub_id){
                                     html+='</a>' +
                                     '</li>' +
                                     '<li class="promos"><a class="icon_promos" href="'+href+'" data-icon="none" data-iconpos="top">Promos</a><span class="numero">'+numero_promos+'</span></li>' +
-                                    '<li class="alertas"><a class="icon_alertas" href="#" data-icon="none" data-iconpos="top">Alerta</a></li>' +
+                                    '<li class="alertas"><a class="icon_alertas" href="alertas.html?slug=beachclubs" data-icon="none" data-iconpos="top">Alerta</a></li>' +
                                 '</ul>' +
                             '</div>' +
                         '</div>' +
@@ -1243,7 +1243,7 @@ function getFestivalBy(parent_id, festival_id){
                                     }
                                     html+='</a>' +
                                     '</li>' +
-                                    '<li class="alertas"><a class="icon_alertas" href="#" data-icon="none" data-iconpos="top">Alerta</a></li>' +
+                                    '<li class="alertas"><a class="icon_alertas" href="alertas.html?slug=festivales" data-icon="none" data-iconpos="top">Alerta</a></li>' +
                                 '</ul>' +
                             '</div>' +
                         '</div>' +
@@ -1404,7 +1404,7 @@ function getDjBy(parent_id, dj_id){
                         '<div class="content_bottom">' +
                             '<div data-role="navbar" data-corners="false">'+
                                 '<ul class="nav_options">' +
-                                    '<li class="alertas"><a class="icon_alertas" href="#" data-icon="none" data-iconpos="top">Alerta</a></li>' +
+                                    '<li class="alertas"><a class="icon_alertas" href="alertas.html?slug=djs" data-icon="none" data-iconpos="top">Alerta</a></li>' +
                                 '</ul>' +
                             '</div>' +
                         '</div>' +
@@ -1605,7 +1605,7 @@ function getPromocionBy(parent_id, promocion_id){
                                     }
                                     html+='</a>' +
                                     '</li>' +
-                                    '<li class="alertas"><a class="icon_alertas" href="#" data-icon="none" data-iconpos="top">Alerta</a></li>' +
+                                    '<li class="alertas"><a class="icon_alertas" href="alertas.html?slug=promos" data-icon="none" data-iconpos="top">Alerta</a></li>' +
                                 '</ul>' +
                             '</div>' +
                         '</div>' +
@@ -1733,6 +1733,91 @@ function getTicketSesionBy(parent_id, ticket_id){
                     hideLoading();
                     parent.find(".ui-content").fadeIn("slow");
             }else{
+                hideLoading();
+                parent.find(".ui-content").fadeIn("slow");
+            }
+        }
+	});
+}
+
+//ALERTAS
+function getAlertas(parent_id, slug){
+    var parent = $("#"+parent_id);
+    var container = parent.find(".content_options");
+    parent.find(".ui-content").hide();
+    
+    showLoading();
+    
+	$.getJSON(BASE_URL_APP + 'alertas/mobileGetAlertas/'+CIUDAD_ID, function(data) {
+        
+        if(data.items){
+            //fondo para la pagina
+            if(data.fondo != undefined && data.fondo != ""  && data.fondo.Fondo.imagen != undefined){
+                var fondo = data.fondo.Fondo.imagen;
+                parent.css("background","url('"+BASE_URL_APP+"img/fondos/"+fondo+"')");
+                parent.css("background-size","100% auto");
+            }
+            
+            //titulo para la pagina
+            if(data.pagina != undefined && data.pagina != ""){
+                var titulo = IDIOMA == "castellano" ? data.pagina.Sistema.title_esp : data.pagina.Sistema.title_eng;
+                parent.find(".ui-header").find(".page h2").html(titulo);
+            }
+            
+            var info = data.info;
+    		var items = data.items;
+            if($(items).size()){
+        		$.each(items, function(index, item) {
+                    var c ='<div class="'+index+'">';
+                    $.each(item, function(i, t) {
+                        if(index == "sesiones") index = "sesions";
+                        if(index == "festivales") index = "festivals";
+                        var title = IDIOMA == "castellano" ? t.title_esp : t.title_eng;
+                        var imagen_redonda = t.imagen_redonda!=""?t.imagen_redonda:"default.png";
+                        var cls = "al"+index+i;
+                        c+='<a class="custom '+cls+' item" href="#" data-role="button" data-icon="none">' +
+                                '<span class="bglista title">'+title+'</span>' +
+                                '<select name="flip-mini" data-role="slider" data-mini="true">' +
+	                               '<option value="off">Off</option>' +
+	                               '<option value="on" selected="selected">On</option>' +
+                                '</select>' +
+                            '</a>';
+                    });
+                    c +='</div>'
+                    container.append(c);
+        		});
+                
+                container.promise().done(function() {
+                    container.trigger("create");
+                    
+            		$.each(items, function(index, item) {
+                        if(index == "sesiones") index = "sesions";
+                        if(index == "festivales") index = "festivals";
+                        $.each(item, function(i, t) {
+                            var cls = "al"+index+i;
+                            var imagen_redonda = t.imagen_redonda!=""?t.imagen_redonda:"default.png";
+                            $('head').append("<style>.ui-btn-icon-left."+cls+":after{ background: url("+BASE_URL_APP+'img/'+index+'/'+imagen_redonda+") no-repeat scroll 0 0 transparent; }</style>");
+                        });
+            		});
+                    
+                    scrollToList(container,parent);	
+                    
+                    parent.find(".container_popup .castellano").html(info.Sistema.text_esp);
+                    parent.find(".container_popup .english").html(info.Sistema.text_eng);
+                    //mostramos la info segun al idioma
+                    parent.find(".container_popup ."+IDIOMA).show();
+                    
+                    //fitro de sesion
+                    if(slug != "all"){
+                        container.find("div").hide();
+                        container.find("div."+slug).show();
+                    }
+                    
+                    hideLoading();
+                    parent.find(".ui-content").fadeIn("slow");
+                });
+            }else{
+                container.append("<p class='empty'>A&Uacute;N NO TENEMOS NING&Uacute;N ITEM</p>");
                 hideLoading();
                 parent.find(".ui-content").fadeIn("slow");
             }

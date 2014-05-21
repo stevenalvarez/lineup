@@ -330,13 +330,15 @@ function GetMenuFooter(parent_id,filtro_id){
             if(items.length){
                 var html = '<div data-role="navbar" data-corners="false"><ul class="nav-custom alertas">';
         		$.each(items, function(index, item) {
-        		    var title = IDIOMA == "castellano" ? item.Sistema.title_esp : item.Sistema.title_eng;
+        		    var id = item.Sistema.id;
+                    var title = IDIOMA == "castellano" ? item.Sistema.title_esp : item.Sistema.title_eng;
                     var imagen = item.Sistema.slug+".png";
-        		    html+= '<li><a id="alerta_'+item.Sistema.id+'" lang="'+imagen+'" href="#'+item.Sistema.id+'" data-icon="none" data-iconpos="top">'+title+'</a></li>';
+                    html+= '<li><a id="'+item.Sistema.slug+'" lang="'+imagen+'" href="#'+item.Sistema.slug+'" data-icon="none" data-iconpos="top">'+title+'</a></li>';
         		});
                 html+='</ul></div>';
                 container.find(".ui-navbar").remove();
                 container.append(html);
+                
                 //refresh
         		container.trigger("create");
                 
@@ -351,14 +353,14 @@ function GetMenuFooter(parent_id,filtro_id){
                 page.find(".alertas").find("a").unbind("touchstart").bind("touchstart", function(){
                     page.find(".alertas").find("a").removeClass("ui-btn-active-a");
                     $(this).addClass("ui-btn-active-a");
-                    var alerta_id = $(this).attr("href");
-                    alerta_id = alerta_id.substring(1,alerta_id.length);
+                    var slug = $(this).attr("href");
+                    slug = slug.substring(1,slug.length);
                     
                     //mostramos u ocultamos los items segun su zona
-                    var container_ul = page.find(".ui-listview");
+                    var container_ul = page.find(".content_options");
                     container_ul.css("opacity","0.5");
-                    container_ul.find("li").hide();
-                    container_ul.find("li.alerta_"+alerta_id).show();
+                    container_ul.find("div").hide();
+                    container_ul.find("div."+slug).show();
                     container_ul.animate({opacity: 1}, 500 );
                 });
                 
@@ -380,7 +382,10 @@ function GetMenuFooter(parent_id,filtro_id){
                     container.find(".nav-custom.alertas").find(".owl-wrapper-outer").css("overflow","inherit");
                 });
                 
-                container.find(".nav-custom.alertas").find("li a#alerta_"+filtro_id).addClass("ui-btn-active-a");
+                //Para madrid (id=3)no se muestra beach
+                if(CIUDAD_ID == 3) container.find("#beachclubs").parent().parent().hide();
+                
+                container.find(".nav-custom.alertas").find("li a#"+filtro_id).addClass("ui-btn-active-a");
                 container.fadeIn("slow");
             }
         }
