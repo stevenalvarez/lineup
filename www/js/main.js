@@ -1768,7 +1768,7 @@ function getAlertas(parent_id, slug){
     		var items = data.items;
             if($(items).size()){
         		$.each(items, function(index, item) {
-                    var c ='<div class="'+index+'">';
+                    var c ='<div class="'+index+' item">';
                     $.each(item, function(i, t) {
                         if(index == "sesiones") index = "sesions";
                         if(index == "festivales") index = "festivals";

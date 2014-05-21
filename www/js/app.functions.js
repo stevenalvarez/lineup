@@ -359,8 +359,8 @@ function GetMenuFooter(parent_id,filtro_id){
                     //mostramos u ocultamos los items segun su zona
                     var container_ul = page.find(".content_options");
                     container_ul.css("opacity","0.5");
-                    container_ul.find("div").hide();
-                    container_ul.find("div."+slug).show();
+                    container_ul.find("div.item").hide();
+                    container_ul.find("div.item."+slug).show();
                     container_ul.animate({opacity: 1}, 500 );
                 });
                 
