@@ -1838,8 +1838,8 @@ function getAlertas(parent_id, slug){
                     
                     //fitro de sesion
                     if(slug != "all"){
-                        container.find("div").hide();
-                        container.find("div."+slug).show();
+                        container.find("div.item").hide();
+                        container.find("div.item."+slug).show();
                     }
                     
                     //recibir/dejar de recibir alertas
@@ -1849,11 +1849,6 @@ function getAlertas(parent_id, slug){
                         var tipo = lang[0];
                         var tipo_id = lang[1];
                         var activado = $(this).val() == "on" ? 1 : 0;
-                        
-                        console.log(usuario_id);
-                        console.log(tipo_id);
-                        console.log(tipo);
-                        console.log(activado);
                     	
                         $.getJSON(BASE_URL_APP + 'usuarios_alertas/mobileSaveAlertas/'+usuario_id+"/"+tipo_id+"/"+tipo+"/"+activado, function(data) {
                             if(data){
