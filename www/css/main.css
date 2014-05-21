@@ -115,12 +115,12 @@
 .ui-header .back{float: left;}
 .ui-header .menu .back{width: 30%;}
 .ui-header .back .volver{background: url("../img/bg_volver.png") no-repeat scroll center top transparent; background-size:40px;}
-.ui-header .back .info{background: url("../img/bg_info.png") no-repeat scroll center top transparent; background-size:40px;}
+.ui-header .back .info, .ui-header .setting .info{background: url("../img/bg_info.png") no-repeat scroll center top transparent; background-size:40px;}
 .ui-header .page{text-align: center;width: 72%;margin-top: 0.5em;color: #fff;font-size: 20px;text-shadow: 0 0 0;}
 .ui-header .menu .page{margin-top: 0;width: 40%;font-size: 0px;}
 .ui-header .page img{width: 74px;}
 .ui-header .setting{float:right}
-.ui-header .menu .setting a{margin-top: 25px;}
+/*.ui-header .menu .setting a{margin-top: 25px;}*/
 .ui-header .setting .search{background: url("../img/bg_search.png") no-repeat scroll center top transparent; background-size:30px;}
 .ui-header .setting .perfil{background: url("../img/bg_perfil.png") no-repeat scroll center top transparent; background-size:30px;}
 .ui-header .setting .menu{background: url("../img/bg_menu.png") no-repeat scroll center top transparent; background-size:40px;}
