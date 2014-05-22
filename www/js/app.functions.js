@@ -170,7 +170,9 @@ function animation(container,parent){
                 element.parent().parent().animate({"padding-top": "40px",}, 500, "linear", function() {
                     element.removeClass("up").addClass("down");
                     element.parent().parent().parent().find(".content_middle").fadeIn();
-                    element.parent().parent().parent().find(".content_bottom").fadeIn("slow");
+                    setTimeout(function(){
+                        element.parent().parent().parent().find(".content_bottom").show();
+                    },800);
                 });
             }else if(element.hasClass("down")){
                 element.parent().parent().animate({"padding-top": element.parent().parent().attr("lang")+"px",}, 500, "linear", function() {
