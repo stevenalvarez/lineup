@@ -159,36 +159,40 @@ function animation(container,parent){
     //ocultamos los elementos
     container.find(".content_middle").hide();
     container.find(".content_bottom").hide();
-    container.find(".content_top").css("padding-top",(parent.height()-90)+'px').attr("lang",parent.height()-90);
     
-    container.find(".toogle").unbind("touchstart").bind("touchstart", function(){
-        var element = $(this);
-        if(element.hasClass("up")){
-            element.parent().parent().animate({"padding-top": "40px",}, 500, "linear", function() {
-                element.removeClass("up").addClass("down");
-                element.parent().parent().parent().find(".content_middle").fadeIn();
-                setTimeout(function(){
-                    element.parent().parent().parent().find(".content_bottom").fadeIn();
-                },800);
-            });
-        }else if(element.hasClass("down")){
-            element.parent().parent().animate({"padding-top": element.parent().parent().attr("lang")+"px",}, 500, "linear", function() {
-                element.removeClass("down").addClass("up");
-                element.parent().parent().parent().find(".content_middle").fadeOut();
-                element.parent().parent().parent().find(".content_bottom").fadeOut();
-            });
-        }
-    });
-    
-    //scroll
     setTimeout(function(){
-        container.find(".owl-item").each(function(i,item){
-            $(this).find(".container").height($(this).height());
-            //$(this).find(".container").niceScroll({touchbehavior:true});
-            $(this).find(".container").css("overflow","visible");
-            $(this).find(".container").css("overflow-x","hidden");
+        var height = parent.find(".container").height();
+        container.find(".content_top").css("padding-top",(height-90)+'px').attr("lang",height-90);
+        
+        container.find(".toogle").unbind("touchstart").bind("touchstart", function(){
+            var element = $(this);
+            if(element.hasClass("up")){
+                element.parent().parent().animate({"padding-top": "40px",}, 500, "linear", function() {
+                    element.removeClass("up").addClass("down");
+                    element.parent().parent().parent().find(".content_middle").fadeIn();
+                    setTimeout(function(){
+                        element.parent().parent().parent().find(".content_bottom").fadeIn();
+                    },800);
+                });
+            }else if(element.hasClass("down")){
+                element.parent().parent().animate({"padding-top": element.parent().parent().attr("lang")+"px",}, 500, "linear", function() {
+                    element.removeClass("down").addClass("up");
+                    element.parent().parent().parent().find(".content_middle").fadeOut();
+                    element.parent().parent().parent().find(".content_bottom").fadeOut();
+                });
+            }
         });
-    },300);
+        
+        //scroll
+        setTimeout(function(){
+            container.find(".owl-item").each(function(i,item){
+                $(this).find(".container").height($(this).height());
+                //$(this).find(".container").niceScroll({touchbehavior:true});
+                $(this).find(".container").css("overflow","visible");
+                $(this).find(".container").css("overflow-x","hidden");
+            });
+        },300);
+    },200);
 }
 
 function scrollToList(container,parent){
