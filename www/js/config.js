@@ -1,7 +1,7 @@
 /************************************ VARIABLES DE CONFIGURACION *******************************************************/
 
 /************************************ server *******************************************************/
-var BASE_URL_APP = "http://terrazas.arrobacreativa.com/";
+var BASE_URL_APP = "http://lineupapp.es/";
 
 /************************************ localhost *******************************************************/
 //var BASE_URL_APP = "http://localhost/lineup/web/";
