@@ -131,7 +131,7 @@
 .ui-footer{border: none;background: url("../img/bg_footer.jpg") repeat-x scroll center top transparent;}
 .ui-footer ul{border-top: 2px solid #f51fa2;}
 .ui-footer ul a{background-color: transparent !important;color: #fff !important;text-shadow: 0 0 0 !important;font-size: 13px !important;padding-top: 38px;border:0;}
-.ui-footer ul a.ui-btn-icon-top:after{background-size: 31px;background-position: 50% 50%;width: 32px;height: 32px;margin-left: -15px;}
+.ui-footer ul a.ui-btn-icon-top:after{background-size: 31px;background-position: 50% 50%;width: 32px;height: 32px;margin-left: -15px;box-shadow: 2px 1px 3px #000;border: 2px solid #fff;border-radius: 2em;-webkit-border-radius: 2em;}
 .ui-footer ul a.ui-btn-icon-top.ui-btn-active-a{color: #fc039b !important;}
 .ui-footer ul a.f1:after{background: url("../img/navegacion/1.jpg") no-repeat scroll 0 0 transparent;background-size: 31px;background-position: 50% 50%;width: 32px;height: 32px;margin-left: -15px;}
 .ui-footer ul a.f2:after{background: url("../img/navegacion/2.jpg") no-repeat scroll 0 0 transparent;background-size: 31px;background-position: 50% 50%;width: 32px;height: 32px;margin-left: -15px;}
