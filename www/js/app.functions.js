@@ -171,8 +171,8 @@ function animation(container,parent){
                     element.removeClass("up").addClass("down");
                     element.parent().parent().parent().find(".content_middle").fadeIn();
                     setTimeout(function(){
-                        element.parent().parent().parent().find(".content_bottom").fadeIn();
-                    },800);
+                        element.parent().parent().parent().find(".content_bottom").fadeIn("slow");
+                    },400);
                 });
             }else if(element.hasClass("down")){
                 element.parent().parent().animate({"padding-top": element.parent().parent().attr("lang")+"px",}, 500, "linear", function() {
