@@ -51,6 +51,15 @@ function registerNewDevice(){
                 //si ya se registro con anterioridad guardamos los datos en la cookie
                 createCookie("user", JSON.stringify(data.usuario.Usuario), 365);
                 REGISTER_PUSH_NOTIFICATION_TOKEN = true;
+                
+                //recuperamos los datos de ciudad y idioma y si tiene los 2 le llevamos directo ahi
+                var usuario_ciudad = data.usuario.Usuario.ciudad_id;
+                var usuario_idioma = data.usuario.Usuario.idioma;
+                if(usuario_ciudad && usuario_idioma){
+                    IDIOMA = usuario_idioma;
+                    CIUDAD_ID = usuario_ciudad;
+                    $.mobile.changePage("menu.html");
+                }
             }
         }
     });
@@ -192,7 +201,7 @@ function animation(container,parent){
                 $(this).find(".container").css("overflow-x","hidden");
             });
         },300);
-    },200);
+    },500);
 }
 
 function scrollToList(container,parent){
@@ -428,7 +437,7 @@ function getMenuFooter(parent_id,filtro_id){
                 hideLoading();
                 
                 //numero de alertas
-                var numero_alertas = 4; //container.find(".nav-custom.alertas").find("li").length;
+                var numero_alertas = 5; //container.find(".nav-custom.alertas").find("li").length;
                 
                 //aplicamos el slider carrousel
                 container.promise().done(function() {

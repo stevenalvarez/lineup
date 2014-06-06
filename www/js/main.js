@@ -271,7 +271,10 @@ function getMenu(parent_id, ciudad_id){
     
     showLoading();
     
-	$.getJSON(BASE_URL_APP + 'sistemas/mobileGetMenu', function(data) {
+    var usuario_id = "";
+    if(isLogin()) usuario_id = COOKIE.id;
+    
+	$.getJSON(BASE_URL_APP + 'sistemas/mobileGetMenu/'+usuario_id+"/"+IDIOMA+"/"+CIUDAD_ID, function(data) {
         
         if(data.items){
             //fondo para la pagina
@@ -1683,7 +1686,7 @@ function getTicketSesionBy(parent_id, ticket_id){
             if(data.fondo != undefined && data.fondo != "" && data.fondo.Fondo.imagen != undefined){
                 var fondo = data.fondo.Fondo.imagen;
                 parent.css("background","url('"+BASE_URL_APP+"img/fondos/"+fondo+"')");
-                parent.css("background-size","100% auto");
+                parent.css("background-size","100% 100%");
             }
             
             //titulo para la pagina
@@ -1743,6 +1746,9 @@ function getTicketSesionBy(parent_id, ticket_id){
                     
                     //mostramos la info segun al idioma
                     parent.find(".container_popup ."+IDIOMA).show();
+                    
+                    //scroll
+                    scrollToList(parent,parent);
                     
                     hideLoading();
                     parent.find(".ui-content").fadeIn("slow");

@@ -130,8 +130,9 @@
 /* NAVIGATION FOOTER */
 .ui-footer{border: none;background: url("../img/bg_footer.jpg") repeat-x scroll center top transparent;}
 .ui-footer ul{border-top: 2px solid #f51fa2;}
-.ui-footer ul a{background-color: transparent !important;color: #fff !important;text-shadow: 0 0 0 !important;font-size: 13px !important;padding-top: 38px;border:0;}
-.ui-footer ul a.ui-btn-icon-top:after{background-size: 31px;background-position: 50% 50%;width: 32px;height: 32px;margin-left: -15px;box-shadow: 2px 1px 3px #000;border: 2px solid #fff;border-radius: 2em;-webkit-border-radius: 2em;}
+.ui-footer ul a{background-color: transparent !important;color: #fff !important;text-shadow: 0 0 0 !important;font-size: 13px !important;padding-top: 40px;border:0;padding-bottom: 2px !important;}
+.ui-footer ul a.ui-btn-icon-top:after{background-size: 34px;background-position: 50% 50%;width: 32px;height: 32px;margin-left: -15px;box-shadow: 2px 1px 3px #000;border: 2px solid #fff;border-radius: 2em;-webkit-border-radius: 2em;}
+.ui-footer ul.alertas a.ui-btn-icon-top:after{border: none;}
 .ui-footer ul a.ui-btn-icon-top.ui-btn-active-a{color: #fc039b !important;}
 .ui-footer ul a.f1:after{background: url("../img/navegacion/1.jpg") no-repeat scroll 0 0 transparent;background-size: 31px;background-position: 50% 50%;width: 32px;height: 32px;margin-left: -15px;}
 .ui-footer ul a.f2:after{background: url("../img/navegacion/2.jpg") no-repeat scroll 0 0 transparent;background-size: 31px;background-position: 50% 50%;width: 32px;height: 32px;margin-left: -15px;}
@@ -202,6 +203,7 @@
 .ui-content .content_top .title a.sub{padding-right: 0;}
 .ui-content .content_middle{margin: 0 10px;background: url("../img/bg_button.png") repeat scroll 0 0 transparent;border-radius: 40px;border: 1px solid #4f4f4f;padding: 18px 20px 10px;color: #fff;margin-top: -16px;}
 .ui-content .content_middle p{line-height: 18px;text-shadow: 0 0 0;font-size: 13px;font-family: NeogreyRegular;}
+.ui-content .content_middle p.descripcion{overflow-x: auto;height: 178px;}
 .ui-content .content_middle b{color: #fc039b;text-shadow: 0 0 0;}
 .ui-content .content_middle .mas_informacion{padding-top: 10px;}
 .ui-content .content_middle .mas_informacion p{text-align: left;font-size: 13px;font-family: HelveticaLTStdLight;letter-spacing: 0;text-shadow: 0 0 0;}
@@ -225,7 +227,7 @@
 #tickets.content_options.lista a{margin: 5px 0;min-height: 50px;}
 
 /* TICKET DETALLE */
-.ticket_detalle{margin-top: 60px !important;overflow: hidden;}
+.ticket_detalle{margin-top: 25px !important;overflow: hidden;}
 .ticket_detalle .imagen{width: 80px;}
 .ticket_detalle .imagen img{width: 100%;display: block;}
 .ticket_detalle .descripcion{width: 65%;}
