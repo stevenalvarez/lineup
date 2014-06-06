@@ -482,6 +482,13 @@ function getClubBy(parent_id, club_id){
                             }
                         });
                         
+                        //add new item
+                        setTimeout(function(){
+                             var content = "<div class=\"item dodgerBlue\"><h1>asdfasdf</h1></div>";
+                             container.data('owlCarousel').addItem(content);
+                             console.log("add item");
+                        },5000);
+                        
                         animation(container,parent);
                         
                         hideLoading();
