@@ -356,7 +356,7 @@ function getClubs(parent_id){
                     container.append(html);
         		});
                                 
-                container.find("li:last img").load(function() {
+                container.find("li:first img").load(function() {
                     hideLoading();
                     parent.find(".ui-content").fadeIn("slow");
                 });
@@ -377,7 +377,7 @@ function getClubBy(parent_id, club_id){
     
     showLoading();
     
-	$.getJSON(BASE_URL_APP + 'clubs/mobileGetClubs/'+CIUDAD_ID+"/"+LATITUDE+"/"+LONGITUDE, function(data) {
+	$.getJSON(BASE_URL_APP + 'clubs/mobileGetClubs/'+CIUDAD_ID+"/"+LATITUDE+"/"+LONGITUDE+"/"+club_id, function(data) {
         var goto_index = 0;
         
         if(data.items){
@@ -390,13 +390,8 @@ function getClubBy(parent_id, club_id){
     		var items = data.items;
             if(items.length){
         		$.each(items, function(index, item) {
-        		    
-                    //vemos a que item deber ir
-                    if(item.Club.id == club_id){
-                        goto_index = index;
-                    }
-                    
-                    var id = item.Club.id;
+        		  
+                var id = item.Club.id;
                     var title = IDIOMA == "castellano" ? item.Club.title_esp : item.Club.title_eng;
                     var sub_title = item.Club.sub_title;
                     var imagen = item.Club.imagen!=""?item.Club.imagen:"default.png";
@@ -548,7 +543,7 @@ function getSesiones(parent_id,filtro_id){
                     container.append(html);
         		});
                 
-                container.find("li:last img").load(function() {
+                container.find("li:first img").load(function() {
                     //fitro de sesion
                     if(filtro_id != 0){
                         container.find("li").hide();
@@ -588,11 +583,6 @@ function getSesionBy(parent_id, sesion_id){
             if(items.length){
         		$.each(items, function(index, item) {
                     
-                    //vemos a que item deber ir
-                    if(item.Sesion.id == sesion_id){
-                        goto_index = index;
-                    }
-                    
                     var id = item.Sesion.id;
                     var title = IDIOMA == "castellano" ? item.Sesion.title_esp : item.Sesion.title_eng;
                     var sub_title = item.Sesion.sub_title;
@@ -607,18 +597,33 @@ function getSesionBy(parent_id, sesion_id){
                     var latitud = item.Club.latitud;
                     var longitud = item.Club.longitud;
                     
-                    var html='<div class="container custom" style="background: url('+BASE_URL_APP+'img/sesions/'+imagen_fondo+');background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
-                        '<div class="content_top">' + 
-                            '<div class="imagen left">' +
-                                '<img src="'+BASE_URL_APP+'img/sesions/' + imagen_redonda + '" />' +
-                            '</div>' +
-                            '<div class="title left">'+
-                                '<a class="sub toogle up" href="javascript:void(0)">' +
-                                    '<h2>'+title+'</h2>' + sub_title +
-                                '</a>' +
-                            '</div>' +
-                        '</div>' +
-                        '<div class="content_middle">' +
+                    var html='';
+                    if(index == 0){
+                        html+='<div class="container custom" style="background: url('+BASE_URL_APP+'img/sesions/'+imagen_fondo+');background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
+                            '<div class="content_top">' + 
+                                '<div class="imagen left">' +
+                                    '<img src="'+BASE_URL_APP+'img/sesions/' + imagen_redonda + '" />' +
+                                '</div>' +
+                                '<div class="title left">'+
+                                    '<a class="sub toogle up" href="javascript:void(0)">' +
+                                        '<h2>'+title+'</h2>' + sub_title +
+                                    '</a>' +
+                                '</div>' +
+                            '</div>';
+                    }else{
+                        html+='<div class="container custom" data-src="'+BASE_URL_APP+'img/sesions/'+imagen_fondo+'" style="background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
+                            '<div class="content_top">' + 
+                                '<div class="imagen left">' +
+                                    '<img data-src="'+BASE_URL_APP+'img/sesions/' + imagen_redonda + '" src="" />' +
+                                '</div>' +
+                                '<div class="title left">'+
+                                    '<a class="sub toogle up" href="javascript:void(0)">' +
+                                        '<h2>'+title+'</h2>' + sub_title +
+                                    '</a>' +
+                                '</div>' +
+                            '</div>';
+                    }
+                        html+='<div class="content_middle">' +
                             '<p class="descripcion">' + descripcion +'</p>' +
                             '<div class="mas_informacion">' +
                                 '<p class="direccion">' +
@@ -671,10 +676,17 @@ function getSesionBy(parent_id, sesion_id){
                             itemsDesktopSmall : false,
                             itemsTablet: false,
                             itemsMobile : false,
-                            afterInit : function(){
+                            afterMove : function(){
+                                var item = this.owl.currentItem;
+                                console.log(item);
                                 setTimeout(function(){
-                                    container.trigger('owl.goTo', goto_index);
-                                },1000);
+                                    item = parseInt(item) + 1;
+                                    var element = container.find(".owl-item:nth-child("+(item)+")").find(".container");
+                                    element.css("background","url('"+element.attr("data-src")+"')");
+                                    element.css("background-size","100% auto");
+                                    var imagen = element.find(".content_top").find(".imagen img"); 
+                                    imagen.attr("src",imagen.attr("data-src"));
+                                },100);
                             }
                         });
                         
