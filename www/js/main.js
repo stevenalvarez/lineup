@@ -378,7 +378,6 @@ function getClubBy(parent_id, club_id){
     showLoading();
     
 	$.getJSON(BASE_URL_APP + 'clubs/mobileGetClubs/'+CIUDAD_ID+"/"+LATITUDE+"/"+LONGITUDE+"/"+club_id, function(data) {
-        var goto_index = 0;
         
         if(data.items){
             //titulo para la pagina
@@ -405,18 +404,33 @@ function getClubBy(parent_id, club_id){
                     var latitud = item.Club.latitud;
                     var longitud = item.Club.longitud;
                     
-                    var html='<div class="container" style="background: url('+BASE_URL_APP+'img/clubs/'+imagen_fondo+');background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
-                        '<div class="content_top">' + 
-                            '<div class="imagen left">' +
-                                '<img src="'+BASE_URL_APP+'img/clubs/' + imagen_redonda + '" />' +
-                            '</div>' +
-                            '<div class="title left">'+
-                                '<a class="sub toogle up" href="javascript:void(0)">' +
-                                    '<h2>'+title+'</h2>' + sub_title +
-                                '</a>' +
-                            '</div>' +
-                        '</div>' +
-                        '<div class="content_middle">' +
+                    var html='';
+                    if(index == 0){
+                        html+='<div class="container" style="background: url('+BASE_URL_APP+'img/clubs/'+imagen_fondo+');background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
+                            '<div class="content_top">' + 
+                                '<div class="imagen left">' +
+                                    '<img src="'+BASE_URL_APP+'img/clubs/' + imagen_redonda + '" />' +
+                                '</div>' +
+                                '<div class="title left">'+
+                                    '<a class="sub toogle up" href="javascript:void(0)">' +
+                                        '<h2>'+title+'</h2>' + sub_title +
+                                    '</a>' +
+                                '</div>' +
+                            '</div>';                        
+                    }else{
+                        html+='<div class="container" data-src="'+BASE_URL_APP+'img/clubs/'+imagen_fondo+'" style="background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
+                            '<div class="content_top">' + 
+                                '<div class="imagen left">' +
+                                    '<img data-src="'+ BASE_URL_APP+'img/clubs/' + imagen_redonda + '" src="" />' +
+                                '</div>' +
+                                '<div class="title left">'+
+                                    '<a class="sub toogle up" href="javascript:void(0)">' +
+                                        '<h2>'+title+'</h2>' + sub_title +
+                                    '</a>' +
+                                '</div>' +
+                            '</div>';                        
+                    }
+                        html+='<div class="content_middle">' +
                             '<p class="descripcion">' + descripcion +'</p>' +
                             '<div class="mas_informacion">' +
                                 '<p class="direccion">' +
@@ -470,20 +484,21 @@ function getClubBy(parent_id, club_id){
                             itemsDesktopSmall : false,
                             itemsTablet: false,
                             itemsMobile : false,
-                            afterInit : function(){
-                                setTimeout(function(){
-                                    container.trigger('owl.goTo', goto_index);
-                                },1000);
+                            afterMove : function(){
+                                var item = this.owl.currentItem;
+                                if(item > 0){
+                                    setTimeout(function(){
+                                        item = parseInt(item) + 1;
+                                        var element = container.find(".owl-item:nth-child("+(item)+")").find(".container");
+                                        element.css("background","url('"+element.attr("data-src")+"')");
+                                        element.css("background-size","100% auto");
+                                        var imagen = element.find(".content_top").find(".imagen img");
+                                        imagen.attr("src",imagen.attr("data-src"));
+                                    },100);
+                                }
                             }
                         });
-                        
-                        //add new item
-                        setTimeout(function(){
-                             var content = "<div class=\"item dodgerBlue\"><h1>asdfasdf</h1></div>";
-                             container.data('owlCarousel').addItem(content);
-                             console.log("add item");
-                        },5000);
-                        
+                                                
                         animation(container,parent);
                         
                         hideLoading();
@@ -569,8 +584,7 @@ function getSesionBy(parent_id, sesion_id){
     
     showLoading();
     
-	$.getJSON(BASE_URL_APP + 'sesions/mobileGetSesions/'+CIUDAD_ID+"/"+LATITUDE+"/"+LONGITUDE, function(data) {
-	    var goto_index = 0;
+	$.getJSON(BASE_URL_APP + 'sesions/mobileGetSesions/'+CIUDAD_ID+"/"+LATITUDE+"/"+LONGITUDE+'/'+sesion_id, function(data) {
         
         if(data.items){
             //titulo para la pagina
@@ -678,15 +692,16 @@ function getSesionBy(parent_id, sesion_id){
                             itemsMobile : false,
                             afterMove : function(){
                                 var item = this.owl.currentItem;
-                                console.log(item);
-                                setTimeout(function(){
-                                    item = parseInt(item) + 1;
-                                    var element = container.find(".owl-item:nth-child("+(item)+")").find(".container");
-                                    element.css("background","url('"+element.attr("data-src")+"')");
-                                    element.css("background-size","100% auto");
-                                    var imagen = element.find(".content_top").find(".imagen img"); 
-                                    imagen.attr("src",imagen.attr("data-src"));
-                                },100);
+                                if(item > 0){
+                                    setTimeout(function(){
+                                        item = parseInt(item) + 1;
+                                        var element = container.find(".owl-item:nth-child("+(item)+")").find(".container");
+                                        element.css("background","url('"+element.attr("data-src")+"')");
+                                        element.css("background-size","100% auto");
+                                        var imagen = element.find(".content_top").find(".imagen img"); 
+                                        imagen.attr("src",imagen.attr("data-src"));
+                                    },100);
+                                }
                             }
                         });
                         
@@ -790,8 +805,7 @@ function getPubBy(parent_id, pub_id){
     
     showLoading();
     
-	$.getJSON(BASE_URL_APP + 'pubs/mobileGetPubs/'+CIUDAD_ID+"/"+LATITUDE+"/"+LONGITUDE, function(data) {
-	    var goto_index = 0;
+	$.getJSON(BASE_URL_APP + 'pubs/mobileGetPubs/'+CIUDAD_ID+"/"+LATITUDE+"/"+LONGITUDE+"/"+pub_id, function(data) {
         
         if(data.items){
             //titulo para la pagina
@@ -803,11 +817,6 @@ function getPubBy(parent_id, pub_id){
             var items = data.items;
             if(items.length){
         		$.each(items, function(index, item) {
-                    
-                    //vemos a que item deber ir
-                    if(item.Pub.id == pub_id){
-                        goto_index = index;
-                    }
                     
                     var id = item.Pub.id;
                     var title = IDIOMA == "castellano" ? item.Pub.title_esp : item.Pub.title_eng;
@@ -836,7 +845,9 @@ function getPubBy(parent_id, pub_id){
                         });
                     }
                     
-                    var html='<div class="container custom" style="background: url('+BASE_URL_APP+'img/pubs/'+imagen_fondo+');background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
+                    var html='';
+                    if(index == 0){
+                        html+='<div class="container custom" style="background: url('+BASE_URL_APP+'img/pubs/'+imagen_fondo+');background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
                         '<div class="content_top">' + 
                             '<div class="imagen left">' +
                                 '<img src="'+BASE_URL_APP+'img/pubs/' + imagen_redonda + '" />' +
@@ -846,8 +857,21 @@ function getPubBy(parent_id, pub_id){
                                     '<h2>'+title+'</h2>' + sub_title +
                                 '</a>' +
                             '</div>' +
-                        '</div>' +
-                        '<div class="content_middle">' +
+                        '</div>';
+                    }else{
+                        html+='<div class="container custom" data-src="'+BASE_URL_APP+'img/pubs/'+imagen_fondo+'" style="background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
+                            '<div class="content_top">' + 
+                                '<div class="imagen left">' +
+                                    '<img data-src="'+BASE_URL_APP+'img/pubs/' + imagen_redonda + '" src="" />' +
+                                '</div>' +
+                                '<div class="title left">'+
+                                    '<a class="sub toogle up" href="javascript:void(0)">' +
+                                        '<h2>'+title+'</h2>' + sub_title +
+                                    '</a>' +
+                                '</div>' +
+                            '</div>';
+                    }
+                        html+='<div class="content_middle">' +
                             '<p class="descripcion">' + descripcion +'</p>' +
                             '<div class="mas_informacion">' +
                                 '<p class="direccion">' +
@@ -900,10 +924,18 @@ function getPubBy(parent_id, pub_id){
                             itemsDesktopSmall : false,
                             itemsTablet: false,
                             itemsMobile : false,
-                            afterInit : function(){
-                                setTimeout(function(){
-                                    container.trigger('owl.goTo', goto_index);
-                                },1000);
+                            afterMove : function(){
+                                var item = this.owl.currentItem;
+                                if(item > 0){
+                                    setTimeout(function(){
+                                        item = parseInt(item) + 1;
+                                        var element = container.find(".owl-item:nth-child("+(item)+")").find(".container");
+                                        element.css("background","url('"+element.attr("data-src")+"')");
+                                        element.css("background-size","100% auto");
+                                        var imagen = element.find(".content_top").find(".imagen img"); 
+                                        imagen.attr("src",imagen.attr("data-src"));
+                                    },100);
+                                }
                             }
                         });
                         
@@ -1007,8 +1039,7 @@ function getBeachclubBy(parent_id, beachclub_id){
     
     showLoading();
     
-	$.getJSON(BASE_URL_APP + 'beachclubs/mobileGetBeachclubs/'+CIUDAD_ID+"/"+LATITUDE+"/"+LONGITUDE, function(data) {
-	    var goto_index = 0;
+	$.getJSON(BASE_URL_APP + 'beachclubs/mobileGetBeachclubs/'+CIUDAD_ID+"/"+LATITUDE+"/"+LONGITUDE+"/"+beachclub_id, function(data) {
         
         if(data.items){
             //titulo para la pagina
@@ -1020,11 +1051,6 @@ function getBeachclubBy(parent_id, beachclub_id){
             var items = data.items;
             if(items.length){
         		$.each(items, function(index, item) {
-                    
-                    //vemos a que item deber ir
-                    if(item.Beachclub.id == beachclub_id){
-                        goto_index = index;
-                    }
                     
                     var id = item.Beachclub.id;
                     var title = IDIOMA == "castellano" ? item.Beachclub.title_esp : item.Beachclub.title_eng;
@@ -1053,7 +1079,9 @@ function getBeachclubBy(parent_id, beachclub_id){
                         });
                     }
                     
-                    var html='<div class="container custom" style="background: url('+BASE_URL_APP+'img/beachclubs/'+imagen_fondo+');background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
+                    var html='';
+                    if(index == 0){
+                        html+='<div class="container custom" style="background: url('+BASE_URL_APP+'img/beachclubs/'+imagen_fondo+');background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
                         '<div class="content_top">' + 
                             '<div class="imagen left">' +
                                 '<img src="'+BASE_URL_APP+'img/beachclubs/' + imagen_redonda + '" />' +
@@ -1063,8 +1091,21 @@ function getBeachclubBy(parent_id, beachclub_id){
                                     '<h2>'+title+'</h2>' + sub_title +
                                 '</a>' +
                             '</div>' +
-                        '</div>' +
-                        '<div class="content_middle">' +
+                        '</div>';
+                    }else{
+                        html+='<div class="container custom" data-src="'+BASE_URL_APP+'img/beachclubs/'+imagen_fondo+'" style="background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
+                            '<div class="content_top">' + 
+                                '<div class="imagen left">' +
+                                    '<img data-src="'+BASE_URL_APP+'img/beachclubs/' + imagen_redonda + '" src="" />' +
+                                '</div>' +
+                                '<div class="title left">'+
+                                    '<a class="sub toogle up" href="javascript:void(0)">' +
+                                        '<h2>'+title+'</h2>' + sub_title +
+                                    '</a>' +
+                                '</div>' +
+                            '</div>';
+                    }
+                        html+='<div class="content_middle">' +
                             '<p class="descripcion">' + descripcion +'</p>' +
                             '<div class="mas_informacion">' +
                                 '<p class="direccion">' +
@@ -1117,10 +1158,18 @@ function getBeachclubBy(parent_id, beachclub_id){
                             itemsDesktopSmall : false,
                             itemsTablet: false,
                             itemsMobile : false,
-                            afterInit : function(){
-                                setTimeout(function(){
-                                    container.trigger('owl.goTo', goto_index);
-                                },1000);
+                            afterMove : function(){
+                                var item = this.owl.currentItem;
+                                if(item > 0){
+                                    setTimeout(function(){
+                                        item = parseInt(item) + 1;
+                                        var element = container.find(".owl-item:nth-child("+(item)+")").find(".container");
+                                        element.css("background","url('"+element.attr("data-src")+"')");
+                                        element.css("background-size","100% auto");
+                                        var imagen = element.find(".content_top").find(".imagen img"); 
+                                        imagen.attr("src",imagen.attr("data-src"));
+                                    },100);
+                                }
                             }
                         });
                         
@@ -1223,8 +1272,7 @@ function getFestivalBy(parent_id, festival_id){
     
     showLoading();
     
-	$.getJSON(BASE_URL_APP + 'festivals/mobileGetFestivales/'+LATITUDE+"/"+LONGITUDE, function(data) {
-	    var goto_index = 0;
+	$.getJSON(BASE_URL_APP + 'festivals/mobileGetFestivales/'+LATITUDE+"/"+LONGITUDE+"/"+festival_id, function(data) {
         
         if(data.items){
             //titulo para la pagina
@@ -1237,11 +1285,6 @@ function getFestivalBy(parent_id, festival_id){
             if(items.length){
         		$.each(items, function(index, item) {
                     
-                    //vemos a que item deber ir
-                    if(item.Festival.id == festival_id){
-                        goto_index = index;
-                    }
-                    
                     var id = item.Festival.id;
                     var title = IDIOMA == "castellano" ? item.Festival.title_esp : item.Festival.title_eng;
                     var sub_title = item.Festival.sub_title;
@@ -1253,7 +1296,9 @@ function getFestivalBy(parent_id, festival_id){
                     var latitud = item.Festival.latitud;
                     var longitud = item.Festival.longitud;
                     
-                    var html='<div class="container custom2" style="background: url('+BASE_URL_APP+'img/festivals/'+imagen_fondo+');background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
+                    var html='';
+                    if(index == 0){
+                        html+='<div class="container custom2" style="background: url('+BASE_URL_APP+'img/festivals/'+imagen_fondo+');background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
                         '<div class="content_top">' + 
                             '<div class="imagen left">' +
                                 '<img src="'+BASE_URL_APP+'img/festivals/' + imagen_redonda + '" />' +
@@ -1263,8 +1308,21 @@ function getFestivalBy(parent_id, festival_id){
                                     '<h2>'+title+'</h2>' + sub_title +
                                 '</a>' +
                             '</div>' +
-                        '</div>' +
-                        '<div class="content_middle">' +
+                        '</div>';
+                    }else{
+                        html+='<div class="container custom2" data-src="'+BASE_URL_APP+'img/festivals/'+imagen_fondo+'" style="background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
+                            '<div class="content_top">' + 
+                                '<div class="imagen left">' +
+                                    '<img data-src="'+BASE_URL_APP+'img/festivals/' + imagen_redonda + '" src="" />' +
+                                '</div>' +
+                                '<div class="title left">'+
+                                    '<a class="sub toogle up" href="javascript:void(0)">' +
+                                        '<h2>'+title+'</h2>' + sub_title +
+                                    '</a>' +
+                                '</div>' +
+                            '</div>';
+                    }
+                        html+='<div class="content_middle">' +
                             '<p class="descripcion">' + descripcion +'</p>' +
                         '</div>' +
                         '<div class="content_bottom">' +
@@ -1306,10 +1364,18 @@ function getFestivalBy(parent_id, festival_id){
                             itemsDesktopSmall : false,
                             itemsTablet: false,
                             itemsMobile : false,
-                            afterInit : function(){
-                                setTimeout(function(){
-                                    container.trigger('owl.goTo', goto_index);
-                                },1000);
+                            afterMove : function(){
+                                var item = this.owl.currentItem;
+                                if(item > 0){
+                                    setTimeout(function(){
+                                        item = parseInt(item) + 1;
+                                        var element = container.find(".owl-item:nth-child("+(item)+")").find(".container");
+                                        element.css("background","url('"+element.attr("data-src")+"')");
+                                        element.css("background-size","100% auto");
+                                        var imagen = element.find(".content_top").find(".imagen img"); 
+                                        imagen.attr("src",imagen.attr("data-src"));
+                                    },100);
+                                }
                             }
                         });
                         
@@ -1398,8 +1464,7 @@ function getDjBy(parent_id, dj_id){
     
     showLoading();
     
-	$.getJSON(BASE_URL_APP + 'djs/mobileGetDjs', function(data) {
-	    var goto_index = 0;
+	$.getJSON(BASE_URL_APP + 'djs/mobileGetDjs/'+dj_id, function(data) {
         
         if(data.items){
             //titulo para la pagina
@@ -1412,18 +1477,15 @@ function getDjBy(parent_id, dj_id){
             if(items.length){
         		$.each(items, function(index, item) {
                     
-                    //vemos a que item deber ir
-                    if(item.Dj.id == dj_id){
-                        goto_index = index;
-                    }
-                    
                     var id = item.Dj.id;
                     var title = IDIOMA == "castellano" ? item.Dj.title_esp : item.Dj.title_eng;
                     var imagen_redonda = item.Dj.imagen_redonda!=""?item.Dj.imagen_redonda:"default.png";
                     var imagen_fondo = item.Dj.imagen_fondo!=""?item.Dj.imagen_fondo:"default.png";
                     var descripcion = IDIOMA == "castellano" ? item.Dj.descripcion_esp : item.Dj.descripcion_eng;
                     
-                    var html='<div class="container custom3" style="background: url('+BASE_URL_APP+'img/djs/'+imagen_fondo+');background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
+                    var html='';
+                    if(index == 0){
+                        html+='<div class="container custom3" style="background: url('+BASE_URL_APP+'img/djs/'+imagen_fondo+');background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
                         '<div class="content_top">' + 
                             '<div class="imagen left">' +
                                 '<img src="'+BASE_URL_APP+'img/djs/' + imagen_redonda + '" />' +
@@ -1433,8 +1495,21 @@ function getDjBy(parent_id, dj_id){
                                     '<h2>'+title+'</h2> &nbsp;' +
                                 '</a>' +
                             '</div>' +
-                        '</div>' +
-                        '<div class="content_middle">' +
+                        '</div>';
+                    }else{
+                        html+='<div class="container custom3" data-src="'+BASE_URL_APP+'img/djs/'+imagen_fondo+'" style="background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
+                            '<div class="content_top">' + 
+                                '<div class="imagen left">' +
+                                    '<img data-src="'+BASE_URL_APP+'img/djs/' + imagen_redonda + '" src="" />' +
+                                '</div>' +
+                                '<div class="title left">'+
+                                    '<a class="sub toogle up" href="javascript:void(0)">' +
+                                        '<h2>'+title+'</h2> &nbsp;' +
+                                    '</a>' +
+                                '</div>' +
+                            '</div>';
+                    }
+                        html+='<div class="content_middle">' +
                             '<p class="descripcion">' + descripcion +'</p>' +
                         '</div>' +
                         '<div class="content_bottom">' +
@@ -1467,10 +1542,18 @@ function getDjBy(parent_id, dj_id){
                             itemsDesktopSmall : false,
                             itemsTablet: false,
                             itemsMobile : false,
-                            afterInit : function(){
-                                setTimeout(function(){
-                                    container.trigger('owl.goTo', goto_index);
-                                },1000);
+                            afterMove : function(){
+                                var item = this.owl.currentItem;
+                                if(item > 0){
+                                    setTimeout(function(){
+                                        item = parseInt(item) + 1;
+                                        var element = container.find(".owl-item:nth-child("+(item)+")").find(".container");
+                                        element.css("background","url('"+element.attr("data-src")+"')");
+                                        element.css("background-size","100% auto");
+                                        var imagen = element.find(".content_top").find(".imagen img"); 
+                                        imagen.attr("src",imagen.attr("data-src"));
+                                    },100);
+                                }
                             }
                         });
                         
