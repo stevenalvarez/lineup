@@ -258,7 +258,7 @@ function ajaxCalendario(value, club_id, sesion_id){
                     var html='<a  lang="'+imagen_redonda+'" class="custom item" href="javascript:void(0)" onclick="gotoTicket(this,'+ticket_id+','+precio+')" data-role="button" data-icon="none">' +
                             '<span class="bg">' +
                                 '<span class="title">'+title+'</span>' +
-                                '<span class="subtitle">'+djs_titles+'</span>' +
+                                '<span class="subtitle">'+djs_titles+'&nbsp;</span>' +
                                 '<span class="km inline">';
                                 //si esta menos de 1km le mostramos la distancia en metros en la cual se encuentra
                                 if(parseInt(kilomentros) < 1){
