@@ -1434,7 +1434,7 @@ function getDjs(parent_id){
                     var title = IDIOMA == "castellano" ? item.Dj.title_esp : item.Dj.title_eng;
                     var imagen_redonda = item.Dj.imagen_redonda!=""?item.Dj.imagen_redonda:"default.png";
                     
-                    var html='<a lang="'+imagen_redonda+'" class="custom item" href="dj_descripcion.html?id='+id+'" data-role="button" data-icon="none">' +
+                    var html='<a id="'+id+'" lang="'+imagen_redonda+'" class="custom item" href="dj_descripcion.html?id='+id+'" data-role="button" data-icon="none">' +
                         '<span class="bg title">'+title+'</span>' +
                     '</a>';
         		    
@@ -1445,12 +1445,56 @@ function getDjs(parent_id){
                     container.trigger("create");
                     
                     container.find("a").each(function( index ) {
-                        var cls = "itemdj"+index;
+                        var cls = "itemdj"+$(this).attr("id")+index;
                         $(this).addClass(cls);
                         $('head').append("<style>.ui-btn-icon-left."+cls+":after{ background: url("+BASE_URL_APP+'/img/djs/'+$(this).attr("lang")+") no-repeat scroll 0 0 transparent; }</style>");
                     });
                     
                     scrollToList(container,parent);
+                    
+                    //cargamos dinamicamente mas items
+                    var mas_items = true;
+                    container.parent().endlessScroll({
+                        content: function(i, p, d) {
+                            if(d == "next" && mas_items){
+                                showLoading();
+                            }
+                            return mas_items;
+                        },
+                        callback :function(i, p, d){
+                            if(d == "next"){
+                                var indice = container.find("a").length;
+                                $.getJSON(BASE_URL_APP + 'djs/ajax/'+indice, function(data) {
+                                    var items = data.items;
+                                    if(items.length){
+                                		$.each(items, function(index, item) {
+                                            var id = item.Dj.id;
+                                            var title = IDIOMA == "castellano" ? item.Dj.title_esp : item.Dj.title_eng;
+                                            var imagen_redonda = item.Dj.imagen_redonda!=""?item.Dj.imagen_redonda:"default.png";
+                                            
+                                            var html='<a id="'+id+'" lang="'+imagen_redonda+'" class="custom item" href="dj_descripcion.html?id='+id+'" data-role="button" data-icon="none">' +
+                                                '<span class="bg title">'+title+'</span>' +
+                                            '</a>';
+                                            container.append(html);
+                                		});                                        
+                                    }else{
+                                        mas_items = false;
+                                    }
+                                    
+                                    container.promise().done(function() {
+                                        container.trigger("create");
+                                        container.find("a").each(function( index ) {
+                                            var cls = "itemdj"+$(this).attr("id")+index;
+                                            $(this).addClass(cls);
+                                            $('head').append("<style>.ui-btn-icon-left."+cls+":after{ background: url("+BASE_URL_APP+'/img/djs/'+$(this).attr("lang")+") no-repeat scroll 0 0 transparent; }</style>");
+                                        });
+                                        
+                                        hideLoading();
+                                    });
+                                });
+                            }
+                        }
+                    });                    
                     
                     hideLoading();
                     parent.find(".ui-content").fadeIn("slow");
