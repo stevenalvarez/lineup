@@ -197,7 +197,7 @@ $(document).on('pagebeforeshow',"#google_map", function(event, ui) {
 //VENTA TICKET
 $(document).on('pagebeforeshow',"#venta_ticket", function(event, ui) {
     var page_id = $(this).attr("id");
-    loadIframe(page_id, getUrlVars()["url"]);
+    loadIframe(page_id, getUrlVars()["url"], ui.prevPage.attr('id'));
 });
 
 /************************************ FUNCTIONS *******************************************************/
@@ -2038,7 +2038,7 @@ function getAlertas(parent_id, slug){
 }
 
 //VENTA
-function loadIframe(parent_id, url){
+function loadIframe(parent_id, url, prev_page_id){
     var parent = $("#"+parent_id);
     var container = parent.find("iframe");
     if(url != ""){
@@ -2046,6 +2046,13 @@ function loadIframe(parent_id, url){
         container.attr("src",decodeURIComponent(url));
         container.load(function(){
             hideLoading();
+            //autofitIframe(this);
+            if(prev_page_id == "club_descripcion"){
+                $(parent).find(".wrap").css("height", "976px");
+                $(parent).find("iframe").css("height", "2980px");
+            }else if(prev_page_id == "sesion_descripcion" || prev_page_id == "ticket_descripcion"){
+                
+            }
         });
     }
 }
