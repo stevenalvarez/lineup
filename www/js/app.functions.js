@@ -176,7 +176,7 @@ function animation(container,parent){
         container.find(".toogle").unbind("touchstart").bind("touchstart", function(){
             var element = $(this);
             if(element.hasClass("up")){
-                element.parent().parent().animate({"padding-top": "40px",}, 500, "linear", function() {
+                element.parent().parent().animate({"padding-top": "30px",}, 500, "linear", function() {
                     element.removeClass("up").addClass("down");
                     element.parent().parent().parent().find(".content_middle").fadeIn();
                     setTimeout(function(){

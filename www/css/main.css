@@ -253,8 +253,8 @@
 .container_popup{margin: 20px;min-width: 410px;}
 
 /* VENTA TICKET */
-#venta_ticket .content_iframe { height: 100%;background-color: #000;}
-#venta_ticket .content_iframe iframe{height: 100% !important}
+#venta_ticket .wrap {width: 320px;height: 746px;padding: 0;margin:0;overflow: hidden;}
+#venta_ticket .frame {width: 980px;height: 100%;min-height: 2279px;border: 0;-ms-transform: scale(0.328);-moz-transform: scale(0.328);-o-transform: scale(0.328);-webkit-transform: scale(0.328);transform: scale(0.328);-ms-transform-origin: 0 0;-moz-transform-origin: 0 0;-o-transform-origin: 0 0;-webkit-transform-origin: 0 0;transform-origin: 0 0;}
 
 /* SCROLL */
 .endless_scroll_content{padding-top: 50px;}
