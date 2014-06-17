@@ -298,11 +298,7 @@ function ajaxCalendario(value, club_id, sesion_id){
 }
 
 function gotoTicket(thiss, ticket_id, precio){
-    if(parseInt(precio) > 0){
-        $.mobile.changePage("ticket_descripcion.html?ticket_id="+ticket_id);
-    }else{
-        showAlert("Tickets no disponibles para esta sesi\u00F3n", "Aviso", "Aceptar");
-    }
+    $.mobile.changePage("ticket_descripcion.html?ticket_id="+ticket_id);
 }
 
 function getClubsAll(parent_id,filtro_id){
