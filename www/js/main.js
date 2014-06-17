@@ -1525,56 +1525,41 @@ function getDjBy(parent_id, dj_id){
                 parent.find(".ui-header").find(".page h2").html(titulo);
             }
     		
+            var item = data.item;
             var items = data.items;
-            if(items.length){
-        		$.each(items, function(index, item) {
+            if(item.length){
+                item = item[0];
                     
-                    var id = item.Dj.id;
-                    var title = IDIOMA == "castellano" ? item.Dj.title_esp : item.Dj.title_eng;
-                    var imagen_redonda = item.Dj.imagen_redonda!=""?item.Dj.imagen_redonda:"default.png";
-                    var imagen_fondo = item.Dj.imagen_fondo!=""?item.Dj.imagen_fondo:"default.png";
-                    var descripcion = IDIOMA == "castellano" ? item.Dj.descripcion_esp : item.Dj.descripcion_eng;
-                    
-                    var html='';
-                    if(index == 0){
-                        html+='<div class="container custom3" style="background: url('+BASE_URL_APP+'img/djs/'+imagen_fondo+');background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
-                        '<div class="content_top">' + 
-                            '<div class="imagen left">' +
-                                '<img src="'+BASE_URL_APP+'img/djs/' + imagen_redonda + '" />' +
-                            '</div>' +
-                            '<div class="title left">'+
-                                '<a class="sub toogle up" href="javascript:void(0)">' +
-                                    '<h2>'+title+'</h2> &nbsp;' +
-                                '</a>' +
-                            '</div>' +
-                        '</div>';
-                    }else{
-                        html+='<div class="container custom3" data-src="'+BASE_URL_APP+'img/djs/'+imagen_fondo+'" style="background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
-                            '<div class="content_top">' + 
-                                '<div class="imagen left">' +
-                                    '<img data-src="'+BASE_URL_APP+'img/djs/' + imagen_redonda + '" src="" />' +
-                                '</div>' +
-                                '<div class="title left">'+
-                                    '<a class="sub toogle up" href="javascript:void(0)">' +
-                                        '<h2>'+title+'</h2> &nbsp;' +
-                                    '</a>' +
-                                '</div>' +
-                            '</div>';
-                    }
-                        html+='<div class="content_middle">' +
-                            '<p class="descripcion">' + descripcion +'</p>' +
+                var id = item.Dj.id;
+                var title = IDIOMA == "castellano" ? item.Dj.title_esp : item.Dj.title_eng;
+                var imagen_redonda = item.Dj.imagen_redonda!=""?item.Dj.imagen_redonda:"default.png";
+                var imagen_fondo = item.Dj.imagen_fondo!=""?item.Dj.imagen_fondo:"default.png";
+                var descripcion = IDIOMA == "castellano" ? item.Dj.descripcion_esp : item.Dj.descripcion_eng;
+                
+                var html='<div class="container custom3" style="background: url('+BASE_URL_APP+'img/djs/'+imagen_fondo+');background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
+                    '<div class="content_top">' + 
+                        '<div class="imagen left">' +
+                            '<img src="'+BASE_URL_APP+'img/djs/' + imagen_redonda + '" />' +
                         '</div>' +
-                        '<div class="content_bottom">' +
-                            '<div data-role="navbar" data-corners="false">'+
-                                '<ul class="nav_options">' +
-                                    '<li class="alertas"><a class="icon_alertas" href="alertas.html?slug=djs" data-icon="none" data-iconpos="top">Alerta</a></li>' +
-                                '</ul>' +
-                            '</div>' +
+                        '<div class="title left">'+
+                            '<a class="sub toogle up" href="javascript:void(0)">' +
+                                '<h2>'+title+'</h2> &nbsp;' +
+                            '</a>' +
                         '</div>' +
-                    '</div>';
-        		    
-                    container.append(html);
-        		});
+                    '</div>' +
+                    '<div class="content_middle">' +
+                        '<p class="descripcion">' + descripcion +'</p>' +
+                    '</div>' +
+                    '<div class="content_bottom">' +
+                        '<div data-role="navbar" data-corners="false">'+
+                            '<ul class="nav_options">' +
+                                '<li class="alertas"><a class="icon_alertas" href="alertas.html?slug=djs" data-icon="none" data-iconpos="top">Alerta</a></li>' +
+                            '</ul>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>';
+    		    
+                container.append(html);
                 
                 container.promise().done(function() {
                     $('<img>').attr('src',function(){
