@@ -1525,41 +1525,40 @@ function getDjBy(parent_id, dj_id){
                 parent.find(".ui-header").find(".page h2").html(titulo);
             }
     		
-            var item = data.item;
             var items = data.items;
-            if(item.length){
-                item = item[0];
+            if(items.length){
+                $.each(items, function(index, item) {
+                    var id = item.Dj.id;
+                    var title = IDIOMA == "castellano" ? item.Dj.title_esp : item.Dj.title_eng;
+                    var imagen_redonda = item.Dj.imagen_redonda!=""?item.Dj.imagen_redonda:"default.png";
+                    var imagen_fondo = item.Dj.imagen_fondo!=""?item.Dj.imagen_fondo:"default.png";
+                    var descripcion = IDIOMA == "castellano" ? item.Dj.descripcion_esp : item.Dj.descripcion_eng;
                     
-                var id = item.Dj.id;
-                var title = IDIOMA == "castellano" ? item.Dj.title_esp : item.Dj.title_eng;
-                var imagen_redonda = item.Dj.imagen_redonda!=""?item.Dj.imagen_redonda:"default.png";
-                var imagen_fondo = item.Dj.imagen_fondo!=""?item.Dj.imagen_fondo:"default.png";
-                var descripcion = IDIOMA == "castellano" ? item.Dj.descripcion_esp : item.Dj.descripcion_eng;
-                
-                var html='<div class="container custom3" style="background: url('+BASE_URL_APP+'img/djs/'+imagen_fondo+');background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
-                    '<div class="content_top">' + 
-                        '<div class="imagen left">' +
-                            '<img src="'+BASE_URL_APP+'img/djs/' + imagen_redonda + '" />' +
+                    var html='<div id="'+id+'" class="container custom3" style="background: url('+BASE_URL_APP+'img/djs/'+imagen_fondo+');background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
+                        '<div class="content_top">' + 
+                            '<div class="imagen left">' +
+                                '<img src="'+BASE_URL_APP+'img/djs/' + imagen_redonda + '" />' +
+                            '</div>' +
+                            '<div class="title left">'+
+                                '<a class="sub toogle up" href="javascript:void(0)">' +
+                                    '<h2>'+title+'</h2> &nbsp;' +
+                                '</a>' +
+                            '</div>' +
                         '</div>' +
-                        '<div class="title left">'+
-                            '<a class="sub toogle up" href="javascript:void(0)">' +
-                                '<h2>'+title+'</h2> &nbsp;' +
-                            '</a>' +
+                        '<div class="content_middle">' +
+                            '<p class="descripcion">' + descripcion +'</p>' +
                         '</div>' +
-                    '</div>' +
-                    '<div class="content_middle">' +
-                        '<p class="descripcion">' + descripcion +'</p>' +
-                    '</div>' +
-                    '<div class="content_bottom">' +
-                        '<div data-role="navbar" data-corners="false">'+
-                            '<ul class="nav_options">' +
-                                '<li class="alertas"><a class="icon_alertas" href="alertas.html?slug=djs" data-icon="none" data-iconpos="top">Alerta</a></li>' +
-                            '</ul>' +
+                        '<div class="content_bottom">' +
+                            '<div data-role="navbar" data-corners="false">'+
+                                '<ul class="nav_options">' +
+                                    '<li class="alertas"><a class="icon_alertas" href="alertas.html?slug=djs" data-icon="none" data-iconpos="top">Alerta</a></li>' +
+                                '</ul>' +
+                            '</div>' +
                         '</div>' +
-                    '</div>' +
-                '</div>';
-    		    
-                container.append(html);
+                    '</div>';
+        		    
+                    container.append(html);
+                });
                 
                 container.promise().done(function() {
                     $('<img>').attr('src',function(){
@@ -1567,7 +1566,6 @@ function getDjBy(parent_id, dj_id){
                         imgUrl = imgUrl.substring(4, imgUrl.length-1);
                         return imgUrl;
                     }).load(function(){
-                                        
                         //refresh
                 		$('[data-role="navbar"]').navbar();
                         
@@ -1580,17 +1578,60 @@ function getDjBy(parent_id, dj_id){
                             itemsTablet: false,
                             itemsMobile : false,
                             afterMove : function(){
-                                var item = this.owl.currentItem;
-                                if(item > 0){
-                                    setTimeout(function(){
-                                        item = parseInt(item) + 1;
-                                        var element = container.find(".owl-item:nth-child("+(item)+")").find(".container");
-                                        element.css("background","url('"+element.attr("data-src")+"')");
-                                        element.css("background-size","100% auto");
-                                        var imagen = element.find(".content_top").find(".imagen img"); 
-                                        imagen.attr("src",imagen.attr("data-src"));
-                                    },100);
-                                }
+                                var currentItem = this.owl.currentItem + 1;
+                                if (currentItem === this.owl.owlItems.length) {
+                            	    $.getJSON(BASE_URL_APP + 'djs/mobileGetDjs/'+dj_id+"/"+currentItem, function(result) {
+                            	        var resultados = result.items;
+                                        if(resultados.length){
+                                            showLoading();
+                                            
+                                            $(resultados).each(function(index, item){
+                                                var id = item.Dj.id;
+                                                var title = IDIOMA == "castellano" ? item.Dj.title_esp : item.Dj.title_eng;
+                                                var imagen_redonda = item.Dj.imagen_redonda!=""?item.Dj.imagen_redonda:"default.png";
+                                                var imagen_fondo = item.Dj.imagen_fondo!=""?item.Dj.imagen_fondo:"default.png";
+                                                var descripcion = IDIOMA == "castellano" ? item.Dj.descripcion_esp : item.Dj.descripcion_eng;
+                                                
+                                                var html='<div id="'+id+'" class="container custom3" style="background: url('+BASE_URL_APP+'img/djs/'+imagen_fondo+');background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
+                                                    '<div class="content_top">' + 
+                                                        '<div class="imagen left">' +
+                                                            '<img src="'+BASE_URL_APP+'img/djs/' + imagen_redonda + '" />' +
+                                                        '</div>' +
+                                                        '<div class="title left">'+
+                                                            '<a class="sub toogle up" href="javascript:void(0)">' +
+                                                                '<h2>'+title+'</h2> &nbsp;' +
+                                                            '</a>' +
+                                                        '</div>' +
+                                                    '</div>' +
+                                                    '<div class="content_middle">' +
+                                                        '<p class="descripcion">' + descripcion +'</p>' +
+                                                    '</div>' +
+                                                    '<div class="content_bottom">' +
+                                                        '<div data-role="navbar" data-corners="false">'+
+                                                            '<ul class="nav_options">' +
+                                                                '<li class="alertas"><a class="icon_alertas" href="alertas.html?slug=djs" data-icon="none" data-iconpos="top">Alerta</a></li>' +
+                                                            '</ul>' +
+                                                        '</div>' +
+                                                    '</div>' +
+                                                '</div>';
+                                                
+                                                if(container.find(".owl-item #"+id).html() == undefined){
+                                                    container.data('owlCarousel').addItem(html);
+                                                }
+                                            });
+                                                                                         
+                                            owl = container.data('owlCarousel');
+                                            owl.jumpTo(currentItem-1);
+                                            
+                                            container.promise().done(function() {
+                                                //refresh
+                                        		$('[data-role="navbar"]').navbar();
+                                                animation(container,parent);
+                                                hideLoading();
+                                            });
+                                        }
+                                	});
+                                }                                
                             }
                         });
                         
