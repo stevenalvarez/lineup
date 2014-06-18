@@ -228,8 +228,8 @@
 
 /* TICKET DETALLE */
 .ticket_detalle{margin-top: 25px !important;overflow: hidden;}
-.ticket_detalle .imagen{width: 80px;}
-.ticket_detalle .imagen img{width: 100%;display: block;}
+.ticket_detalle .imagen{width: 70px;height: 70px;}
+.ticket_detalle .imagen img{width: 100%; height: 100%; display: block;-webkit-border-radius: 3em;border-radius: 3em;border: 2px solid #fff;box-shadow: 2px 1px 3px #000;}
 .ticket_detalle .descripcion{width: 65%;}
 .ticket_detalle .descripcion h2{font-size: 34px;text-shadow: 1px 1px 0px #000;line-height: 30px;}
 .ticket_detalle .descripcion h3{color: #fc049b;font-size: 22px;text-shadow: 1px 1px 0 #000;}

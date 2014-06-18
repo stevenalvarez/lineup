@@ -1888,7 +1888,7 @@ function getTicketSesionBy(parent_id, ticket_id){
                         if($(djs).length != (i+1)) djs_titles+= ", ";
                     });
                     var imagen_redonda = item.Sesion.imagen_redonda!=""?item.Sesion.imagen_redonda:"default.png";
-                    var precio = item.Ticket.precio != "" ? item.Ticket.precio : 0;
+                    var precio = parseInt(item.Ticket.precio) > 0 ? item.Ticket.precio : 0;
                     var fecha_ini = item.Ticket.fecha_ini_virtual;
                     
                     container.find("h3").html(title);
@@ -1896,6 +1896,7 @@ function getTicketSesionBy(parent_id, ticket_id){
                     container.find(".fecha").html(fecha_ini);
                     container.find(".djs").html(djs_titles);
                     container.find(".precio").html(precio+"&euro;");
+                    if(precio == 0) container.find(".precio").hide();
                     
                     //valor
                     var numero = container.find(".numero").html();
