@@ -183,7 +183,7 @@ $(document).on("pagebeforeshow","#ticket_descripcion",function(event){
 $(document).on("pagebeforeshow","#alertas",function(event){
     var page_id = $(this).attr("id");
     var slug = getUrlVars()["slug"];
-    if(slug == undefined) slug = "all";
+    if(slug == undefined) slug = "clubs";
     getMenuFooter(page_id,slug);
     getAlertas(page_id,slug);
 });
@@ -1952,7 +1952,7 @@ function getAlertas(parent_id, slug){
     
     showLoading();
     
-	$.getJSON(BASE_URL_APP + 'alertas/mobileGetAlertas/'+CIUDAD_ID+"/"+usuario_id, function(data) {
+	$.getJSON(BASE_URL_APP + 'alertas/mobileGetAlertas/'+CIUDAD_ID+"/"+usuario_id+"/"+slug, function(data) {
         
         if(data.items){
             //fondo para la pagina
@@ -1991,6 +1991,9 @@ function getAlertas(parent_id, slug){
                             off = 'selected="selected"';
                         }
                         var cls = "al"+index+i;
+                        if(clase == "pubs" || clase == "promos"){
+                            title = IDIOMA == "castellano" ? "Recibir alertas" : "Receive alerts";
+                        }
                         c+='<a class="custom '+cls+' item" href="javascript:void(0)" data-role="button" data-icon="none" lang="'+lang+'">' +
                                 '<span class="bglista title">'+title+'</span>' +
                                 '<select name="flip-mini" data-role="slider" data-mini="true">' +
@@ -2012,7 +2015,12 @@ function getAlertas(parent_id, slug){
                         $.each(item, function(i, t) {
                             var cls = "al"+index+i;
                             var imagen_redonda = t.imagen_redonda!=""?t.imagen_redonda:"default.png";
-                            $('head').append("<style>.ui-btn-icon-left."+cls+":after{ background: url("+BASE_URL_APP+'img/'+index+'/'+imagen_redonda+") no-repeat scroll 0 0 transparent; }</style>");
+                            var css = "";
+                            if(index == "pubs" || index == "promos"){
+                                imagen_redonda = "alerta_default.png";
+                                css = "background-color:#000;";
+                            }
+                            $('head').append("<style>.ui-btn-icon-left."+cls+":after{ background: url("+BASE_URL_APP+'img/'+index+'/'+imagen_redonda+") no-repeat scroll 0 0 transparent; "+css+"}</style>");
                         });
             		});
                     
@@ -2023,11 +2031,8 @@ function getAlertas(parent_id, slug){
                     //mostramos la info segun al idioma
                     parent.find(".container_popup ."+IDIOMA).show();
                     
-                    //fitro de sesion
-                    if(slug != "all"){
-                        container.find("div.item").hide();
-                        container.find("div.item."+slug).show();
-                    }
+                    container.find("div.item").hide();
+                    container.find("div.item."+slug).show();
                     
                     //recibir/dejar de recibir alertas
                     container.find("select").change(function(){
@@ -2043,9 +2048,9 @@ function getAlertas(parent_id, slug){
                                 $.mobile.loading( 'hide' );
                                 
                                 if(data.success){
-                                    showAlert(data.mensaje, "Aviso", "Aceptar");
+                                    //showAlert(data.mensaje, "Aviso", "Aceptar");
                                 }else{
-                                    showAlert(data.mensaje, "Error", "Aceptar");
+                                    //showAlert(data.mensaje, "Error", "Aceptar");
                                 }
                             }
                     	});
