@@ -481,8 +481,8 @@ function getMenuFooter(parent_id,filtro_id){
                                             var imagen_redonda = t.imagen_redonda!=""?t.imagen_redonda:"default.png";
                                             var css = "";
                                             if(index == "pubs" || index == "promos"){
-                                                imagen_redonda = "alerta_default.png;";
-                                                css = "background-color:#000";
+                                                imagen_redonda = "alerta_default.png";
+                                                css = "background-color:#000;";
                                             }
                                             $('head').append("<style>.ui-btn-icon-left."+cls+":after{ background: url("+BASE_URL_APP+'img/'+index+'/'+imagen_redonda+") no-repeat scroll 0 0 transparent; "+css+"}</style>");
                                         });
