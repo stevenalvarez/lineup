@@ -508,7 +508,7 @@ function getClubBy(parent_id, club_id){
                         
                         container.find(".tickets a").unbind("touchstart").bind("touchstart", function(){
                             var src = decodeURIComponent($(this).attr("lang"));
-                            var ref = window.open(src, '_blank', 'location=no,toolbar=no');
+                            var ref = window.open(src, '_blank', 'width=320,height=480');
                             ref.addEventListener("loadstart", function(iABObject) {
                                 procesoPagoPayPal(ref, iABObject);
                             });                            
