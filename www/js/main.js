@@ -462,7 +462,7 @@ function getClubBy(parent_id, club_id){
                                     }
                                     html+='</a>' +
                                     '</li>' +
-                                    '<li class="tickets"><a class="icon_tickets" target="_system" href="'+url+'" data-icon="none" data-iconpos="top">Tickets</a></li>' +
+                                    '<li class="tickets"><a class="open icon_tickets" href="'+url+'" data-icon="none" data-iconpos="top">Tickets</a></li>' +
                                     '<li class="sesiones"><a class="icon_sesiones" href="sesiones.html?id='+id+'" data-icon="none" data-iconpos="top">Sesiones</a></li>' +
                                     '<li class="alertas"><a class="icon_alertas" href="alertas.html?slug=clubs" data-icon="none" data-iconpos="top">Alerta</a></li>' +
                                 '</ul>' +
@@ -506,6 +506,7 @@ function getClubBy(parent_id, club_id){
                             }
                         });
                         
+                        openOnWindow(container,'_system');
                         animation(container,parent);
                         
                         hideLoading();
@@ -670,7 +671,7 @@ function getSesionBy(parent_id, sesion_id){
                                     }
                                     html+='</a>' +
                                     '</li>' +
-                                    '<li class="tickets"><a class="icon_tickets" target="_system" href="'+url+'" data-icon="none" data-iconpos="top">Tickets</a></li>' +
+                                    '<li class="tickets"><a class="open icon_tickets" href="'+url+'" data-icon="none" data-iconpos="top">Tickets</a></li>' +
                                     '<li class="alertas"><a class="icon_alertas" href="alertas.html?slug=sesiones" data-icon="none" data-iconpos="top">Alerta</a></li>' +
                                 '</ul>' +
                             '</div>' +
@@ -713,6 +714,7 @@ function getSesionBy(parent_id, sesion_id){
                             }
                         });
                         
+                        openOnWindow(container,'_system');
                         animation(container,parent);
                         
                         hideLoading();
@@ -1921,7 +1923,6 @@ function getTicketSesionBy(parent_id, ticket_id){
                     //comprar
                     var href = url;
                     container.find("#realizar_compra").attr("href",href);
-                    
                     openOnWindow(container,'_system');
                     
                     parent.find(".container_popup .castellano").html(info.Sistema.text_esp)
