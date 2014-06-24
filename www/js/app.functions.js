@@ -560,7 +560,3 @@ function getMenuFooter(parent_id,filtro_id){
         }
 	});
 }
-
-function procesoPagoPayPal(win, loc){
-    //alert(loc);
-}

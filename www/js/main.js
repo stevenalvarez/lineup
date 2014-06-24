@@ -1922,6 +1922,8 @@ function getTicketSesionBy(parent_id, ticket_id){
                     var href = url;
                     container.find("#realizar_compra").attr("href",href);
                     
+                    openOnWindow(container,'_system');
+                    
                     parent.find(".container_popup .castellano").html(info.Sistema.text_esp)
                     parent.find(".container_popup .english").html(info.Sistema.text_eng)
                     
