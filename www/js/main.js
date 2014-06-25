@@ -397,7 +397,7 @@ function getClubBy(parent_id, club_id){
         		$.each(items, function(index, item) {
         		  
                     var id = item.Club.id;
-                    var url = item.Club.url_venta_ticket != undefined ? item.Club.url_venta_ticket : "#";
+                    var url = item.Club.url_venta_ticket != undefined ? item.Club.url_venta_ticket : "";
                     var title = IDIOMA == "castellano" ? item.Club.title_esp : item.Club.title_eng;
                     var sub_title = item.Club.sub_title;
                     var imagen = item.Club.imagen!=""?item.Club.imagen:"default.png";
@@ -508,7 +508,7 @@ function getClubBy(parent_id, club_id){
                         
                         container.find(".tickets a").unbind("touchstart").bind("touchstart", function(){
                             var src = decodeURIComponent($(this).attr("lang"));
-                            window.plugins.childBrowser.showWebPage(src, { showLocationBar : true, showAddress :true, showNavigationBar : false });
+                            window.plugins.childBrowser.showWebPage(src, { showLocationBar : true, showAddress :true, showNavigationBar : true });
                         });
                         
                         animation(container,parent);
@@ -610,7 +610,7 @@ function getSesionBy(parent_id, sesion_id){
         		$.each(items, function(index, item) {
                     
                     var id = item.Sesion.id;
-                    var url = item.Sesion.url_venta_ticket != undefined ? item.Sesion.url_venta_ticket : "#";
+                    var url = item.Sesion.url_venta_ticket != undefined ? item.Sesion.url_venta_ticket : "";
                     var title = IDIOMA == "castellano" ? item.Sesion.title_esp : item.Sesion.title_eng;
                     var sub_title = item.Sesion.sub_title;
                     var imagen = item.Sesion.imagen!=""?item.Sesion.imagen:"default.png";
@@ -675,7 +675,7 @@ function getSesionBy(parent_id, sesion_id){
                                     }
                                     html+='</a>' +
                                     '</li>' +
-                                    '<li class="tickets"><a class="open icon_tickets" href="'+url+'" data-icon="none" data-iconpos="top">Tickets</a></li>' +
+                                    '<li class="tickets"><a class="open icon_tickets" lang="'+encodeURIComponent(url)+'" href="javascript:void(0)" data-icon="none" data-iconpos="top">Tickets</a></li>' +
                                     '<li class="alertas"><a class="icon_alertas" href="alertas.html?slug=sesiones" data-icon="none" data-iconpos="top">Alerta</a></li>' +
                                 '</ul>' +
                             '</div>' +
@@ -718,7 +718,11 @@ function getSesionBy(parent_id, sesion_id){
                             }
                         });
                         
-                        openOnWindow(container,'_system');
+                        container.find(".tickets a").unbind("touchstart").bind("touchstart", function(){
+                            var src = decodeURIComponent($(this).attr("lang"));
+                            window.plugins.childBrowser.showWebPage(src, { showLocationBar : true, showAddress :true, showNavigationBar : true });
+                        });
+                        
                         animation(container,parent);
                         
                         hideLoading();
@@ -1885,7 +1889,7 @@ function getTicketSesionBy(parent_id, ticket_id){
             if(item != ""){
                     
                     var ticket_id = item.Ticket.id;
-                    var url = item.Sesion.url_venta_ticket != undefined ? item.Sesion.url_venta_ticket : "#";
+                    var url = item.Sesion.url_venta_ticket != undefined ? item.Sesion.url_venta_ticket : "";
                     var title = IDIOMA == "castellano" ? item.Sesion.title_esp : item.Sesion.title_eng;
                     var djs = item.Dj;
                     var djs_titles = "";
@@ -1925,9 +1929,12 @@ function getTicketSesionBy(parent_id, ticket_id){
                     });
                     
                     //comprar
-                    var href = url;
-                    container.find("#realizar_compra").attr("href",href);
-                    openOnWindow(container,'_system');
+                    container.find("#realizar_compra").attr("lang",encodeURIComponent(url));
+                    
+                    container.find("#realizar_compra").unbind("touchstart").bind("touchstart", function(){
+                        var src = decodeURIComponent($(this).attr("lang"));
+                        window.plugins.childBrowser.showWebPage(src, { showLocationBar : true, showAddress :true, showNavigationBar : true });
+                    });
                     
                     parent.find(".container_popup .castellano").html(info.Sistema.text_esp)
                     parent.find(".container_popup .english").html(info.Sistema.text_eng)
