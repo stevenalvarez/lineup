@@ -68,10 +68,7 @@
         
     <!-- access -->
     <access origin="*" browserOnly="true"/>
-    
-    <!-- statusbar  -->
-    <gap:plugin name="de.appplant.cordova.plugin.hidden-statusbar-overlay" />
-    
+        
     <!-- childbrowser  -->
     <gap:plugin name="com.phonegap.plugins.childbrowser" version="5.0.0" />
     
