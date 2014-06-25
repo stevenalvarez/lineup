@@ -462,7 +462,7 @@ function getClubBy(parent_id, club_id){
                                     }
                                     html+='</a>' +
                                     '</li>' +
-                                    '<li class="tickets"><a class="open icon_tickets" href="'+url+'" data-icon="none" data-iconpos="top">Tickets</a></li>' +
+                                    '<li class="tickets"><a class="icon_tickets" lang="'+encodeURIComponent(url)+'" href="javascript:void(0)" data-icon="none" data-iconpos="top">Tickets</a></li>' +
                                     '<li class="sesiones"><a class="icon_sesiones" href="sesiones.html?id='+id+'" data-icon="none" data-iconpos="top">Sesiones</a></li>' +
                                     '<li class="alertas"><a class="icon_alertas" href="alertas.html?slug=clubs" data-icon="none" data-iconpos="top">Alerta</a></li>' +
                                 '</ul>' +
@@ -506,7 +506,11 @@ function getClubBy(parent_id, club_id){
                             }
                         });
                         
-                        openOnWindow(container,'_system');
+                        container.find(".tickets a").unbind("touchstart").bind("touchstart", function(){
+                            var src = decodeURIComponent($(this).attr("lang"));
+                            window.plugins.childBrowser.showWebPage(src, { showLocationBar : true });  
+                        });
+                        
                         animation(container,parent);
                         
                         hideLoading();

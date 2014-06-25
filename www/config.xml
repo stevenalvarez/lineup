@@ -69,6 +69,12 @@
     <!-- access -->
     <access origin="*" browserOnly="true"/>
     
+    <!-- statusbar  -->
+    <gap:plugin name="de.appplant.cordova.plugin.hidden-statusbar-overlay" />
+    
+    <!-- childbrowser  -->
+    <gap:plugin name="com.phonegap.plugins.childbrowser" version="5.0.0" />
+    
     <!-- debug -->
     <feature name="debug-server" required="true">
         <param name="domain" value="http://debug.build.phonegap.com"/>
