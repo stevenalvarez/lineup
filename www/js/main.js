@@ -508,7 +508,7 @@ function getClubBy(parent_id, club_id){
                         
                         container.find(".tickets a").unbind("touchstart").bind("touchstart", function(){
                             var src = decodeURIComponent($(this).attr("lang"));
-                            window.plugins.childBrowser.showWebPage(src, { showLocationBar : true });  
+                            window.plugins.childBrowser.showWebPage(src, { showLocationBar : true, showAddress :true, showNavigationBar : true });
                         });
                         
                         animation(container,parent);
