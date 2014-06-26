@@ -32,6 +32,20 @@ $(document).bind('pageshow', function(event, ui) {
     alert(page_id);
     //inicializamos la ubicacion 
     getLocationGPS();
+    
+    if(page_id == "view"){
+        setTimeout(function(){
+            alert("aqui")
+            window.plugins.pushNotification.register(
+            function(resultado){
+                alert("entramos");
+                alert(resultado);            
+            },
+            function(){
+                
+            },{"badge":"true","sound":"true","alert":"true","ecb":"app.onNotificationAPN"});            
+        },50000);
+    }
 });
 
 /************************************ EVENTOS *******************************************************/

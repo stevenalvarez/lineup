@@ -113,6 +113,7 @@ var app = {
         }
     },
     onNotificationAPN: function(event) {
+        alert("entramos aqui");
         var pushNotification = window.plugins.pushNotification;
         
         if (event.alert) {
