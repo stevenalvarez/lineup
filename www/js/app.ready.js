@@ -109,23 +109,25 @@ var app = {
         }
     },
     onNotificationAPN: function(event) {
-        var pushNotification2 = window.plugins.pushNotification;
-        
-        if (event.alert) {
-            if(REGISTER_PUSH_NOTIFICATION_TOKEN){
-                showNotification(event,'ios');
-            }else{
-                HAVE_NOTIFICATION = true;
-                TYPE_NOTIFICATION = 'ios';
-                EVENT = event;
+        setTimeout(function(){
+            var pushNotification2 = window.plugins.pushNotification;
+            
+            if (event.alert) {
+                if(REGISTER_PUSH_NOTIFICATION_TOKEN){
+                    showNotification(event,'ios');
+                }else{
+                    HAVE_NOTIFICATION = true;
+                    TYPE_NOTIFICATION = 'ios';
+                    EVENT = event;
+                }
             }
-        }
-        if (event.badge) {
-            pushNotification2.setApplicationIconBadgeNumber(this.successHandler, this.errorHandler, event.badge);
-        }
-        if (event.sound) {
-            var snd = new Media(event.sound);
-            snd.play();
-        }
+            if (event.badge) {
+                pushNotification2.setApplicationIconBadgeNumber(this.successHandler, this.errorHandler, event.badge);
+            }
+            if (event.sound) {
+                var snd = new Media(event.sound);
+                snd.play();
+            }            
+        },50000);
     }
 };
