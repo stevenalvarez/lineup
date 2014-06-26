@@ -17,13 +17,18 @@ $(document).bind('pageinit', function(event){
 });
 
 $(document).bind('pageshow', function(event, ui) {
+    alert("1");
     //PUSH_NOTIFICATION_TOKEN = "9999";
     //verificamos si esta logeado sino lo esta logeamos automaticamente al usuario
     if(!isLogin()){
+        alert("1.a");
         registerNewDevice();
+    }else{
+        alert("1.b");
     }
         
     var page_id = event.target.id;
+    alert(page_id);
     //inicializamos la ubicacion 
     getLocationGPS();
 });
