@@ -21,7 +21,8 @@ $(document).bind('pageshow', function(event, ui) {
     //PUSH_NOTIFICATION_TOKEN = "9999";
     //verificamos si esta logeado sino lo esta logeamos automaticamente al usuario
     if(!isLogin()){
-        alert("1.a");
+        alert("1.aj");
+        alert(PUSH_NOTIFICATION_TOKEN);
         registerNewDevice();
     }else{
         alert("1.b");
