@@ -61,8 +61,10 @@ var app = {
         //solo si no se lleno antes con el token llenamos, porque viene otro tipo de mensajes igual
         if(PUSH_NOTIFICATION_TOKEN == -1){
             PUSH_NOTIFICATION_TOKEN = result;
+            alert(PUSH_NOTIFICATION_TOKEN);
             //mandamos a guardar el token para las notificaciones solo si no se guardo antes
             if(!REGISTER_PUSH_NOTIFICATION_TOKEN){
+                alert("aqui");
                 registerNewDevice();
             }
         }
