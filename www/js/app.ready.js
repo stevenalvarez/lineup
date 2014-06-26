@@ -109,8 +109,8 @@ var app = {
         }
     },
     onNotificationAPN: function(event) {
-        var pushNotification = window.plugins.pushNotification;
-        alert("onNotificationAPN");
+        var pushNotification2 = window.plugins.pushNotification;
+        
         if (event.alert) {
             if(REGISTER_PUSH_NOTIFICATION_TOKEN){
                 showNotification(event,'ios');
@@ -121,7 +121,7 @@ var app = {
             }
         }
         if (event.badge) {
-            pushNotification.setApplicationIconBadgeNumber(this.successHandler, this.errorHandler, event.badge);
+            pushNotification2.setApplicationIconBadgeNumber(this.successHandler, this.errorHandler, event.badge);
         }
         if (event.sound) {
             var snd = new Media(event.sound);
