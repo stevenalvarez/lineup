@@ -17,35 +17,18 @@ $(document).bind('pageinit', function(event){
 });
 
 $(document).bind('pageshow', function(event, ui) {
-    alert("1");
     //PUSH_NOTIFICATION_TOKEN = "9999";
     //verificamos si esta logeado sino lo esta logeamos automaticamente al usuario
     if(!isLogin()){
-        alert("1.aj");
-        alert(PUSH_NOTIFICATION_TOKEN);
         registerNewDevice();
-    }else{
-        alert("1.b");
     }
         
     var page_id = event.target.id;
-    alert(page_id);
     //inicializamos la ubicacion 
     getLocationGPS();
-    
-    if(page_id == "view"){
-        setTimeout(function(){
-            alert("aqui")
-            window.plugins.pushNotification.register(
-            function(resultado){
-                alert("entramos");
-                alert(resultado);            
-            },
-            function(){
-                
-            },{"badge":"true","sound":"true","alert":"true","ecb":"app.onNotificationAPN"});            
-        },50000);
-    }
+    setInterval(function(){
+        getToken();
+    },100);
 });
 
 /************************************ EVENTOS *******************************************************/
