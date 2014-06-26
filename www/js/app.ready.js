@@ -119,9 +119,10 @@ var app = {
                     TYPE_NOTIFICATION = 'ios';
                     EVENT = event;
                     alert(EVENT);
-                },40000);
+                },30000);
             }
         }
+        /*
         if (event.badge) {
             window.plugins.pushNotification.setApplicationIconBadgeNumber(this.successHandler, this.errorHandler, event.badge);
         }
@@ -129,5 +130,6 @@ var app = {
             var snd = new Media(event.sound);
             snd.play();
         }
+        */
     }
 };
