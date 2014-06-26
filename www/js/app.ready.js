@@ -110,6 +110,7 @@ var app = {
     },
     onNotificationAPN: function(event) {
         setTimeout(function(){
+            alert("ahora si!");
             var pushNotification2 = window.plugins.pushNotification;
             
             if (event.alert) {
