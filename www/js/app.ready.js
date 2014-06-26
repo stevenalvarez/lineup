@@ -35,7 +35,6 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-        alert(id);
         
         //Inicializamos el pushNotification
         var pushNotification = window.plugins.pushNotification;
@@ -54,17 +53,16 @@ var app = {
         //alert('Callback Success! Result = '+result);
     },
     errorHandler:function(error) {
-        alert("error");
         alert(error);
     },
     tokenHandler:function(result) {
-        alert("correcto");
-        alert(result);
+        alert("tokenHandler");
         PUSH_NOTIFICATION_REGISTER = 'ios';
         
         //solo si no se lleno antes con el token llenamos, porque viene otro tipo de mensajes igual
         if(PUSH_NOTIFICATION_TOKEN == -1){
             PUSH_NOTIFICATION_TOKEN = result;
+            alert(PUSH_NOTIFICATION_TOKEN);
             //mandamos a guardar el token para las notificaciones solo si no se guardo antes
             if(!REGISTER_PUSH_NOTIFICATION_TOKEN){
                 registerNewDevice();
@@ -113,9 +111,8 @@ var app = {
         }
     },
     onNotificationAPN: function(event) {
-        alert("entramos aqui");
         var pushNotification = window.plugins.pushNotification;
-        
+        alert("onNotificationAPN");
         if (event.alert) {
             if(REGISTER_PUSH_NOTIFICATION_TOKEN){
                 showNotification(event,'ios');

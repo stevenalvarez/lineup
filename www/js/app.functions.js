@@ -12,13 +12,6 @@ function isLogin(){
     return res;
 }
 
-function getToken(){
-    window.plugins.pushNotification.register(
-        function(token){
-            alert(token);
-        }
-    );
-}
 
 //Abrimos el enlace en un navegador del sistema (IOS|ANDROID)
 //target: the target to load the URL in (String) (Optional, Default: "_self")
