@@ -26,17 +26,6 @@ $(document).bind('pageshow', function(event, ui) {
     var page_id = event.target.id;
     //inicializamos la ubicacion 
     getLocationGPS();
-    
-    //mostramos la notificacion pendiente solo si no es menu
-    if(page_id == "menu"){
-        //si tiene una notificacion pendiente la mostramos
-        if(HAVE_NOTIFICATION){
-            setTimeout(function(){
-                showNotification(EVENT, TYPE_NOTIFICATION);
-            },800);
-            HAVE_NOTIFICATION = false;
-        }
-    }
 });
 
 /************************************ EVENTOS *******************************************************/

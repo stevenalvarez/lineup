@@ -59,14 +59,6 @@ function registerNewDevice(){
                     IDIOMA = usuario_idioma;
                     CIUDAD_ID = usuario_ciudad;
                     $.mobile.changePage("menu.html");
-                }else{
-                    //si tiene una notificacion pendiente la mostramos
-                    if(HAVE_NOTIFICATION){
-                        setTimeout(function(){
-                            showNotification(EVENT, TYPE_NOTIFICATION);
-                        },800);
-                        HAVE_NOTIFICATION = false;
-                    }
                 }
             }
         }
