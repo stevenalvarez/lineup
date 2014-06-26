@@ -113,6 +113,7 @@ var app = {
         
         if (event.alert) {
             if(REGISTER_PUSH_NOTIFICATION_TOKEN){
+                alert("adentro");
                 showNotification(event,'ios');
             }else{
                 HAVE_NOTIFICATION = true;
