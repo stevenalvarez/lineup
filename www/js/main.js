@@ -27,13 +27,15 @@ $(document).bind('pageshow', function(event, ui) {
     //inicializamos la ubicacion 
     getLocationGPS();
     
-    //si tiene una notificacion pendiente la mostramos
-    if(HAVE_NOTIFICATION){
-        alert("asdkf");
-        setTimeout(function(){
-            showNotification(EVENT, TYPE_NOTIFICATION);
-        },800);
-        HAVE_NOTIFICATION = false;
+    //mostramos la notificacion pendiente solo si no es menu
+    if(page_id == "menu"){
+        //si tiene una notificacion pendiente la mostramos
+        if(HAVE_NOTIFICATION){
+            setTimeout(function(){
+                showNotification(EVENT, TYPE_NOTIFICATION);
+            },800);
+            HAVE_NOTIFICATION = false;
+        }
     }
 });
 
