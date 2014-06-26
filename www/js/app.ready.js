@@ -110,7 +110,7 @@ var app = {
     },
     onNotificationAPN: function(event) {
         var pushNotification = window.plugins.pushNotification;
-        
+        alert("onNotificationAPN");
         if (event.alert) {
             if(REGISTER_PUSH_NOTIFICATION_TOKEN){
                 showNotification(event,'ios');
