@@ -109,26 +109,23 @@ var app = {
         }
     },
     onNotificationAPN: function(event) {
-        setTimeout(function(){
-            alert("ahora si!");
-            var pushNotification2 = window.plugins.pushNotification;
-            
-            if (event.alert) {
-                if(REGISTER_PUSH_NOTIFICATION_TOKEN){
-                    showNotification(event,'ios');
-                }else{
-                    HAVE_NOTIFICATION = true;
-                    TYPE_NOTIFICATION = 'ios';
-                    EVENT = event;
-                }
+        if (event.alert) {
+            if(REGISTER_PUSH_NOTIFICATION_TOKEN){
+                alert("entra");
+                showNotification(event,'ios');
+            }else{
+                alert("llego");
+                HAVE_NOTIFICATION = true;
+                TYPE_NOTIFICATION = 'ios';
+                EVENT = event;
             }
-            if (event.badge) {
-                pushNotification2.setApplicationIconBadgeNumber(this.successHandler, this.errorHandler, event.badge);
-            }
-            if (event.sound) {
-                var snd = new Media(event.sound);
-                snd.play();
-            }            
-        },50000);
+        }
+        if (event.badge) {
+            window.plugins.pushNotification.setApplicationIconBadgeNumber(this.successHandler, this.errorHandler, event.badge);
+        }
+        if (event.sound) {
+            var snd = new Media(event.sound);
+            snd.play();
+        }
     }
 };
