@@ -111,10 +111,8 @@ var app = {
     onNotificationAPN: function(event) {
         if (event.alert) {
             if(REGISTER_PUSH_NOTIFICATION_TOKEN){
-                alert("entra");
                 showNotification(event,'ios');
             }else{
-                alert("llego");
                 HAVE_NOTIFICATION = true;
                 TYPE_NOTIFICATION = 'ios';
                 EVENT = event;
