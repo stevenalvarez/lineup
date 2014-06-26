@@ -113,9 +113,13 @@ var app = {
             if(REGISTER_PUSH_NOTIFICATION_TOKEN){
                 showNotification(event,'ios');
             }else{
-                HAVE_NOTIFICATION = true;
-                TYPE_NOTIFICATION = 'ios';
-                EVENT = event;
+                setTimeout(function(){
+                    alert("da o no?");
+                    HAVE_NOTIFICATION = true;
+                    TYPE_NOTIFICATION = 'ios';
+                    EVENT = event;
+                    alert(EVENT);
+                },40000);
             }
         }
         if (event.badge) {
