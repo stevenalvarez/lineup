@@ -53,11 +53,12 @@ var app = {
         //alert('Callback Success! Result = '+result);
     },
     errorHandler:function(error) {
+        alert("error");
         alert(error);
     },
     tokenHandler:function(result) {
+        alert("correcto");
         alert(result);
-        alert("kakakaka");
         PUSH_NOTIFICATION_REGISTER = 'ios';
         
         //solo si no se lleno antes con el token llenamos, porque viene otro tipo de mensajes igual
