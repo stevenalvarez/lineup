@@ -35,6 +35,7 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
+        alert(id);
         
         //Inicializamos el pushNotification
         var pushNotification = window.plugins.pushNotification;
@@ -43,7 +44,7 @@ var app = {
             pushNotification.register(this.successHandler, this.errorHandler,{"senderID":"629734064389","ecb":"app.onNotificationGCM"});
         }
         else {
-            //alert("Register called ios");
+            alert("Register called ios");
             pushNotification.register(this.tokenHandler,this.errorHandler,{"badge":"true","sound":"true","alert":"true","ecb":"app.onNotificationAPN"});
         }        
     },
