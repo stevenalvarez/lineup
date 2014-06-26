@@ -43,7 +43,7 @@ var app = {
             pushNotification.register(this.successHandler, this.errorHandler,{"senderID":"629734064389","ecb":"app.onNotificationGCM"});
         }
         else {
-            alert("Register called ios");
+            //alert("Register called ios");
             pushNotification.register(this.tokenHandler,this.errorHandler,{"badge":"true","sound":"true","alert":"true","ecb":"app.onNotificationAPN"});
         }        
     },
@@ -56,13 +56,11 @@ var app = {
         alert(error);
     },
     tokenHandler:function(result) {
-        alert("tokenHandler");
         PUSH_NOTIFICATION_REGISTER = 'ios';
         
         //solo si no se lleno antes con el token llenamos, porque viene otro tipo de mensajes igual
         if(PUSH_NOTIFICATION_TOKEN == -1){
             PUSH_NOTIFICATION_TOKEN = result;
-            alert(PUSH_NOTIFICATION_TOKEN);
             //mandamos a guardar el token para las notificaciones solo si no se guardo antes
             if(!REGISTER_PUSH_NOTIFICATION_TOKEN){
                 registerNewDevice();
@@ -112,7 +110,7 @@ var app = {
     },
     onNotificationAPN: function(event) {
         var pushNotification = window.plugins.pushNotification;
-        alert("onNotificationAPN");
+        
         if (event.alert) {
             if(REGISTER_PUSH_NOTIFICATION_TOKEN){
                 showNotification(event,'ios');
