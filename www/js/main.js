@@ -303,6 +303,8 @@ function getMenu(parent_id, ciudad_id){
                     
                     hideLoading();
                     container.fadeIn("slow");
+                    
+                    //mandamos a ver si tiene alguna notificacion pendiente
                     verifyNotification();
                 });
             }else{

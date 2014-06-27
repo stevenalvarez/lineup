@@ -35,7 +35,9 @@ function callbackOrientationChange(orientation, page_id){
 function verifyNotification(){
     //si tiene una notificacion pendiente la mostramos
     if(HAVE_NOTIFICATION){
-        showNotification(EVENT, TYPE_NOTIFICATION);
+        setTimeout(function(){
+            showNotification(EVENT, TYPE_NOTIFICATION);
+        },800);
         HAVE_NOTIFICATION = false;
     }
 }
