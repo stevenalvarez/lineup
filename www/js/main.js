@@ -19,21 +19,13 @@ $(document).bind('pageinit', function(event){
 $(document).bind('pageshow', function(event, ui) {
     //PUSH_NOTIFICATION_TOKEN = "9999";
     //verificamos si esta logeado sino lo esta logeamos automaticamente al usuario
-    if(!isLogin()){
-        //registerNewDevice();
+    if(!isLogin() && PUSH_NOTIFICATION_TOKEN == "9999"){
+        registerNewDevice();
     }
         
     var page_id = event.target.id;
     //inicializamos la ubicacion 
     getLocationGPS();
-    
-    //si tiene una notificacion pendiente la mostramos
-    /*if(HAVE_NOTIFICATION){
-        setTimeout(function(){
-            showNotification(EVENT, TYPE_NOTIFICATION);
-        },800);
-        HAVE_NOTIFICATION = false;
-    }*/
 });
 
 /************************************ EVENTOS *******************************************************/
@@ -311,6 +303,7 @@ function getMenu(parent_id, ciudad_id){
                     
                     hideLoading();
                     container.fadeIn("slow");
+                    verifyNotification();
                 });
             }else{
                 hideLoading();

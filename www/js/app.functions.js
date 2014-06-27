@@ -12,7 +12,6 @@ function isLogin(){
     return res;
 }
 
-
 //Abrimos el enlace en un navegador del sistema (IOS|ANDROID)
 //target: the target to load the URL in (String) (Optional, Default: "_self")
 //_self - opens in the Cordova WebView if url is in the white-list, else it opens in the InAppBrowser 
@@ -30,6 +29,15 @@ function openOnWindow(element, target){
 /*page_id:el id de la pagina actual en el que se realizo el movimiento*/
 function callbackOrientationChange(orientation, page_id){
     
+}
+
+//verificamos si hay notificaciones pendiente de mostrar
+function verifyNotification(){
+    //si tiene una notificacion pendiente la mostramos
+    if(HAVE_NOTIFICATION){
+        showNotification(EVENT, TYPE_NOTIFICATION);
+        HAVE_NOTIFICATION = false;
+    }
 }
 
 //registramos el dispositivo solo si no fue registrado
@@ -59,6 +67,8 @@ function registerNewDevice(){
                     IDIOMA = usuario_idioma;
                     CIUDAD_ID = usuario_ciudad;
                     $.mobile.changePage("menu.html");
+                }else{
+                    verifyNotification();
                 }
             }
         }
