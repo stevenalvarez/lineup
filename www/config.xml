@@ -72,6 +72,9 @@
     <!-- childbrowser  -->
     <gap:plugin name="com.phonegap.plugins.childbrowser" />
     
+    <!-- statusbar  -->
+    <gap:plugin name="com.phonegap.plugin.statusbar" />    
+    
     <!-- debug -->
     <feature name="debug-server" required="true">
         <param name="domain" value="http://debug.build.phonegap.com"/>
