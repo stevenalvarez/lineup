@@ -250,9 +250,10 @@ function getLocationGPS(){
             LATITUDE = location.coords.latitude;
             LONGITUDE = location.coords.longitude;
         }, 
-        function(){
-            //showAlert("No se puede obtener la localizacion", "Error", "Aceptar");
-        }, {enableHighAccuracy:true} );
+        function(error){
+            //alert('código: '    + error.code    + '\n' + 'mensaje: ' + error.message + '\n');
+        }
+    );
 }
 
 var deviceInfo = function() {
