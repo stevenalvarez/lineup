@@ -35,6 +35,8 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
+        //Hide the statusbar
+        StatusBar.hide();
         
         //Inicializamos el pushNotification
         var pushNotification = window.plugins.pushNotification;

@@ -6,26 +6,3 @@ ul, ol, li					{ margin:0px; padding:0px; list-style:none; }
 img						{ border:none; }
 a						{ text-decoration:none; outline:none; }
 a:active, a:focus		{ outline:none;}
-/**
-* Styles to fix the new iOS 7 transparent status bar
-*/
-#ios7statusbar {
-    width:100%;
-    height:20px;
-    background-color:white;
-    position:fixed;
-    z-index:10000;
-}
-.ios7 .ui-page{    
-    padding-top: 20px;
-    padding-bottom: 0 !important;
-}
-.ios7 .ui-page.ui-page-header-fixed{
-    padding-top: 75px !important;
-}
-.ios7 .ui-page.ui-page-header-fixed .ui-header-fixed{
-    top: 20px !important;
-}
-.ios7 .ui-page#ciudades .owl-carousel .ciudad{
-    padding-bottom: 45px;
-}
