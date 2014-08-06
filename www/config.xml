@@ -81,13 +81,13 @@
     <plugin name="InAppBrowser" value="CDVInAppBrowser" />
     <plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
     
+    <!-- childbrowser  -->
+    <gap:plugin name="com.phonegap.plugins.childbrowser" version="5.0.0" />
+    
     <!-- pushNotification -->
-    <gap:plugin name="com.phonegap.plugins.pushplugin" />
+    <gap:plugin name="com.phonegap.plugins.pushplugin" version="2.1.1" />
         
     <!-- access -->
     <access origin="*" browserOnly="true"/>
-    
-    <!-- childbrowser  -->
-    <gap:plugin name="com.phonegap.plugins.childbrowser" />
 
 </widget>
