@@ -2,16 +2,16 @@
 <widget xmlns		= "http://www.w3.org/ns/widgets"
 	xmlns:gap	= "http://phonegap.com/ns/1.0"
 	id		    = "es.lineup.app"
-    versionCode = "9.0"
-	version 	= "1.8">
+    versionCode = "4.0"
+	version 	= "4.0">
 
-	<name>QuéPlan?</name>
+	<name>LineUp</name>
 
 	<description>
-		Aplicacion mobile - QuéPlan?
+		LineUp
 	</description>
 
-	<author href="http://web.queplanmadrid.es/"
+	<author href="http://web.lineupapp.es/"
 		email="steven.alvarez.v@gmail.com">
 		SYSDECOM
 	</author>
@@ -81,25 +81,16 @@
     <gap:splash src="res/screen/ios/screen-ipad-landscape.png"          gap:platform="ios"     width="1024" height="768" />
     <gap:splash src="res/screen/windows-phone/screen-portrait.jpg"      gap:platform="winphone" />
     
-    <!-- facebookconnect -->
-    <gap:plugin name="com.phonegap.plugins.facebookconnect" version="0.4.0">
-        <param name="APP_ID" value="537875786305519" />
-        <param name="APP_NAME" value="QuePlan?" />
-    </gap:plugin>
-    
     <!-- inappbrowser -->
     <plugin name="InAppBrowser" value="CDVInAppBrowser" />
     <plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
     
-    <!-- childbrowser -->
+    <!-- childbrowser  -->
     <gap:plugin name="com.phonegap.plugins.childbrowser" version="5.0.0" />
     
     <!-- pushNotification -->
     <gap:plugin name="com.phonegap.plugins.pushplugin" version="2.1.1" />
-    
-    <!-- BarcodeScanner -->
-    <gap:plugin name="com.phonegap.plugins.barcodescanner" version="1.2.0" />
-    
+        
     <!-- access -->
     <access origin="*" browserOnly="true"/>
 
