@@ -503,7 +503,7 @@ function getClubBy(parent_id, club_id){
                         
                         container.find(".tickets a").unbind("touchstart").bind("touchstart", function(){
                             var src = decodeURIComponent($(this).attr("lang"));
-                            window.plugins.childBrowser.showWebPage(src, { showLocationBar : true, showAddress :true, showNavigationBar : true });
+                            window.plugins.ChildBrowser.showWebPage(src, { showLocationBar : true, showAddress :true, showNavigationBar : true });
                         });
                         
                         animation(container,parent);
@@ -715,7 +715,7 @@ function getSesionBy(parent_id, sesion_id){
                         
                         container.find(".tickets a").unbind("touchstart").bind("touchstart", function(){
                             var src = decodeURIComponent($(this).attr("lang"));
-                            window.plugins.childBrowser.showWebPage(src, { showLocationBar : true, showAddress :true, showNavigationBar : true });
+                            window.plugins.ChildBrowser.showWebPage(src, { showLocationBar : true, showAddress :true, showNavigationBar : true });
                         });
                         
                         animation(container,parent);
@@ -1928,7 +1928,7 @@ function getTicketSesionBy(parent_id, ticket_id){
                     
                     container.find("#realizar_compra").unbind("touchstart").bind("touchstart", function(){
                         var src = decodeURIComponent($(this).attr("lang"));
-                        window.plugins.childBrowser.showWebPage(src, { showLocationBar : true, showAddress :true, showNavigationBar : true });
+                        window.plugins.ChildBrowser.showWebPage(src, { showLocationBar : true, showAddress :true, showNavigationBar : true });
                     });
                     
                     parent.find(".container_popup .castellano").html(info.Sistema.text_esp)
