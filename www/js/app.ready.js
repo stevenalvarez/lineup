@@ -65,7 +65,6 @@ var app = {
             PUSH_NOTIFICATION_TOKEN = result;
             //mandamos a guardar el token para las notificaciones solo si no se guardo antes
             if(!REGISTER_PUSH_NOTIFICATION_TOKEN){
-                alert("registerNewDevice");
                 registerNewDevice();
             }
         }
@@ -112,14 +111,10 @@ var app = {
         }
     },
     onNotificationAPN: function(event) {
-        alert("event");
         if (event.alert) {
-            alert("event 1");
             if(REGISTER_PUSH_NOTIFICATION_TOKEN){
-                alert("event 2");
                 showNotification(event,'ios');
             }else{
-                alert("event 3");
                 HAVE_NOTIFICATION = true;
                 TYPE_NOTIFICATION = 'ios';
                 EVENT = event;
