@@ -1659,7 +1659,7 @@ function getPromociones(parent_id){
     
     showLoading();
     
-	$.getJSON(BASE_URL_APP + 'promos/mobileGetPromociones/'+LATITUDE+"/"+LONGITUDE, function(data) {
+	$.getJSON(BASE_URL_APP + 'promos/mobileGetPromociones/'+LATITUDE+"/"+LONGITUDE+"/"+CIUDAD_ID, function(data) {
         
         if(data.items){
             //fondo para la pagina
@@ -1735,7 +1735,7 @@ function getPromocionBy(parent_id, promocion_id){
     
     showLoading();
     
-	$.getJSON(BASE_URL_APP + 'promos/mobileGetPromociones/'+LATITUDE+"/"+LONGITUDE, function(data) {
+	$.getJSON(BASE_URL_APP + 'promos/mobileGetPromociones/'+LATITUDE+"/"+LONGITUDE+"/"+CIUDAD_ID, function(data) {
 	    var goto_index = 0;
         
         if(data.items){

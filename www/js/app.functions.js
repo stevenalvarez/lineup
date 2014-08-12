@@ -234,7 +234,7 @@ function ajaxCalendario(value, club_id, sesion_id){
     //mostramos loading
     showLoading();
     
-	$.getJSON(BASE_URL_APP + 'tickets/mobileGetTicketByDate/'+value+"/"+club_id+"/"+sesion_id+"/"+LATITUDE+"/"+LONGITUDE, function(data) {
+	$.getJSON(BASE_URL_APP + 'tickets/mobileGetTicketByDate/'+value+"/"+club_id+"/"+sesion_id+"/"+LATITUDE+"/"+LONGITUDE+"/"+CIUDAD_ID, function(data) {
         
         if(data.items){
             //fondo para la pagina

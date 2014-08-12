@@ -250,7 +250,7 @@
 #google_map #map_canvas { height: 100% }
 
 /* POPUP */
-.container_popup{margin: 20px;min-width: 410px;}
+.container_popup{margin: 20px;min-width: 240px;}
 
 /* VENTA TICKET */
 #venta_ticket .wrap {width: 320px;height: 746px;padding: 0;margin:0;overflow: hidden;}
