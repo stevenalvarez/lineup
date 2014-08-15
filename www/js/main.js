@@ -2061,6 +2061,9 @@ function getAlertas(parent_id, slug){
                     	});
                     });
                     
+                    //cargamos dinamicamente mas items
+                    loadMoreItems(container, usuario_id);
+                    
                     hideLoading();
                     parent.find(".ui-content").fadeIn("slow");
                 });

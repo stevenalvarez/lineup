@@ -190,6 +190,7 @@
 #alertas .content_options.lista .ui-slider{top: 2px !important;height: 34px !important;border-radius: 20px;border: 1px solid #aaa;}
 #alertas .ui-slider-switch.ui-mini .ui-slider-label{line-height: 35px;text-align: inherit;font-family: inherit;}
 #alertas .ui-slider-switch.ui-mini .ui-slider-handle{margin-top: 3px;border-radius: 20px;}
+#alertas .endless_scroll_content{padding-top: 0px;}
 
 /* CONTENT DESCRIPCION */
 .ui-content .content_top{padding: 40px 0 0;overflow: hidden;margin: 0 auto;width: 240px;}

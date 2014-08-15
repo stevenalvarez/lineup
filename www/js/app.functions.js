@@ -572,3 +572,108 @@ function getMenuFooter(parent_id,filtro_id){
         }
 	});
 }
+
+function loadMoreItems(container, usuario_id){
+    //cargamos dinamicamente mas items
+    var mas_items = true;
+    container.parent().endlessScroll({
+        content: function(i, p, d) {
+            if(d == "next" && mas_items){
+                showLoading();
+            }
+            return mas_items;
+        },
+        callback :function(i, p, d){
+            if(d == "next"){
+                var clas = container.find(".item:visible").attr("class");
+                slug = clas.split(" ");
+                slug = slug[0];
+                clas = clas.split(" ").join(".");
+                var container_alerta = container.find("."+clas);
+                $.getJSON(BASE_URL_APP + 'alertas/mobileGetAlertas/'+CIUDAD_ID+"/"+usuario_id+"/"+slug, function(data) {
+            		var items = data.items;
+                    if($(items).size()){
+                		$.each(items, function(index, item) {
+                		    var clase = index;
+                            var c ='<div class="'+clase+' item">';
+                            $.each(item, function(i, t) {
+                                var lang = clase+","+t.id;
+                                if(index == "sesiones") index = "sesions";
+                                if(index == "festivales") index = "festivals";
+                                var title = IDIOMA == "castellano" ? t.title_esp : t.title_eng;
+                                var imagen_redonda = t.imagen_redonda!=""?t.imagen_redonda:"default.png";
+                                var activado = t.activado;
+                                var on = "";
+                                var off = "";
+                                if(activado == "on"){
+                                    on = 'selected="selected"';
+                                }else if(activado == "off"){
+                                    off = 'selected="selected"';
+                                }
+                                var cls = "al"+index+i;
+                                if(clase == "pubs" || clase == "promos"){
+                                    title = IDIOMA == "castellano" ? "Recibir alertas" : "Receive alerts";
+                                }
+                                c+='<a class="custom '+cls+' item" href="javascript:void(0)" data-role="button" data-icon="none" lang="'+lang+'">' +
+                                        '<span class="bglista title">'+title+'</span>' +
+                                        '<select name="flip-mini" data-role="slider" data-mini="true">' +
+        	                               '<option value="off" '+off+'>Off</option>' +
+        	                               '<option value="on" '+on+'>On</option>' +
+                                        '</select>' +
+                                    '</a>';
+                            });
+                            c +='</div>'
+                            container_alerta.append(c);
+                		});
+                        
+                        container_alerta.promise().done(function() {
+                            container_alerta.trigger("create");
+                            
+                    		$.each(items, function(index, item) {
+                                if(index == "sesiones") index = "sesions";
+                                if(index == "festivales") index = "festivals";
+                                $.each(item, function(i, t) {
+                                    var cls = "al"+index+i;
+                                    var imagen_redonda = t.imagen_redonda!=""?t.imagen_redonda:"default.png";
+                                    var css = "";
+                                    if(index == "pubs" || index == "promos"){
+                                        imagen_redonda = "alerta_default.png";
+                                        css = "background-color:#000;";
+                                    }
+                                    $('head').append("<style>.ui-btn-icon-left."+cls+":after{ background: url("+BASE_URL_APP+'img/'+index+'/'+imagen_redonda+") no-repeat scroll 0 0 transparent; "+css+"}</style>");
+                                });
+                    		});
+                            
+                            //recibir/dejar de recibir alertas
+                            container_alerta.find("select").change(function(){
+                                var lang = $(this).parent().attr("lang");
+                                lang = lang.split(",");
+                                var tipo = lang[0];
+                                var tipo_id = lang[1];
+                                var activado = $(this).val() == "on" ? 1 : 0;
+                            	
+                                $.getJSON(BASE_URL_APP + 'usuarios_alertas/mobileSaveAlertas/'+usuario_id+"/"+tipo_id+"/"+tipo+"/"+activado, function(data) {
+                                    if(data){
+                                        //ocultamos loading
+                                        $.mobile.loading( 'hide' );
+                                        
+                                        if(data.success){
+                                            //showAlert(data.mensaje, "Aviso", "Aceptar");
+                                        }else{
+                                            //showAlert(data.mensaje, "Error", "Aceptar");
+                                        }
+                                    }
+                            	});
+                            });
+                            
+                            hideLoading();
+                        });
+                    }else
+                    {
+                        hideLoading();
+                    }
+                });                
+            }
+        }
+    });      
+}
