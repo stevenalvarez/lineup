@@ -1957,7 +1957,7 @@ function getAlertas(parent_id, slug){
     
     showLoading();
     
-	$.getJSON(BASE_URL_APP + 'alertas/mobileGetAlertas/'+CIUDAD_ID+"/"+usuario_id+"/"+slug, function(data) {
+	$.getJSON(BASE_URL_APP + 'alertas/mobileGetAlertas/'+CIUDAD_ID+"/"+usuario_id+"/"+slug+"/0/8", function(data) {
         
         if(data.items){
             //fondo para la pagina

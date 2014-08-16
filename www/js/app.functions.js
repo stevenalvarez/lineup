@@ -446,7 +446,7 @@ function getMenuFooter(parent_id,filtro_id){
                     {
                         showLoading();
                         var container_alerta = parent.find(".content_options");
-                        $.getJSON(BASE_URL_APP + 'alertas/mobileGetAlertas/'+CIUDAD_ID+"/"+usuario_id+"/"+slug, function(data) {
+                        $.getJSON(BASE_URL_APP + 'alertas/mobileGetAlertas/'+CIUDAD_ID+"/"+usuario_id+"/"+slug+"/0/8", function(data) {
                     		var items = data.items;
                             if($(items).size()){
                         		$.each(items, function(index, item) {
@@ -590,12 +590,13 @@ function loadMoreItems(container, usuario_id){
                 slug = slug[0];
                 clas = clas.split(" ").join(".");
                 var container_alerta = container.find("."+clas);
-                $.getJSON(BASE_URL_APP + 'alertas/mobileGetAlertas/'+CIUDAD_ID+"/"+usuario_id+"/"+slug, function(data) {
+                var indice = container.find("."+clas+" > a").length;
+                $.getJSON(BASE_URL_APP + 'alertas/mobileGetAlertas/'+CIUDAD_ID+"/"+usuario_id+"/"+slug+"/"+indice+"/8", function(data) {
             		var items = data.items;
                     if($(items).size()){
                 		$.each(items, function(index, item) {
                 		    var clase = index;
-                            var c ='<div class="'+clase+' item">';
+                            var c ='';
                             $.each(item, function(i, t) {
                                 var lang = clase+","+t.id;
                                 if(index == "sesiones") index = "sesions";
@@ -622,7 +623,6 @@ function loadMoreItems(container, usuario_id){
                                         '</select>' +
                                     '</a>';
                             });
-                            c +='</div>'
                             container_alerta.append(c);
                 		});
                         
@@ -672,8 +672,8 @@ function loadMoreItems(container, usuario_id){
                     {
                         hideLoading();
                     }
-                });                
+                });
             }
         }
-    });      
+    });
 }
