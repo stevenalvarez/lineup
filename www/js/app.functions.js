@@ -611,7 +611,7 @@ function loadMoreItems(container, usuario_id){
                                 }else if(activado == "off"){
                                     off = 'selected="selected"';
                                 }
-                                var cls = "alpaola"+index+i;
+                                var cls = "alpaola"+index+i+indice;
                                 if(clase == "pubs" || clase == "promos"){
                                     title = IDIOMA == "castellano" ? "Recibir alertas" : "Receive alerts";
                                 }
@@ -633,7 +633,7 @@ function loadMoreItems(container, usuario_id){
                                 if(index == "sesiones") index = "sesions";
                                 if(index == "festivales") index = "festivals";
                                 $.each(item, function(i, t) {
-                                    var cls = "alpaola"+index+i;
+                                    var cls = "alpaola"+index+i+indice;
                                     var imagen_redonda = t.imagen_redonda!=""?t.imagen_redonda:"default.png";
                                     var css = "";
                                     if(index == "pubs" || index == "promos"){
