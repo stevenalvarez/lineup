@@ -213,7 +213,7 @@ function getCiudades(parent_id){
                     var title = IDIOMA == "castellano" ? item.Ciudad.title_esp : item.Ciudad.title_eng;
                     var imagen_fondo = item.Ciudad.imagen_fondo!=""?item.Ciudad.imagen_fondo:"default.png";
                     
-                    var html='<a href="menu.html?ciudad_id='+id+'"><div class="ciudad" style="background: url('+BASE_URL_APP+'img/ciudades/'+imagen_fondo+');background-size: 100%;">' +
+                    var html='<a href="menu.html?ciudad_id='+id+'"><div class="ciudad" style="background: url('+BASE_URL_APP+'img/ciudades/'+imagen_fondo+');background-size: 100% 100%;">' +
                         '<span>'+title+'</span>' +
                         '</div></a>';
         		    
@@ -275,7 +275,7 @@ function getMenu(parent_id, ciudad_id){
             if(data.fondo != undefined && data.fondo != ""  && data.fondo.Fondo.imagen != undefined){
                 var fondo = data.fondo.Fondo.imagen;
                 parent.css("background","url('"+BASE_URL_APP+"img/fondos/"+fondo+"')");
-                parent.css("background-size","100% auto");
+                parent.css("background-size","100% 100%");
             }
     		
             var info = data.info;
@@ -327,7 +327,7 @@ function getClubs(parent_id){
             if(data.fondo != undefined && data.fondo != ""  && data.fondo.Fondo.imagen != undefined){
                 var fondo = data.fondo.Fondo.imagen;
                 parent.css("background","url('"+BASE_URL_APP+"img/fondos/"+fondo+"')");
-                parent.css("background-size","100% auto");
+                parent.css("background-size","100% 100%");
             }
             
             //titulo para la pagina
@@ -404,7 +404,7 @@ function getClubBy(parent_id, club_id){
                     
                     var html='';
                     if(index == 0){
-                        html+='<div class="container" style="background: url('+BASE_URL_APP+'img/clubs/'+imagen_fondo+');background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
+                        html+='<div class="container" style="background: url('+BASE_URL_APP+'img/clubs/'+imagen_fondo+');background-size: 100% 100%;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
                             '<div class="content_top">' + 
                                 '<div class="imagen left">' +
                                     '<img src="'+BASE_URL_APP+'img/clubs/' + imagen_redonda + '" />' +
@@ -416,7 +416,7 @@ function getClubBy(parent_id, club_id){
                                 '</div>' +
                             '</div>';                        
                     }else{
-                        html+='<div class="container" data-src="'+BASE_URL_APP+'img/clubs/'+imagen_fondo+'" style="background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
+                        html+='<div class="container" data-src="'+BASE_URL_APP+'img/clubs/'+imagen_fondo+'" style="background-size: 100% 100%;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
                             '<div class="content_top">' + 
                                 '<div class="imagen left">' +
                                     '<img data-src="'+ BASE_URL_APP+'img/clubs/' + imagen_redonda + '" src="" />' +
@@ -489,7 +489,7 @@ function getClubBy(parent_id, club_id){
                                         item = parseInt(item) + 1;
                                         var element = container.find(".owl-item:nth-child("+(item)+")").find(".container");
                                         element.css("background","url('"+element.attr("data-src")+"')");
-                                        element.css("background-size","100% auto");
+                                        element.css("background-size","100% 100%");
                                         var imagen = element.find(".content_top").find(".imagen img");
                                         imagen.attr("src",imagen.attr("data-src"));
                                     },100);
@@ -532,7 +532,7 @@ function getSesiones(parent_id,filtro_id){
             if(data.fondo != undefined && data.fondo != ""  && data.fondo.Fondo.imagen != undefined){
                 var fondo = data.fondo.Fondo.imagen;
                 parent.css("background","url('"+BASE_URL_APP+"img/fondos/"+fondo+"')");
-                parent.css("background-size","100% auto");
+                parent.css("background-size","100% 100%");
             }
             
             //titulo para la pagina
@@ -617,7 +617,7 @@ function getSesionBy(parent_id, sesion_id){
                     
                     var html='';
                     if(index == 0){
-                        html+='<div class="container custom" style="background: url('+BASE_URL_APP+'img/sesions/'+imagen_fondo+');background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
+                        html+='<div class="container custom" style="background: url('+BASE_URL_APP+'img/sesions/'+imagen_fondo+');background-size: 100% 100%;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
                             '<div class="content_top">' + 
                                 '<div class="imagen left">' +
                                     '<img src="'+BASE_URL_APP+'img/sesions/' + imagen_redonda + '" />' +
@@ -629,7 +629,7 @@ function getSesionBy(parent_id, sesion_id){
                                 '</div>' +
                             '</div>';
                     }else{
-                        html+='<div class="container custom" data-src="'+BASE_URL_APP+'img/sesions/'+imagen_fondo+'" style="background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
+                        html+='<div class="container custom" data-src="'+BASE_URL_APP+'img/sesions/'+imagen_fondo+'" style="background-size: 100% 100%;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
                             '<div class="content_top">' + 
                                 '<div class="imagen left">' +
                                     '<img data-src="'+BASE_URL_APP+'img/sesions/' + imagen_redonda + '" src="" />' +
@@ -701,7 +701,7 @@ function getSesionBy(parent_id, sesion_id){
                                         item = parseInt(item) + 1;
                                         var element = container.find(".owl-item:nth-child("+(item)+")").find(".container");
                                         element.css("background","url('"+element.attr("data-src")+"')");
-                                        element.css("background-size","100% auto");
+                                        element.css("background-size","100% 100%");
                                         var imagen = element.find(".content_top").find(".imagen img"); 
                                         imagen.attr("src",imagen.attr("data-src"));
                                     },100);
@@ -744,7 +744,7 @@ function getPubs(parent_id){
             if(data.fondo != undefined && data.fondo != ""  && data.fondo.Fondo.imagen != undefined){
                 var fondo = data.fondo.Fondo.imagen;
                 parent.css("background","url('"+BASE_URL_APP+"img/fondos/"+fondo+"')");
-                parent.css("background-size","100% auto");
+                parent.css("background-size","100% 100%");
             }
             
             //titulo para la pagina
@@ -856,7 +856,7 @@ function getPubBy(parent_id, pub_id){
                     
                     var html='';
                     if(index == 0){
-                        html+='<div class="container custom" style="background: url('+BASE_URL_APP+'img/pubs/'+imagen_fondo+');background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
+                        html+='<div class="container custom" style="background: url('+BASE_URL_APP+'img/pubs/'+imagen_fondo+');background-size: 100% 100%;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
                         '<div class="content_top">' + 
                             '<div class="imagen left">' +
                                 '<img src="'+BASE_URL_APP+'img/pubs/' + imagen_redonda + '" />' +
@@ -868,7 +868,7 @@ function getPubBy(parent_id, pub_id){
                             '</div>' +
                         '</div>';
                     }else{
-                        html+='<div class="container custom" data-src="'+BASE_URL_APP+'img/pubs/'+imagen_fondo+'" style="background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
+                        html+='<div class="container custom" data-src="'+BASE_URL_APP+'img/pubs/'+imagen_fondo+'" style="background-size: 100% 100%;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
                             '<div class="content_top">' + 
                                 '<div class="imagen left">' +
                                     '<img data-src="'+BASE_URL_APP+'img/pubs/' + imagen_redonda + '" src="" />' +
@@ -940,7 +940,7 @@ function getPubBy(parent_id, pub_id){
                                         item = parseInt(item) + 1;
                                         var element = container.find(".owl-item:nth-child("+(item)+")").find(".container");
                                         element.css("background","url('"+element.attr("data-src")+"')");
-                                        element.css("background-size","100% auto");
+                                        element.css("background-size","100% 100%");
                                         var imagen = element.find(".content_top").find(".imagen img"); 
                                         imagen.attr("src",imagen.attr("data-src"));
                                     },100);
@@ -978,7 +978,7 @@ function getBeachclubs(parent_id){
             if(data.fondo != undefined && data.fondo != ""  && data.fondo.Fondo.imagen != undefined){
                 var fondo = data.fondo.Fondo.imagen;
                 parent.css("background","url('"+BASE_URL_APP+"img/fondos/"+fondo+"')");
-                parent.css("background-size","100% auto");
+                parent.css("background-size","100% 100%");
             }
             
             //titulo para la pagina
@@ -1090,7 +1090,7 @@ function getBeachclubBy(parent_id, beachclub_id){
                     
                     var html='';
                     if(index == 0){
-                        html+='<div class="container custom" style="background: url('+BASE_URL_APP+'img/beachclubs/'+imagen_fondo+');background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
+                        html+='<div class="container custom" style="background: url('+BASE_URL_APP+'img/beachclubs/'+imagen_fondo+');background-size: 100% 100%;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
                         '<div class="content_top">' + 
                             '<div class="imagen left">' +
                                 '<img src="'+BASE_URL_APP+'img/beachclubs/' + imagen_redonda + '" />' +
@@ -1102,7 +1102,7 @@ function getBeachclubBy(parent_id, beachclub_id){
                             '</div>' +
                         '</div>';
                     }else{
-                        html+='<div class="container custom" data-src="'+BASE_URL_APP+'img/beachclubs/'+imagen_fondo+'" style="background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
+                        html+='<div class="container custom" data-src="'+BASE_URL_APP+'img/beachclubs/'+imagen_fondo+'" style="background-size: 100% 100%;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
                             '<div class="content_top">' + 
                                 '<div class="imagen left">' +
                                     '<img data-src="'+BASE_URL_APP+'img/beachclubs/' + imagen_redonda + '" src="" />' +
@@ -1174,7 +1174,7 @@ function getBeachclubBy(parent_id, beachclub_id){
                                         item = parseInt(item) + 1;
                                         var element = container.find(".owl-item:nth-child("+(item)+")").find(".container");
                                         element.css("background","url('"+element.attr("data-src")+"')");
-                                        element.css("background-size","100% auto");
+                                        element.css("background-size","100% 100%");
                                         var imagen = element.find(".content_top").find(".imagen img"); 
                                         imagen.attr("src",imagen.attr("data-src"));
                                     },100);
@@ -1212,7 +1212,7 @@ function getFestivales(parent_id){
             if(data.fondo != undefined && data.fondo != ""  && data.fondo.Fondo.imagen != undefined){
                 var fondo = data.fondo.Fondo.imagen;
                 parent.css("background","url('"+BASE_URL_APP+"img/fondos/"+fondo+"')");
-                parent.css("background-size","100% auto");
+                parent.css("background-size","100% 100%");
             }
             
             //titulo para la pagina
@@ -1307,7 +1307,7 @@ function getFestivalBy(parent_id, festival_id){
                     
                     var html='';
                     if(index == 0){
-                        html+='<div class="container custom2" style="background: url('+BASE_URL_APP+'img/festivals/'+imagen_fondo+');background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
+                        html+='<div class="container custom2" style="background: url('+BASE_URL_APP+'img/festivals/'+imagen_fondo+');background-size: 100% 100%;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
                         '<div class="content_top">' + 
                             '<div class="imagen left">' +
                                 '<img src="'+BASE_URL_APP+'img/festivals/' + imagen_redonda + '" />' +
@@ -1319,7 +1319,7 @@ function getFestivalBy(parent_id, festival_id){
                             '</div>' +
                         '</div>';
                     }else{
-                        html+='<div class="container custom2" data-src="'+BASE_URL_APP+'img/festivals/'+imagen_fondo+'" style="background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
+                        html+='<div class="container custom2" data-src="'+BASE_URL_APP+'img/festivals/'+imagen_fondo+'" style="background-size: 100% 100%;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
                             '<div class="content_top">' + 
                                 '<div class="imagen left">' +
                                     '<img data-src="'+BASE_URL_APP+'img/festivals/' + imagen_redonda + '" src="" />' +
@@ -1380,7 +1380,7 @@ function getFestivalBy(parent_id, festival_id){
                                         item = parseInt(item) + 1;
                                         var element = container.find(".owl-item:nth-child("+(item)+")").find(".container");
                                         element.css("background","url('"+element.attr("data-src")+"')");
-                                        element.css("background-size","100% auto");
+                                        element.css("background-size","100% 100%");
                                         var imagen = element.find(".content_top").find(".imagen img"); 
                                         imagen.attr("src",imagen.attr("data-src"));
                                     },100);
@@ -1418,7 +1418,7 @@ function getDjs(parent_id){
             if(data.fondo != undefined && data.fondo != ""  && data.fondo.Fondo.imagen != undefined){
                 var fondo = data.fondo.Fondo.imagen;
                 parent.css("background","url('"+BASE_URL_APP+"img/fondos/"+fondo+"')");
-                parent.css("background-size","100% auto");
+                parent.css("background-size","100% 100%");
             }
             
             //titulo para la pagina
@@ -1535,7 +1535,7 @@ function getDjBy(parent_id, dj_id){
                     var imagen_fondo = item.Dj.imagen_fondo!=""?item.Dj.imagen_fondo:"default.png";
                     var descripcion = IDIOMA == "castellano" ? item.Dj.descripcion_esp : item.Dj.descripcion_eng;
                     
-                    var html='<div id="'+id+'" class="container custom3" style="background: url('+BASE_URL_APP+'img/djs/'+imagen_fondo+');background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
+                    var html='<div id="'+id+'" class="container custom3" style="background: url('+BASE_URL_APP+'img/djs/'+imagen_fondo+');background-size: 100% 100%;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
                         '<div class="content_top">' + 
                             '<div class="imagen left">' +
                                 '<img src="'+BASE_URL_APP+'img/djs/' + imagen_redonda + '" />' +
@@ -1593,7 +1593,7 @@ function getDjBy(parent_id, dj_id){
                                                 var imagen_fondo = item.Dj.imagen_fondo!=""?item.Dj.imagen_fondo:"default.png";
                                                 var descripcion = IDIOMA == "castellano" ? item.Dj.descripcion_esp : item.Dj.descripcion_eng;
                                                 
-                                                var html='<div id="'+id+'" class="container custom3" style="background: url('+BASE_URL_APP+'img/djs/'+imagen_fondo+');background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
+                                                var html='<div id="'+id+'" class="container custom3" style="background: url('+BASE_URL_APP+'img/djs/'+imagen_fondo+');background-size: 100% 100%;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
                                                     '<div class="content_top">' + 
                                                         '<div class="imagen left">' +
                                                             '<img src="'+BASE_URL_APP+'img/djs/' + imagen_redonda + '" />' +
@@ -1666,7 +1666,7 @@ function getPromociones(parent_id){
             if(data.fondo != undefined && data.fondo != ""  && data.fondo.Fondo.imagen != undefined){
                 var fondo = data.fondo.Fondo.imagen;
                 parent.css("background","url('"+BASE_URL_APP+"img/fondos/"+fondo+"')");
-                parent.css("background-size","100% auto");
+                parent.css("background-size","100% 100%");
             }
             
             //titulo para la pagina
@@ -1767,7 +1767,7 @@ function getPromocionBy(parent_id, promocion_id){
                     var latitud = item.Promo.latitud;
                     var longitud = item.Promo.longitud;
                     
-                    var html='<div class="container custom2" style="background: url('+BASE_URL_APP+'img/promos/'+imagen_fondo+');background-size: 100% auto;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
+                    var html='<div class="container custom2" style="background: url('+BASE_URL_APP+'img/promos/'+imagen_fondo+');background-size: 100% 100%;min-height:'+(parseInt(parent.attr("lang")) + 2 )+"px"+'">' +
                         '<div class="content_top">' + 
                             '<div class="imagen left">' +
                                 '<img src="'+BASE_URL_APP+'img/promos/' + imagen_redonda + '" />' +
@@ -1964,7 +1964,7 @@ function getAlertas(parent_id, slug){
             if(data.fondo != undefined && data.fondo != ""  && data.fondo.Fondo.imagen != undefined){
                 var fondo = data.fondo.Fondo.imagen;
                 parent.css("background","url('"+BASE_URL_APP+"img/fondos/"+fondo+"')");
-                parent.css("background-size","100% auto");
+                parent.css("background-size","100% 100%");
             }
             
             //titulo para la pagina
