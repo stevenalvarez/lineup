@@ -188,6 +188,15 @@ $(document).on('pagebeforeshow',"#venta_ticket", function(event, ui) {
     loadIframe(page_id, getUrlVars()["url"], ui.prevPage.attr('id'));
 });
 
+//GUEST LIST
+$(document).on("pagebeforeshow","#guest_list",function(event){
+    var page_id = $(this).attr("id");
+    var club_id = getUrlVars()["id"];
+    if(club_id == undefined) club_id = 0;
+    getClubsAll(page_id,club_id);
+    getGuesList(page_id,club_id);
+});
+
 /************************************ FUNCTIONS *******************************************************/
 
 //CIUDADES
@@ -2074,6 +2083,86 @@ function getAlertas(parent_id, slug){
             }
         }
 	});
+    
+}
+
+//GUEST LIST
+function getGuesList(parent_id,club_id){
+    //si no esta logeado no puede hacer nada, por eso colocamos los valores vacio
+    var usuario_id = "";
+    if(isLogin()) usuario_id = COOKIE.id;
+    var parent = $("#"+parent_id);
+    var container = parent.find(".ui-listview");
+    parent.find(".ui-content").hide();
+    
+    showLoading();
+    
+	$.getJSON(BASE_URL_APP + 'sesions/mobileGetGuesList/'+CIUDAD_ID+"/"+usuario_id, function(data) {
+        
+        if(data.items){
+            //fondo para la pagina
+            if(data.fondo != undefined && data.fondo != ""  && data.fondo.Fondo.imagen != undefined){
+                var fondo = data.fondo.Fondo.imagen;
+                parent.css("background","url('"+BASE_URL_APP+"img/fondos/"+fondo+"')");
+                parent.css("background-size","100% 100%");
+            }
+            
+            //titulo para la pagina
+            if(data.pagina != undefined && data.pagina != ""){
+                var titulo = IDIOMA == "castellano" ? data.pagina.Sistema.title_esp : data.pagina.Sistema.title_eng;
+                parent.find(".ui-header").find(".page h2").html(titulo);
+                if(IDIOMA == "castellano") parent.find(".ui-header").find(".page h2").addClass("small");
+            }
+            
+            //verificamos que el usuario este logeado
+            if(!isLogin()) data.items = "";
+    		var items = data.items;
+            if($(items).size()){
+        		$.each(items, function(index, item) {
+                    var id = item.Sesion.id;
+                    var date = data.fecha;
+                    var class_club = 'club_'+item.Sesion.club_id;
+                    var title = IDIOMA == "castellano" ? item.Sesion.title_esp : item.Sesion.title_eng;
+                    var imagen_redonda = item.Sesion.imagen_redonda!=""?item.Sesion.imagen_redonda:"default.png";
+                    var cls = "guest_"+index+id;
+                    var apuntarme = IDIOMA == "castellano" ? "APUNTARME" : "SING UP";
+                    
+                    var html='<li class="'+class_club+'">' +
+                            '<a class="custom '+cls+' item" href="javascript:void(0)" data-role="button" data-icon="none">' +
+                                '<span class="info">' +
+                                    '<span class="title">'+title+'</span>' +
+                                    '<span class="fecha">'+date+'</span>' +
+                                '</span>' +
+                                '<button>'+apuntarme+'</button>' +
+                            '</a>' +
+                        '</li>';
+                        
+                    container.append(html);
+        		});
+                
+                container.promise().done(function() {
+                    container.trigger("create");
+                    
+            		$.each(items, function(index, item){ 
+                        var id = item.Sesion.id;
+                        var imagen_redonda = item.Sesion.imagen_redonda!=""?item.Sesion.imagen_redonda:"default.png";
+                        var cls = "guest_"+index+id;
+                        $('head').append("<style>.ui-btn-icon-left."+cls+":after{ background: url("+BASE_URL_APP+'img/sesions/'+imagen_redonda+") no-repeat scroll 0 0 transparent;}</style>");
+            		});
+                    
+                    scrollToList(container,parent);	
+                    
+                    hideLoading();
+                    parent.find(".ui-content").fadeIn("slow");
+                });
+                
+            }else{
+                container.append("<p class='empty'>A&Uacute;N NO TENEMOS NING&Uacute;N ITEM</p>");
+                hideLoading();
+                parent.find(".ui-content").fadeIn("slow");
+            }
+        }
+	});    
     
 }
 
