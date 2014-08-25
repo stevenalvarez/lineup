@@ -63,6 +63,10 @@
 .empty{font-family: NeogreyMedium;text-align: center;color: #fc049b;text-shadow: 1px 1px 1px #000;font-size: 15px;font-weight: bold;padding: 10px 0;}
 .ui-page.custom{background: url("../img/bg_wrapper.jpg") repeat-y scroll 0 0 transparent;background-size: 100% 100%;}
 .ui-page.custom .ui-page{background: transparent;}
+html .ui-body-b .ui-btn.ui-btn-rosa{background: #fc049b;font-family: NeuropoliticalRg-Regular;}
+html .ui-body-b .ui-btn.ui-btn-rosa:hover{background: #f929a8;}
+html .ui-body-b .ui-btn.ui-btn-rosa:active{background: #e3078d;}
+.container_popup .apuntarme .ui-focus {-webkit-box-shadow: 0 0 12px #fc049b !important /*{a-active-background-color}*/;-moz-box-shadow: 0 0 12px #fc049b !important /*{a-active-background-color}*/;box-shadow: 0 0 12px #fc049b !important /*{a-active-background-color}*/;}
 
 /* PAGE */
 /*.ui-page-theme-a .ui-btn.ui-btn-active, */.ui-page-theme-a .content_options .ui-btn:hover{background: url("../img/bg_button.png") repeat scroll 0 0 transparent;color: #fc027e;border: 1px solid #4f4f4f;}
@@ -267,10 +271,18 @@
 #guest_list .ui-listview li{margin: 1px 0;}
 #guest_list .ui-listview li a{padding-top: 4px;padding-bottom: 4px;padding-right: 10px;}
 #guest_list .ui-listview li a.ui-btn.custom{border-radius: 0;}
+#guest_list .ui-listview li a:hover{background: url("../img/bg_button.png") repeat scroll 0 0 transparent;}
 #guest_list .ui-listview li span.info{float: left;width: 60%;line-height: 24px;}
 #guest_list .ui-listview li span.title{display: block;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;font-size: 17px;text-align: left;font-family: NeuropoliticalRg-Regular;padding-right: 0px !important;padding-top: 8px;}
 #guest_list .ui-listview li span.fecha{display: block;font-size: 13px;font-family: HelveticaLTStdLight;color: #fff;line-height: 13px;padding-bottom: 9px;}
 #guest_list .ui-listview li button{float: right;width: 37%;padding: 5px 3px;font-size: 12px;letter-spacing: -1px;margin: 13px 0;background: #fc049b;text-shadow: 0 1px 0 #000;color: #fff;border-color: transparent;border-radius: 5px;}
+
+/* VALIDAR GUEST LIST */
+.validar_guest_list{background: #29cb08;padding: 12px 0 9px}
+.validar_guest_list a{color: #fff;font-size: 15px;font-weight: normal;padding: 0 !important;}
+.validar_guest_list a:hover, .validar_guest_list a:active{color: #fff;}
+.validar_guest_list a span{display: block;text-align: center; text-shadow: 0 0 0;line-height: 15px;}
+.validar_guest_list a span.titulo{font-size: 20px;font-family: NeuropoliticalRg-Regular;}
 
 /* PORTRAIT IPHONE 5 */
 

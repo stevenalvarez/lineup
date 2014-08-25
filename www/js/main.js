@@ -2117,40 +2117,163 @@ function getGuesList(parent_id,club_id){
             //verificamos que el usuario este logeado
             if(!isLogin()) data.items = "";
     		var items = data.items;
+            var current_date = data.fecha;
+            var fecha = data.fecha;
+            var text_validar_guest_list = IDIOMA == "castellano" ? "VALIDAR GUEST LIST" : "VALIDATE GUEST LIST";
+            var text_validar_guest_list_responsable = IDIOMA == "castellano" ? "en el local por el responsable" : "in-house by the responsible";
             if($(items).size()){
         		$.each(items, function(index, item) {
                     var id = item.Sesion.id;
-                    var date = data.fecha;
+                    var apuntado = item.Sesion.apuntado;
                     var class_club = 'club_'+item.Sesion.club_id;
                     var title = IDIOMA == "castellano" ? item.Sesion.title_esp : item.Sesion.title_eng;
                     var imagen_redonda = item.Sesion.imagen_redonda!=""?item.Sesion.imagen_redonda:"default.png";
                     var cls = "guest_"+index+id;
-                    var apuntarme = IDIOMA == "castellano" ? "APUNTARME" : "SING UP";
-                    
+                    var apuntarme = IDIOMA == "castellano" ? "APUNTARME" : "SING UP";                    
                     var html='<li class="'+class_club+'">' +
                             '<a class="custom '+cls+' item" href="javascript:void(0)" data-role="button" data-icon="none">' +
                                 '<span class="info">' +
                                     '<span class="title">'+title+'</span>' +
-                                    '<span class="fecha">'+date+'</span>' +
-                                '</span>' +
-                                '<button>'+apuntarme+'</button>' +
-                            '</a>' +
-                        '</li>';
+                                    '<span class="fecha">'+fecha+'</span>' +
+                                '</span>';
+                                if(apuntado == "-1"){
+                                    html+= '<button class="btn" lang="'+id+'">'+apuntarme+'</button>';
+                                }
+                            html+='</a>';
+
+                            if(apuntado != "0" && apuntado != "-1"){
+                                html+='<div id="'+apuntado+'" class="validar_guest_list">' +
+                                    '<a href="javascript:validar_guest_list(\''+apuntado+'\')">' +
+                                        '<span class="titulo">'+text_validar_guest_list+'</span>' + 
+                                        '<span>'+text_validar_guest_list_responsable+'</span>' +
+                                    '</a>' +
+                                '</div>';
+                            }
+                        html+='</li>';
                         
                     container.append(html);
-        		});
+                });
+              
+                //add form apuntarse
+                var nombre = IDIOMA == "castellano" ? "Nombre..." : "Name...";
+                var apellido = IDIOMA == "castellano" ? "Apellido..." : "Last Name...";
+                var numero_personas = IDIOMA == "castellano" ? "N&uacute;mero de Personas..." : "Number People...";
+                var enviar = IDIOMA == "castellano" ? "Enviar" : "Send";
+                var popup = '<div data-role="popup" data-theme="c" data-overlay-theme="a">' +
+                    '<div data-role="popup" id="form_apuntarme" data-theme="b" class="ui-corner-all" data-overlay-theme="b">' +
+                        '<a href="#" data-rel="back" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right close">Close</a>' +
+                        '<div class="container_popup">' +
+                            '<form class="apuntarme">' +
+                                '<input type="hidden" name="usuario_id" value="'+usuario_id+'" />' +
+                                '<input type="hidden" name="sesion_id" value="" />' +
+                                '<input type="hidden" name="fecha" value="'+current_date+'" />' +
+                                '<input class="ui-btn-rosa" placeholder="'+nombre+'" autocomplete="off" data-mini="true" data-theme="a" name="nombre" />' +
+                                '<input class="ui-btn-rosa" placeholder="'+apellido+'" autocomplete="off" data-mini="true" data-theme="a" name="apellido" />' +
+                                '<input class="ui-btn-rosa" placeholder="Email..." autocomplete="off" autocapitalize="off" style="text-transform:lowercase;" type="email" data-mini="true" data-theme="a" name="email" />' +
+                                '<input class="ui-btn-rosa" placeholder="'+numero_personas+'" autocomplete="off" data-mini="true" data-theme="a" name="numero_personas" />' +
+                                '<a class="ui-btn-rosa enviar" type="submit" data-role="button" data-mini="true">'+enviar+'</a>' +
+                            '</form>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>';
+                
+                parent.append(popup);
                 
                 container.promise().done(function() {
-                    container.trigger("create");
+                    parent.trigger("create");
                     
-            		$.each(items, function(index, item){ 
+            		$.each(items, function(index, item){
                         var id = item.Sesion.id;
                         var imagen_redonda = item.Sesion.imagen_redonda!=""?item.Sesion.imagen_redonda:"default.png";
                         var cls = "guest_"+index+id;
                         $('head').append("<style>.ui-btn-icon-left."+cls+":after{ background: url("+BASE_URL_APP+'img/sesions/'+imagen_redonda+") no-repeat scroll 0 0 transparent;}</style>");
             		});
                     
-                    scrollToList(container,parent);	
+                    scrollToList(container,parent);
+                    
+                    //show modal
+                    var SESION_ID = "";
+                    var formulario = parent.find("form.apuntarme");
+                    var BUTTON_APUNTARME;
+                    container.find("button.btn").unbind("touchstart").bind("touchstart", function(){
+                        BUTTON_APUNTARME = $(this);
+                        SESION_ID = BUTTON_APUNTARME.attr("lang");
+                        setTimeout(function(){
+                            parent.find("a.modal").trigger("click");
+                        },150);
+                    });
+                    $("#form_apuntarme").bind({
+                        popupafteropen: function(event, ui) {
+                            formulario.find("input[name='sesion_id']").val(SESION_ID);
+                        },
+                        popupafterclose: function(event, ui) {
+                            formulario.find("input[name='sesion_id']").val("");
+                        }
+                    });
+                    
+                    //enviar formulario
+                    formulario.find(".enviar").unbind("touchstart").bind("touchstart", function(){
+                        var nombre = formulario.find("input[name='nombre']").val();
+                        var apellido = formulario.find("input[name='apellido']").val();
+                        var email = formulario.find("input[name='email']").val();
+                        var n_personas = formulario.find("input[name='numero_personas']").val();
+                        var user_id = formulario.find("input[name='usuario_id']").val();
+                        var sesion_id = formulario.find("input[name='sesion_id']").val();
+                        
+                        if($.trim(nombre) != "" && $.trim(apellido) != "" & $.trim(email) != "" && $.trim(n_personas) != ""){
+                            if($.trim(sesion_id) != "" && $.trim(user_id) != ""){
+                                if(valEmail(email)){
+                                    if (parseInt(n_personas) && /^([0-9])*$/.test(n_personas)){
+                                        $.ajax({
+                                            data: formulario.serialize(), 
+                                            type: "POST",
+                                            url: BASE_URL_APP + 'usuarios/mobileApuntarme',
+                                            dataType: "html",
+                                            success: function(data){
+                                                //ocultamos el loading
+                                                hideLoading();
+                                                data = $.parseJSON(data);
+                        
+                                                if(data.success){
+                                                    //cerramos el popup
+                                                    $("#form_apuntarme").popup('close');
+                                                    //colocamos el numeor de personas vacio
+                                                    formulario.find("input[name='numero_personas']").val("");
+                                                    //add validar guest list
+                                                    var html_validad = '<div id="'+data.apuntado_id+'" class="validar_guest_list">' +
+                                                        '<a href="javascript:validar_guest_list(\''+data.apuntado_id+'\')">' +
+                                                            '<span class="titulo">'+text_validar_guest_list+'</span>' + 
+                                                            '<span>'+text_validar_guest_list_responsable+'</span>' +
+                                                        '</a>' +
+                                                    '</div>';
+                                                    BUTTON_APUNTARME.parent().parent().append(html_validad);
+                                                    //removemos el boton apuntarme
+                                                    BUTTON_APUNTARME.remove();
+                                                    
+                                                    showAlert(data.mensaje, "Aviso", "Aceptar");
+                                                }else{
+                                                    showAlert(data.mensaje, "Error", "Aceptar");
+                                                }
+                                            },
+                                            beforeSend : function(){
+                                                //mostramos loading
+                                                showLoading();
+                                            }
+                                        });
+                                    }else{
+                                        var text = IDIOMA == "castellano" ? "Por favor ingrese solo numeros" : "Please enter numbers only";
+                                        showAlert(text, "Error", "Aceptar");
+                                    }
+                                }else{
+                                    var text = IDIOMA == "castellano" ? "Por favor ingrese un email valido" : "Please enter a valid email";
+                                    showAlert(text, "Error", "Aceptar");
+                                }
+                            }
+                        }else{
+                            var text = IDIOMA == "castellano" ? "Por favor ingrese todos los campos" : "Please fill all fields";
+                            showAlert(text, "Error", "Aceptar");
+                        }
+                    });
                     
                     hideLoading();
                     parent.find(".ui-content").fadeIn("slow");

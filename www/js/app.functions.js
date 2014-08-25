@@ -677,3 +677,34 @@ function loadMoreItems(container, usuario_id){
         }
     });
 }
+
+//VALIDAR GUEST LIST
+function validar_guest_list(id){
+    navigator.notification.confirm(
+        "\u00BFSeguro que quieres VALIDAR? S\u00F3lo el responsable del local puede hacer este proceso. Si validas sin estar en el local perder\u00E1s tu reserva.", // message
+        function(buttonIndex){
+            //1:aceptar,2:cancelar
+            if(buttonIndex == 1){
+                showLoading();
+                
+            	$.getJSON(BASE_URL_APP + 'usuarios/mobileSetCobrado/'+id, function(data) {
+                    
+                    if(data){
+                        //ocultamos loading
+                        hideLoading();
+                        
+                        if(data.success){
+                            var element = $("#"+id+".validar_guest_list");
+                            element.hide();
+                            showAlert(data.mensaje, "Aviso", "Aceptar");
+                        }else{
+                            showAlert(data.mensaje, "Error", "Aceptar");
+                        }
+                    }
+            	});
+            }
+        },            // callback to invoke with index of button pressed
+    'Validar Guest List',           // title
+    'Aceptar,Cancelar'         // buttonLabels
+    );
+}
