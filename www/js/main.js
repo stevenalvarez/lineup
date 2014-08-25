@@ -2117,7 +2117,7 @@ function getGuesList(parent_id,club_id){
             //verificamos que el usuario este logeado
             if(!isLogin()) data.items = "";
     		var items = data.items;
-            var current_date = data.fecha;
+            var current_date = data.current_date;
             var fecha = data.fecha;
             var text_validar_guest_list = IDIOMA == "castellano" ? "VALIDAR GUEST LIST" : "VALIDATE GUEST LIST";
             var text_validar_guest_list_responsable = IDIOMA == "castellano" ? "en el local por el responsable" : "in-house by the responsible";
