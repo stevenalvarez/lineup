@@ -2200,7 +2200,7 @@ function getGuesList(parent_id,club_id){
                         SESION_ID = BUTTON_APUNTARME.attr("lang");
                         setTimeout(function(){
                             parent.find("a.modal").trigger("click");
-                        },150);
+                        },500);
                     });
                     $("#form_apuntarme").bind({
                         popupafteropen: function(event, ui) {
