@@ -2156,7 +2156,7 @@ function getGuesList(parent_id,club_id){
               
                 //add form apuntarse
                 var nombre = IDIOMA == "castellano" ? "Nombre..." : "Name...";
-                var apellido = IDIOMA == "castellano" ? "Apellido..." : "Last Name...";
+                var apellido = IDIOMA == "castellano" ? "Apellidos..." : "Surnames...";
                 var numero_personas = IDIOMA == "castellano" ? "N&uacute;mero de Personas..." : "Number People...";
                 var enviar = IDIOMA == "castellano" ? "Enviar" : "Send";
                 var popup = '<div data-role="popup" data-theme="c" data-overlay-theme="a">' +
@@ -2169,7 +2169,7 @@ function getGuesList(parent_id,club_id){
                                 '<input type="hidden" name="fecha" value="" />' +
                                 '<input class="ui-btn-rosa" placeholder="'+nombre+'" autocomplete="off" data-mini="true" data-theme="a" name="nombre" />' +
                                 '<input class="ui-btn-rosa" placeholder="'+apellido+'" autocomplete="off" data-mini="true" data-theme="a" name="apellido" />' +
-                                '<input class="ui-btn-rosa" placeholder="Email..." autocomplete="off" autocapitalize="off" style="text-transform:lowercase;" type="email" data-mini="true" data-theme="a" name="email" />' +
+                                '<input class="ui-btn-rosa" placeholder="Email..." autocomplete="off" autocapitalize="off" type="email" data-mini="true" data-theme="a" name="email" />' +
                                 '<input class="ui-btn-rosa" placeholder="'+numero_personas+'" autocomplete="off" data-mini="true" data-theme="a" name="numero_personas" />' +
                                 '<a class="ui-btn-rosa enviar" type="submit" data-role="button" data-mini="true">'+enviar+'</a>' +
                             '</form>' +
