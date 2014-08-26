@@ -2117,14 +2117,14 @@ function getGuesList(parent_id,club_id){
             //verificamos que el usuario este logeado
             if(!isLogin()) data.items = "";
     		var items = data.items;
-            var current_date = data.current_date;
-            var fecha = data.fecha;
             var text_validar_guest_list = IDIOMA == "castellano" ? "VALIDAR GUEST LIST" : "VALIDATE GUEST LIST";
             var text_validar_guest_list_responsable = IDIOMA == "castellano" ? "en el local por el responsable" : "in-house by the responsible";
             if($(items).size()){
         		$.each(items, function(index, item) {
                     var id = item.Sesion.id;
                     var apuntado = item.Sesion.apuntado;
+                    var fecha = item.Sesion.fecha;
+                    var date = (item.Sesion.fecha).split("-");
                     var class_club = 'club_'+item.Sesion.club_id;
                     var title = IDIOMA == "castellano" ? item.Sesion.title_esp : item.Sesion.title_eng;
                     var imagen_redonda = item.Sesion.imagen_redonda!=""?item.Sesion.imagen_redonda:"default.png";
@@ -2137,7 +2137,7 @@ function getGuesList(parent_id,club_id){
                                     '<span class="fecha">'+fecha+'</span>' +
                                 '</span>';
                                 if(apuntado == "-1"){
-                                    html+= '<button class="btn" lang="'+id+'">'+apuntarme+'</button>';
+                                    html+= '<button class="btn" lang="'+id+','+(date[2]+'-'+date[1]+'-'+date[0])+'">'+apuntarme+'</button>';
                                 }
                             html+='</a>';
 
@@ -2166,7 +2166,7 @@ function getGuesList(parent_id,club_id){
                             '<form class="apuntarme">' +
                                 '<input type="hidden" name="usuario_id" value="'+usuario_id+'" />' +
                                 '<input type="hidden" name="sesion_id" value="" />' +
-                                '<input type="hidden" name="fecha" value="'+current_date+'" />' +
+                                '<input type="hidden" name="fecha" value="" />' +
                                 '<input class="ui-btn-rosa" placeholder="'+nombre+'" autocomplete="off" data-mini="true" data-theme="a" name="nombre" />' +
                                 '<input class="ui-btn-rosa" placeholder="'+apellido+'" autocomplete="off" data-mini="true" data-theme="a" name="apellido" />' +
                                 '<input class="ui-btn-rosa" placeholder="Email..." autocomplete="off" autocapitalize="off" style="text-transform:lowercase;" type="email" data-mini="true" data-theme="a" name="email" />' +
@@ -2193,11 +2193,15 @@ function getGuesList(parent_id,club_id){
                     
                     //show modal
                     var SESION_ID = "";
+                    var FECHA = "";
                     var formulario = parent.find("form.apuntarme");
                     var BUTTON_APUNTARME;
                     container.find("button.btn").unbind("touchstart").bind("touchstart", function(){
                         BUTTON_APUNTARME = $(this);
-                        SESION_ID = BUTTON_APUNTARME.attr("lang");
+                        var lang = BUTTON_APUNTARME.attr("lang");
+                        lang = lang.split(",");
+                        SESION_ID = lang[0];
+                        FECHA = lang[1];
                         setTimeout(function(){
                             parent.find("a.modal").trigger("click");
                         },500);
@@ -2205,9 +2209,11 @@ function getGuesList(parent_id,club_id){
                     $("#form_apuntarme").bind({
                         popupafteropen: function(event, ui) {
                             formulario.find("input[name='sesion_id']").val(SESION_ID);
+                            formulario.find("input[name='fecha']").val(FECHA);
                         },
                         popupafterclose: function(event, ui) {
                             formulario.find("input[name='sesion_id']").val("");
+                            formulario.find("input[name='fecha']").val("");
                         }
                     });
                     
