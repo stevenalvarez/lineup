@@ -678,6 +678,12 @@ function loadMoreItems(container, usuario_id){
     });
 }
 
+function quiero_apuntarme(sesion_id, fecha){
+    var fecha = fecha.split("-");
+    fecha = fecha[2]+'-'+fecha[1]+'-'+fecha[0];
+    $.mobile.changePage("guest_list_descripcion.html?sesion_id="+sesion_id + "&fecha="+fecha);
+}
+
 //VALIDAR GUEST LIST
 function validar_guest_list(id){
     navigator.notification.confirm(

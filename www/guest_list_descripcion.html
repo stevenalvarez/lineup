@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+    
+    <!-- GUEST LIST DESCRIPCION -->
+    
+    <div data-role="page" id="guest_list_descripcion" data-theme="a">
+    
+    	<div data-role="header" data-tap-toggle="false" data-position="fixed">
+            <ul>
+                <li class="back">
+                    <a class="volver" href="#" data-role="button" data-rel="back">Volver</a>
+                </li>
+                <li class="page">
+                    <h2>Apuntarme</h2>
+                </li>
+                <li class="setting">
+                    <a class="menu" href="menu.html" data-role="button">menu</a>
+                </li>
+            </ul>
+    	</div><!-- /header -->
+    
+    	<div data-role="content">
+            <div class="content_options">
+                <form class="apuntarme">
+                    <input type="hidden" name="usuario_id" value="" />
+                    <input type="hidden" name="sesion_id" value="" />
+                    <input type="hidden" name="fecha" value="" />
+                    <input class="ui-btn-rosa" placeholder="nombre..." autocomplete="off" data-theme="a" name="nombre" />
+                    <input class="ui-btn-rosa" placeholder="apellidos..." autocomplete="off" data-theme="a" name="apellido" />
+                    <input class="ui-btn-rosa" placeholder="email..." autocomplete="off" autocapitalize="off" style="text-transform:lowercase;" type="email" data-theme="a" name="email" />
+                    <input class="ui-btn-rosa" placeholder="N&uacute;mero de Personas..." autocomplete="off" data-theme="a" name="numero_personas" />
+                    <a class="ui-btn-rosa enviar" type="submit" data-role="button"data-theme="a">Enviar</a>
+                </form>
+            </div>
+    	</div><!-- /content -->
+    </div><!-- /page -->    
+    
+    </body>
+</html>

@@ -197,6 +197,14 @@ $(document).on("pagebeforeshow","#guest_list",function(event){
     getGuesList(page_id,club_id);
 });
 
+//GUEST LIST DESCRIPCION
+$(document).on("pagebeforeshow","#guest_list_descripcion",function(event){
+    var page_id = $(this).attr("id");
+    var sesion_id = getUrlVars()["sesion_id"];
+    var fecha = getUrlVars()["fecha"];
+    getGuesListDescripcion(page_id,sesion_id,fecha)
+});
+
 /************************************ FUNCTIONS *******************************************************/
 
 //CIUDADES
@@ -2111,7 +2119,6 @@ function getGuesList(parent_id,club_id){
             if(data.pagina != undefined && data.pagina != ""){
                 var titulo = IDIOMA == "castellano" ? data.pagina.Sistema.title_esp : data.pagina.Sistema.title_eng;
                 parent.find(".ui-header").find(".page h2").html(titulo);
-                if(IDIOMA == "castellano") parent.find(".ui-header").find(".page h2").addClass("small");
             }
             
             //verificamos que el usuario este logeado
@@ -2124,7 +2131,6 @@ function getGuesList(parent_id,club_id){
                     var id = item.Sesion.id;
                     var apuntado = item.Sesion.apuntado;
                     var fecha = item.Sesion.fecha;
-                    var date = (item.Sesion.fecha).split("-");
                     var class_club = 'club_'+item.Sesion.club_id;
                     var title = IDIOMA == "castellano" ? item.Sesion.title_esp : item.Sesion.title_eng;
                     var imagen_redonda = item.Sesion.imagen_redonda!=""?item.Sesion.imagen_redonda:"default.png";
@@ -2137,7 +2143,7 @@ function getGuesList(parent_id,club_id){
                                     '<span class="fecha">'+fecha+'</span>' +
                                 '</span>';
                                 if(apuntado == "-1"){
-                                    html+= '<button class="btn" lang="'+id+','+(date[2]+'-'+date[1]+'-'+date[0])+'">'+apuntarme+'</button>';
+                                    html+= '<button class="btn" onclick="javascript:quiero_apuntarme(\''+id+'\',\''+fecha+'\' )">'+apuntarme+'</button>';
                                 }
                             html+='</a>';
 
@@ -2153,31 +2159,6 @@ function getGuesList(parent_id,club_id){
                         
                     container.append(html);
                 });
-              
-                //add form apuntarse
-                var nombre = IDIOMA == "castellano" ? "Nombre..." : "Name...";
-                var apellido = IDIOMA == "castellano" ? "Apellidos..." : "Surnames...";
-                var numero_personas = IDIOMA == "castellano" ? "N&uacute;mero de Personas..." : "Number People...";
-                var enviar = IDIOMA == "castellano" ? "Enviar" : "Send";
-                var popup = '<div data-role="popup" data-theme="c" data-overlay-theme="a">' +
-                    '<div data-role="popup" id="form_apuntarme" data-theme="b" class="ui-corner-all" data-overlay-theme="b">' +
-                        '<a href="#" data-rel="back" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right close">Close</a>' +
-                        '<div class="container_popup">' +
-                            '<form class="apuntarme">' +
-                                '<input type="hidden" name="usuario_id" value="'+usuario_id+'" />' +
-                                '<input type="hidden" name="sesion_id" value="" />' +
-                                '<input type="hidden" name="fecha" value="" />' +
-                                '<input class="ui-btn-rosa" placeholder="'+nombre+'" autocomplete="off" data-mini="true" data-theme="a" name="nombre" />' +
-                                '<input class="ui-btn-rosa" placeholder="'+apellido+'" autocomplete="off" data-mini="true" data-theme="a" name="apellido" />' +
-                                '<input class="ui-btn-rosa" placeholder="Email..." autocomplete="off" autocapitalize="off" type="email" data-mini="true" data-theme="a" name="email" />' +
-                                '<input class="ui-btn-rosa" placeholder="'+numero_personas+'" autocomplete="off" data-mini="true" data-theme="a" name="numero_personas" />' +
-                                '<a class="ui-btn-rosa enviar" type="submit" data-role="button" data-mini="true">'+enviar+'</a>' +
-                            '</form>' +
-                        '</div>' +
-                    '</div>' +
-                '</div>';
-                
-                parent.append(popup);
                 
                 container.promise().done(function() {
                     parent.trigger("create");
@@ -2191,33 +2172,47 @@ function getGuesList(parent_id,club_id){
                     
                     scrollToList(container,parent);
                     
-                    //show modal
-                    var SESION_ID = "";
-                    var FECHA = "";
-                    var formulario = parent.find("form.apuntarme");
-                    var BUTTON_APUNTARME;
-                    container.find("button.btn").unbind("touchstart").bind("touchstart", function(){
-                        BUTTON_APUNTARME = $(this);
-                        var lang = BUTTON_APUNTARME.attr("lang");
-                        lang = lang.split(",");
-                        SESION_ID = lang[0];
-                        FECHA = lang[1];
-                        setTimeout(function(){
-                            parent.find("a.modal").trigger("click");
-                        },500);
-                    });
-                    $("#form_apuntarme").bind({
-                        popupafteropen: function(event, ui) {
-                            formulario.find("input[name='sesion_id']").val(SESION_ID);
-                            formulario.find("input[name='fecha']").val(FECHA);
-                        },
-                        popupafterclose: function(event, ui) {
-                            formulario.find("input[name='sesion_id']").val("");
-                            formulario.find("input[name='fecha']").val("");
-                        }
-                    });
-                    
-                    //enviar formulario
+                    hideLoading();
+                    parent.find(".ui-content").fadeIn("slow");
+                });
+                
+            }else{
+                container.append("<p class='empty'>A&Uacute;N NO TENEMOS NING&Uacute;N ITEM</p>");
+                hideLoading();
+                parent.find(".ui-content").fadeIn("slow");
+            }
+        }
+	});    
+    
+}
+
+//GUEST LIST DESCRIPCION
+function getGuesListDescripcion(parent_id,sesion_id,fecha){
+    //si no esta logeado no puede hacer nada, por eso colocamos los valores vacio
+    var usuario_id = "";
+    if(isLogin()) usuario_id = COOKIE.id;
+    var parent = $("#"+parent_id);
+    var container = parent.find(".content_options");
+    parent.find(".ui-content").hide();
+    
+    showLoading();
+    
+	$.getJSON(BASE_URL_APP + 'sesions/mobileGetGuesList/'+CIUDAD_ID+"/"+usuario_id, function(data) {
+        
+        if(data.items){
+            //fondo para la pagina
+            if(data.fondo != undefined && data.fondo != ""  && data.fondo.Fondo.imagen != undefined){
+                var fondo = data.fondo.Fondo.imagen;
+                parent.css("background","url('"+BASE_URL_APP+"img/fondos/"+fondo+"')");
+                parent.css("background-size","100% 100%");
+            }
+                        
+            container.find("input[name='usuario_id']").val(usuario_id);
+            container.find("input[name='sesion_id']").val(sesion_id);
+            container.find("input[name='fecha']").val(fecha);
+            
+            //enviar formulario
+			var formulario = container.find("form.apuntarme");
                     formulario.find(".enviar").unbind("touchstart").bind("touchstart", function(){
                         var nombre = formulario.find("input[name='nombre']").val();
                         var apellido = formulario.find("input[name='apellido']").val();
@@ -2238,26 +2233,12 @@ function getGuesList(parent_id,club_id){
                                             success: function(data){
                                                 //ocultamos el loading
                                                 hideLoading();
-                                                data = $.parseJSON(data);
-                        
-                                                if(data.success){
-                                                    //cerramos el popup
-                                                    $("#form_apuntarme").popup('close');
-                                                    //colocamos el numeor de personas vacio
-                                                    formulario.find("input[name='numero_personas']").val("");
-                                                    //add validar guest list
-                                                    var html_validad = '<div id="'+data.apuntado_id+'" class="validar_guest_list">' +
-                                                        '<a href="javascript:validar_guest_list(\''+data.apuntado_id+'\')">' +
-                                                            '<span class="titulo">'+text_validar_guest_list+'</span>' + 
-                                                            '<span>'+text_validar_guest_list_responsable+'</span>' +
-                                                        '</a>' +
-                                                    '</div>';
-                                                    BUTTON_APUNTARME.parent().parent().append(html_validad);
-                                                    //removemos el boton apuntarme
-                                                    BUTTON_APUNTARME.remove();
-                                                    
-                                                    showAlert(data.mensaje, "Aviso", "Aceptar");
-                                                }else{
+                                        data = $.parseJSON(data);
+                
+                                        if(data.success){
+                                            formulario.find("input[name='numero_personas']").val("");
+                                            showAlert(data.mensaje, "Aviso", "Aceptar");
+                                        }else{
                                                     showAlert(data.mensaje, "Error", "Aceptar");
                                                 }
                                             },
@@ -2275,21 +2256,16 @@ function getGuesList(parent_id,club_id){
                                     showAlert(text, "Error", "Aceptar");
                                 }
                             }
-                        }else{
-                            var text = IDIOMA == "castellano" ? "Por favor ingrese todos los campos" : "Please fill all fields";
-                            showAlert(text, "Error", "Aceptar");
-                        }
-                    });
-                    
-                    hideLoading();
-                    parent.find(".ui-content").fadeIn("slow");
-                });
-                
-            }else{
-                container.append("<p class='empty'>A&Uacute;N NO TENEMOS NING&Uacute;N ITEM</p>");
-                hideLoading();
-                parent.find(".ui-content").fadeIn("slow");
-            }
+                }else{
+                    var text = IDIOMA == "castellano" ? "Por favor ingrese todos los campos" : "Please fill all fields";
+                    showAlert(text, "Error", "Aceptar");
+                }
+            });
+            
+            scrollToList(container,parent);
+            
+            hideLoading();
+            parent.find(".ui-content").fadeIn("slow");
         }
 	});    
     

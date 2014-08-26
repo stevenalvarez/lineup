@@ -63,10 +63,11 @@
 .empty{font-family: NeogreyMedium;text-align: center;color: #fc049b;text-shadow: 1px 1px 1px #000;font-size: 15px;font-weight: bold;padding: 10px 0;}
 .ui-page.custom{background: url("../img/bg_wrapper.jpg") repeat-y scroll 0 0 transparent;background-size: 100% 100%;}
 .ui-page.custom .ui-page{background: transparent;}
-html .ui-body-b .ui-btn.ui-btn-rosa{background: #fc049b;font-family: NeuropoliticalRg-Regular;}
-html .ui-body-b .ui-btn.ui-btn-rosa:hover{background: #f929a8;}
-html .ui-body-b .ui-btn.ui-btn-rosa:active{background: #e3078d;}
-.container_popup .apuntarme .ui-focus {-webkit-box-shadow: 0 0 12px #fc049b !important /*{a-active-background-color}*/;-moz-box-shadow: 0 0 12px #fc049b !important /*{a-active-background-color}*/;box-shadow: 0 0 12px #fc049b !important /*{a-active-background-color}*/;}
+.ui-btn.ui-btn-rosa{background: #fc049b !important;font-family: NeuropoliticalRg-Regular; color: #000 !important; border: none !important;}
+.ui-btn.ui-btn-rosa:hover{background: #f929a8 !important;}
+.ui-btn.ui-btn-rosa:active{background: #e3078d !important;}
+.apuntarme{padding-top: 50px;}
+.apuntarme .ui-focus {-webkit-box-shadow: 0 0 12px #fc049b !important /*{a-active-background-color}*/;-moz-box-shadow: 0 0 12px #fc049b !important /*{a-active-background-color}*/;box-shadow: 0 0 12px #fc049b !important /*{a-active-background-color}*/;}
 
 /* PAGE */
 /*.ui-page-theme-a .ui-btn.ui-btn-active, */.ui-page-theme-a .content_options .ui-btn:hover{background: url("../img/bg_button.png") repeat scroll 0 0 transparent;color: #fc027e;border: 1px solid #4f4f4f;}
@@ -123,7 +124,6 @@ html .ui-body-b .ui-btn.ui-btn-rosa:active{background: #e3078d;}
 .ui-header .page{text-align: center;width: 72%;margin-top: 0.5em;color: #fff;font-size: 20px;text-shadow: 0 0 0;}
 .ui-header .menu .page{margin-top: 0;width: 40%;font-size: 0px;}
 .ui-header .page img{width: 74px;}
-.ui-header .page h2.small{font-size: 20px;line-height: 38px;}
 .ui-header .setting{float:right}
 /*.ui-header .menu .setting a{margin-top: 25px;}*/
 .ui-header .setting .search{background: url("../img/bg_search.png") no-repeat scroll center top transparent; background-size:30px;}
