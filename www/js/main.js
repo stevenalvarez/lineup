@@ -2197,7 +2197,7 @@ function getGuesListDescripcion(parent_id,sesion_id,fecha){
     if(isLogin()){
         usuario_id = COOKIE.id;
         nombre = COOKIE.nombre;
-        apellido = COOKIE.nombre;
+        apellido = COOKIE.apellido;
         email = COOKIE.email;
         
         //add
@@ -2235,18 +2235,23 @@ function getGuesListDescripcion(parent_id,sesion_id,fecha){
                 if(nombre != "" && apellido != "" & email != "" && n_personas != ""){
                     if(sesion_id != "" && user_id != ""){
                         if(valEmail(email)){
-                                    if (parseInt(n_personas) && /^([0-9])*$/.test(n_personas)){
-                                        $.ajax({
-                                            data: formulario.serialize(), 
-                                            type: "POST",
-                                            url: BASE_URL_APP + 'usuarios/mobileApuntarme',
-                                            dataType: "html",
-                                            success: function(data){
-                                                //ocultamos el loading
-                                                hideLoading();
+                            if (parseInt(n_personas) && /^([0-9])*$/.test(n_personas)){
+                                $.ajax({
+                                    data: formulario.serialize(), 
+                                    type: "POST",
+                                    url: BASE_URL_APP + 'usuarios/mobileApuntarme',
+                                    dataType: "html",
+                                    success: function(data){
+                                        //ocultamos el loading
+                                        hideLoading();
                                         data = $.parseJSON(data);
                 
                                         if(data.success){
+                                            //re-escribimos la cookie con el nuevo email
+                                            reWriteCookie("user","nombre",nombre);
+                                            reWriteCookie("user","apellido",apellido);
+                                            reWriteCookie("user","email",email);
+                                            
                                             formulario.find("input[name='numero_personas']").val("");
                                             showAlert(data.mensaje, "Aviso", "Aceptar");
                                             //alert(data.mensaje);
