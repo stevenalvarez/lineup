@@ -2188,13 +2188,24 @@ function getGuesList(parent_id,club_id){
 
 //GUEST LIST DESCRIPCION
 function getGuesListDescripcion(parent_id,sesion_id,fecha){
-    //si no esta logeado no puede hacer nada, por eso colocamos los valores vacio
-    var usuario_id = "";
-    if(isLogin()) usuario_id = COOKIE.id;
+    var nombre,apellido,email,usuario_id = "";
     var parent = $("#"+parent_id);
     var container = parent.find(".content_options");
     parent.find(".ui-content").hide();
     
+    //si no esta logeado no puede hacer nada, por eso colocamos los valores vacio
+    if(isLogin()){
+        usuario_id = COOKIE.id;
+        nombre = COOKIE.nombre;
+        apellido = COOKIE.nombre;
+        email = COOKIE.email;
+        
+        //add
+        container.find("form.apuntarme").find("input[name='nombre']").val(nombre);
+        container.find("form.apuntarme").find("input[name='apellido']").val(apellido);
+        container.find("form.apuntarme").find("input[name='email']").val(email);
+    }
+        
     showLoading();
     
 	$.getJSON(BASE_URL_APP + 'sesions/mobileGetGuesList/'+CIUDAD_ID+"/"+usuario_id, function(data) {
@@ -2206,24 +2217,24 @@ function getGuesListDescripcion(parent_id,sesion_id,fecha){
                 parent.css("background","url('"+BASE_URL_APP+"img/fondos/"+fondo+"')");
                 parent.css("background-size","100% 100%");
             }
-                        
+            
             container.find("input[name='usuario_id']").val(usuario_id);
             container.find("input[name='sesion_id']").val(sesion_id);
             container.find("input[name='fecha']").val(fecha);
             
             //enviar formulario
 			var formulario = container.find("form.apuntarme");
-                    formulario.find(".enviar").unbind("touchstart").bind("touchstart", function(){
-                        var nombre = formulario.find("input[name='nombre']").val();
-                        var apellido = formulario.find("input[name='apellido']").val();
-                        var email = formulario.find("input[name='email']").val();
-                        var n_personas = formulario.find("input[name='numero_personas']").val();
-                        var user_id = formulario.find("input[name='usuario_id']").val();
-                        var sesion_id = formulario.find("input[name='sesion_id']").val();
-                        
-                        if($.trim(nombre) != "" && $.trim(apellido) != "" & $.trim(email) != "" && $.trim(n_personas) != ""){
-                            if($.trim(sesion_id) != "" && $.trim(user_id) != ""){
-                                if(valEmail(email)){
+            formulario.find(".enviar").unbind("touchstart").bind("touchstart", function(){
+                var nombre = $.trim(formulario.find("input[name='nombre']").val());
+                var apellido = $.trim(formulario.find("input[name='apellido']").val());
+                var email = $.trim(formulario.find("input[name='email']").val());
+                var n_personas = $.trim(formulario.find("input[name='numero_personas']").val());
+                var user_id = $.trim(formulario.find("input[name='usuario_id']").val());
+                var sesion_id = $.trim(formulario.find("input[name='sesion_id']").val());
+                
+                if(nombre != "" && apellido != "" & email != "" && n_personas != ""){
+                    if(sesion_id != "" && user_id != ""){
+                        if(valEmail(email)){
                                     if (parseInt(n_personas) && /^([0-9])*$/.test(n_personas)){
                                         $.ajax({
                                             data: formulario.serialize(), 
@@ -2238,27 +2249,32 @@ function getGuesListDescripcion(parent_id,sesion_id,fecha){
                                         if(data.success){
                                             formulario.find("input[name='numero_personas']").val("");
                                             showAlert(data.mensaje, "Aviso", "Aceptar");
+                                            //alert(data.mensaje);
                                         }else{
-                                                    showAlert(data.mensaje, "Error", "Aceptar");
-                                                }
-                                            },
-                                            beforeSend : function(){
-                                                //mostramos loading
-                                                showLoading();
-                                            }
-                                        });
-                                    }else{
-                                        var text = IDIOMA == "castellano" ? "Por favor ingrese solo numeros" : "Please enter numbers only";
-                                        showAlert(text, "Error", "Aceptar");
+                                            showAlert(data.mensaje, "Error", "Aceptar");
+                                            //alert(data.mensaje);
+                                        }
+                                    },
+                                    beforeSend : function(){
+                                        //mostramos loading
+                                        showLoading();
                                     }
-                                }else{
-                                    var text = IDIOMA == "castellano" ? "Por favor ingrese un email valido" : "Please enter a valid email";
-                                    showAlert(text, "Error", "Aceptar");
-                                }
+                                });
+                            }else{
+                                var text = IDIOMA == "castellano" ? "Por favor ingrese solo numeros" : "Please enter numbers only";
+                                showAlert(text, "Error", "Aceptar");
+                                //alert(text);
                             }
+                        }else{
+                            var text = IDIOMA == "castellano" ? "Por favor ingrese un email valido" : "Please enter a valid email";
+                            showAlert(text, "Error", "Aceptar");
+                            //alert(text);
+                        }
+                    }
                 }else{
                     var text = IDIOMA == "castellano" ? "Por favor ingrese todos los campos" : "Please fill all fields";
                     showAlert(text, "Error", "Aceptar");
+                    //alert(text);
                 }
             });
             
