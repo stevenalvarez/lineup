@@ -2,7 +2,7 @@
 <widget xmlns		= "http://www.w3.org/ns/widgets"
 	xmlns:gap	= "http://phonegap.com/ns/1.0"
 	id		    = "es.lineup.app"
-    versionCode = "6.0.1"
+    versionCode = "601"
 	version 	= "6.0.1">
 
 	<name>LineUp!</name>
