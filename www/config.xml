@@ -2,8 +2,8 @@
 <widget xmlns		= "http://www.w3.org/ns/widgets"
 	xmlns:gap	= "http://phonegap.com/ns/1.0"
 	id		    = "es.lineup.app"
-    versionCode = "7.0.1"
-	version 	= "7.0.1">
+    versionCode = "6.0"
+	version 	= "6.0">
 
 	<name>LineUp!</name>
 
@@ -15,6 +15,10 @@
 		email="steven.alvarez.v@gmail.com">
 		SYSDECOM
 	</author>
+    
+    <gap:config-file platform="ios" parent="CFBundleShortVersionString">
+        <string>6.0</string>
+    </gap:config-file>
     
     <!--
     If you do not want any permissions to be added to your app, add the
