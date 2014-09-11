@@ -2,8 +2,8 @@
 <widget xmlns		= "http://www.w3.org/ns/widgets"
 	xmlns:gap	= "http://phonegap.com/ns/1.0"
 	id		    = "es.lineup.app"
-    versionCode = "7.0"
-	version 	= "7.0">
+    versionCode = "6.0"
+	version 	= "6.0">
 
 	<name>LineUp!</name>
 
@@ -17,7 +17,7 @@
 	</author>
     
     <gap:config-file platform="ios" parent="CFBundleShortVersionString">
-        <string>7.0</string>
+        <string>6.0</string>
     </gap:config-file>
     
     <!--
